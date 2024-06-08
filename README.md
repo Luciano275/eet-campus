@@ -48,18 +48,24 @@
 
 <p>2.2 La ingeniería inversa, el acceso no autorizado a sistemas, la modificación de código fuente, y cualquier otra actividad destinada a vulnerar la seguridad del Campus Virtual está prohibida sin el permiso expreso y por escrito del equipo de desarrollo.</p>
 
-### 3. Consecuencias del Incumplimiento
+### 3. Derecho de Uso del Software
 
-<p>3.1 Cualquier usuario que se vea involucrado en actividades prohibidas, tales como ataques cibernéticos, ingeniería inversa no autorizada, o cualquier otra violación de la seguridad del sistema, estará sujeto a una investigación por parte del equipo de desarrollo y los directivos del colegio.</p>
+<p>3.1 Los usuarios tienen únicamente el derecho de uso del software del Campus Virtual. Este derecho es personal, intransferible y limitado al uso educativo dentro del marco establecido por estos Términos y Condiciones.</p>
 
-<p>3.2 Si se determina que un estudiante ha participado en dichas actividades o ha incumplido las reglas establecidas por el colegio, su continuidad en la institución educativa será evaluada por los directivos del colegio, quienes tomarán las medidas disciplinarias correspondientes, que pueden incluir la suspensión o expulsión del estudiante.</p>
+<p>3.2 En ningún caso, los usuarios tienen derecho a apropiarse del software, copiarlo, distribuirlo, venderlo, o utilizarlo para fines comerciales sin la autorización expresa y por escrito del equipo de desarrollo.</p>
 
-### 4. Aceptación de los Términos
+### 4. Consecuencias del Incumplimiento
 
-<p>4.1 Al acceder y utilizar el Campus Virtual, los usuarios aceptan y se comprometen a cumplir con estos Términos y Condiciones.</p>
+<p>4.1 Cualquier usuario que se vea involucrado en actividades prohibidas, tales como ataques cibernéticos, ingeniería inversa no autorizada, o cualquier otra violación de la seguridad del sistema, estará sujeto a una investigación por parte del equipo de desarrollo y los directivos del colegio.</p>
 
-<p>4.2 Estos Términos y Condiciones pueden ser actualizados periódicamente por el equipo de desarrollo. Los usuarios serán notificados de cualquier cambio significativo y su uso continuado de la plataforma constituirá la aceptación de dichos cambios.</p>
+<p>4.2 Si se determina que un estudiante ha participado en dichas actividades o ha incumplido las reglas establecidas por el colegio, su continuidad en la institución educativa será evaluada por los directivos del colegio, quienes tomarán las medidas disciplinarias correspondientes, que pueden incluir la suspensión o expulsión del estudiante.</p>
 
-### 5. Contacto
+### 5. Aceptación de los Términos
 
-5.1 Para cualquier duda o reporte de problemas técnicos, los usuarios pueden contactar al equipo de soporte técnico a través del correo electrónico **soportetecnico@eet3117.com** o el número de teléfono **123 123 1234**
+<p>5.1 Al acceder y utilizar el Campus Virtual, los usuarios aceptan y se comprometen a cumplir con estos Términos y Condiciones.</p>
+
+<p>5.2 Estos Términos y Condiciones pueden ser actualizados periódicamente por el equipo de desarrollo. Los usuarios serán notificados de cualquier cambio significativo y su uso continuado de la plataforma constituirá la aceptación de dichos cambios.</p>
+
+### 6. Contacto
+
+6.1 Para cualquier duda o reporte de problemas técnicos, los usuarios pueden contactar al equipo de soporte técnico a través del correo electrónico **soportetecnico@eet3117.com** o el número de teléfono **123 123 1234**
