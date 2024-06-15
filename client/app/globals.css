@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    transition: background 500ms ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}

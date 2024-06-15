@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import ChangeThemeProvider from "@/components/providers/change-theme-provider";
+import ChangeThemeHTML from "@/components/ChangeTheme";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
@@ -18,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="light">
-      <body className={roboto.className}>{children}</body>
-    </html>
+    <ChangeThemeProvider>
+      <ChangeThemeHTML>
+        <body className={roboto.className}>{children}</body>
+      </ChangeThemeHTML>
+    </ChangeThemeProvider>
   );
 }
