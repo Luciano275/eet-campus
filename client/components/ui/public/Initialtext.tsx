@@ -5,7 +5,7 @@ import shadowStyles from '@/styles/shadow.module.css'
 
 export default function InitialText() {
     return (
-      <div className="relative min-h-dvh flex justify-center items-center py-4 px-7 flex-col gap-y-10">
+      <div className="relative min-h-screen flex justify-center items-center py-4 px-7 flex-col gap-y-10">
         <div className="flex flex-col justify-center items-center gap-4">
           <Image
             src={"/logo.jpg"}
@@ -25,12 +25,13 @@ export default function InitialText() {
           Empezar ya
         </Link>
         <div className="absolute bottom-0 py-5">
-          <button
-            className="text-info w-fit rounded-full border border-info overflow-hidden hover:text-primary"
+          <a
+            href="#campus"
+            className="block text-info w-fit rounded-full border border-info overflow-hidden hover:text-primary"
             id={shadowStyles.shadowButton}
           >
             <FaArrowCircleDown size={40} />
-          </button>
+          </a>
         </div>
       </div>
     );
