@@ -10,7 +10,7 @@ export default function Section() {
                     <p className="text-justify py-2">La <b>Escuela de Educación Técnica (EET) 3117 "Maestro Daniel Oscar Reyes"</b> está ubicada en el Barrio San Remo de <b>Salta.</b> El 22 de marzo de 2004, la escuela fue nombrada en honor al maestro argentino Daniel Oscar Reyes, quien desapareció en un accidente. Reyes fue un pionero en telecomunicaciones y relaciones interinstitucionales a través de la Red Telar, y un promotor de llevar tecnologías a los estudiantes de escuelas públicas.</p>
                 </div>
                 <Image
-                    src={'/school.jpg'}
+                    src={'/school-min.jpg'}
                     alt={'School photo'}
                     width={600}
                     height={400}

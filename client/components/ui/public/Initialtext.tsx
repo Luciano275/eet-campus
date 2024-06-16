@@ -7,13 +7,15 @@ export default function InitialText() {
     return (
       <div className="relative min-h-screen flex justify-center items-center py-4 px-7 flex-col gap-y-10">
         <div className="flex flex-col justify-center items-center gap-4">
-          <Image
-            src={"/logo.jpg"}
-            alt={"Logo"}
-            width={200}
-            height={200}
-            priority
-          />
+          <div className='w-full max-w-[400px] flex justify-center mx-auto px-8'>
+            <Image
+              src={"/logo.jpg"}
+              alt={"Logo"}
+              width={200}
+              height={200}
+              priority
+            />
+          </div>
           <h2 className={`text-white text-4xl font-bold text-center`}>
             Daniel Óscar Reyes
           </h2>
