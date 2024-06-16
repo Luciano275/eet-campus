@@ -1,17 +1,21 @@
 'use client'
 
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ThemeButton from "./theme-button";
-import { DropdownLink, LINKS, NormalLink } from './links'
+import { LINKS } from './links'
+import MenuBarButton from "./menu-button";
+import MobileNav from "./mobile-nav";
+import GenerateLinks from "./generate-links";
 
 export default function Navbar() {
 
     const pathname = usePathname();
     const [show, setShow] = useState(false)
     const [scroll, setScroll] = useState(0);
+
+    const [showNav, setShowNav] = useState(false);
 
     useEffect(() => {
 
@@ -45,46 +49,26 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="hidden md:flex gap-4">
-                        {
-                            LINKS.map((link, index) => (
-                                typeof link.type === 'undefined' ? (
-                                    <NormalLink
-                                        key={`${index}:${link.href}`}
-                                        {...link}
-                                        pathname={pathname}
-                                    />
-                                ) : link.type === 'dropdown' ? (
-                                    <DropdownLink
-                                        key={`${index}:${link.href}`}
-                                        {...link}
-                                    />
-                                ) : <Fragment key={index} />
-                            ))
-                        }
+                        <GenerateLinks
+                            LINKS={LINKS}
+                            condition="normal:dropdown"
+                            pathname={pathname}
+                        />
                     </div>
                 </div>
                 <div className="flex gap-5 items-center justify-end">
 
                     <ThemeButton />
+                    <MenuBarButton setShowNav={setShowNav} />
 
-                    {
-                        LINKS.map((link, index) => {
-
-                            const className = `btn ${link.bg} text-white`
-
-                            return link.type === 'right' && (
-                                <Link
-                                    href={link.href}
-                                    key={`${index}:${link.href}`}
-                                    className={link.hideOnMd === true ? `hidden md:${className} md:text-white` : className}
-                                >
-                                    {link.label}
-                                </Link>
-                            )
-                        })
-                    }
+                    <GenerateLinks
+                        LINKS={LINKS}
+                        condition="right"
+                        pathname={pathname}
+                    />
                 </div>
             </nav>
+            <MobileNav showNav={showNav} />
         </>
     )
 }
