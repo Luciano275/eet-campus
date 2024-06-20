@@ -1,0 +1,86 @@
+import Image from "next/image";
+import Link from "next/link";
+import { IconType } from "react-icons";
+import { BsInstagram } from "react-icons/bs";
+import { FaFacebookF } from "react-icons/fa";
+import FooterStyle from '@/styles/footer.module.css'
+
+interface IInfoFooter {
+    creators: {
+        name: string;
+        link: string;
+    }[],
+    social: {
+        icon: IconType,
+        link: string
+    }[]
+}
+
+const INFO: IInfoFooter = {
+    creators: [
+        { name: 'Luciano Luna', link: 'https://github.com/Luciano275' },
+        { name: 'Fernando Gutierrez', link: 'https://github.com/FerchuGtz18' },
+        { name: 'Santiago Lopez', link: 'https://www.instagram.com/_santy_lopez_' },
+        { name: 'Enzo Guzman', link: 'https://www.instagram.com/enzo_gzm_' },
+        { name: 'Jorge Flores', link: 'https://www.instagram.com/jorgefloreszz_' }
+    ],
+    social: [
+        { icon: FaFacebookF, link: 'https://www.facebook.com/profile.php?id=100063505073625' },
+        { icon: BsInstagram, link: '' }
+    ]
+}
+
+const Creators = () => {
+    return (
+        <nav className="flex flex-col gap-1">
+          <h6 className="footer-title">Creadores</h6>
+          {INFO.creators.map(({ link, name }, index) => (
+            <a href={link} key={`${index}:${link}`} className="link link-hover">
+              {name}
+            </a>
+          ))}
+        </nav>
+    )
+}
+
+const Social = () => {
+    return (
+        <nav>
+          <h6 className="footer-title">Redes sociales</h6>
+          <div className="flex gap-4">
+            {
+                INFO.social.map(({ icon:Icon, link }, index) => (
+                    <a href={link} key={`${index}:${link}`}>
+                        <Icon size={25} />
+                    </a>
+                ))
+            }
+          </div>
+        </nav>
+    )
+}
+
+export default function Footer() {
+    return (
+      <footer className="p-10 bg-base-300 text-base-content grid grid-cols-2 md:grid-cols-4 [&>*]:mx-auto gap-y-10 gap-x-4" id={FooterStyle.footer}>
+        <aside className="flex flex-col justify-center items-center gap-4">
+          <Image src={"/logo.jpg"} alt="Logo" width={80} height={80} />
+          <p className="text-center">
+            E.E.T 3117 Mto. Daniel O. Reyes
+            <br />
+            <a href={''} className="text-blue-700">Corcho Gang Org</a>
+          </p>
+        </aside>
+
+        <Creators/>
+
+        <nav className="flex flex-col gap-1">
+          <h6 className="footer-title">Legal</h6>
+          <Link href="/termsofuse" className="link link-hover">Términos de uso</Link>
+          <Link href="/termsofuse" className="link link-hover">Política de cookies</Link>
+        </nav>
+
+        <Social />
+      </footer>
+    );
+}

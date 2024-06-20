@@ -3,6 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
+import Footer from "@/components/ui/Footer";
+import Header from "@/components/ui/public/Header";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
@@ -22,7 +24,11 @@ export default function RootLayout({
   return (
     <ChangeThemeProvider>
       <ChangeThemeHTML>
-        <body className={roboto.className}>{children}</body>
+        <body className={roboto.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
       </ChangeThemeHTML>
     </ChangeThemeProvider>
   );

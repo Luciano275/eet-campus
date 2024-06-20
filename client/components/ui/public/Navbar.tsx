@@ -9,30 +9,37 @@ import MenuBarButton from "./menu-button";
 import MobileNav from "./mobile-nav";
 import GenerateLinks from "./generate-links";
 
-export default function Navbar() {
+export default function Navbar(
+    { disableAutoBg }
+    : {
+        disableAutoBg?: boolean
+    }
+) {
 
     const pathname = usePathname();
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(disableAutoBg ? true : false)
     const [scroll, setScroll] = useState(0);
+    const bgOpacity = disableAutoBg ? 'bg-opacity-90' : 'bg-opacity-70'
 
     const [showNav, setShowNav] = useState(false);
 
     useEffect(() => {
-
-        window.addEventListener('scroll', (e) => {
-            setScroll(window.scrollY)
-        })
-
-        if (scroll > 0) {
-            setShow(true)
-        }else {
-            setShow(false)
+        if (!disableAutoBg){
+            window.addEventListener('scroll', (e) => {
+                setScroll(window.scrollY)
+            })
+    
+            if (scroll > 0) {
+                setShow(true)
+            }else {
+                setShow(false)
+            }
         }
-    }, [scroll, show])
+    }, [scroll, show, disableAutoBg])
 
     return (
         <>
-            <nav className={`py-2 px-2 lg:px-8 fixed top-0 left-0 w-full bg-gray-900 ${show ? 'bg-opacity-70' : 'bg-opacity-0'} flex justify-between`} style={{
+            <nav className={`py-2 px-2 lg:px-8 fixed top-0 left-0 w-full bg-gray-900 ${show ? bgOpacity : 'bg-opacity-0'} flex justify-between`} style={{
                 zIndex: 9999,
             }}>
                 <div className="flex items-center gap-5">

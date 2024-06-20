@@ -23,7 +23,7 @@ export default function ThemeButton() {
     }
 
     return (
-        <button className="text-white relative w-10 h-10" onClick={alternateTheme}>
+        <button className="text-white relative w-10 h-10 outline-none" onClick={alternateTheme}>
             <span style={{
                 ...styles,
                 opacity: theme === 'dark' ? 1 : 0
