@@ -28,10 +28,10 @@ export const LINKS: LinkType[] = [
     href: "/register",
     label: "Inscribirse",
     type: "right",
-    bg: "info",
+    bg: "btn-info",
     hideOnMd: true,
   },
-  { href: "/signin", label: "Acceder", type: "right", bg: "neutral" },
+  { href: "/signin", label: "Acceder", type: "right", bg: "btn-neutral" },
 ];
 
 export const NormalLink = (props: LinkType & { pathname: string, mobile?: boolean }) => {

@@ -42,7 +42,7 @@ export default function GenerateLinks(
                 <Link
                   href={link.href}
                   key={`${index}:${link.href}`}
-                  className={`btn btn-${link.bg} btn-outline text-white py-2 text-lg px-4 rounded-xl`}
+                  className={`btn ${link.bg} btn-outline text-white py-2 text-lg px-4 rounded-xl`}
                 >
                   {link.label}
                 </Link>
@@ -50,7 +50,7 @@ export default function GenerateLinks(
                 <Link
                   href={link.href}
                   key={`${index}:${link.href}`}
-                  className={`hidden md:btn md:btn-${link.bg} md:text-white`}
+                  className={`hidden md:inline-flex btn ${link.bg} text-white`}
                 >
                   {link.label}
                 </Link>
