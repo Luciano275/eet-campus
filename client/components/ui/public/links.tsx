@@ -89,8 +89,6 @@ const Dropdown = (
 export const DropdownLink = (props: LinkType & {mobile?: boolean}) => {
   const { label, items, mobile } = props;
 
-  const bgOpacity = mobile ? 'bg-opacity-100' : 'bg-opacity-50';
-
   return (
     <Dropdown
       label={label}
@@ -98,7 +96,7 @@ export const DropdownLink = (props: LinkType & {mobile?: boolean}) => {
     >
       <ul
         tabIndex={0}
-        className={`dropdown-content z-[1] menu p-2 shadow bg-gray-900 ${bgOpacity} rounded-box w-52 gap-y-1`}
+        className={`dropdown-content z-[1] menu p-2 shadow bg-gray-900 bg-opacity-90 rounded-box w-52 gap-y-1`}
       >
         {items?.map(({ href, label }, index) => (
           <li

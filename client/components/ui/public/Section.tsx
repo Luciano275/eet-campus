@@ -15,7 +15,7 @@ export default function Section() {
                     width={600}
                     height={400}
                     priority
-                    className="rounded-xl"
+                    className="rounded-xl mx-auto"
                 />
             </article>
         </section>
