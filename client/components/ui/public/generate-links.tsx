@@ -50,7 +50,7 @@ export default function GenerateLinks(
                 <Link
                   href={link.href}
                   key={`${index}:${link.href}`}
-                  className={`hidden md:btn btn-${link.bg === 'black' ? 'neutral' : link.bg} md:text-white`}
+                  className={`hidden md:btn md:btn-${link.bg} md:text-white`}
                 >
                   {link.label}
                 </Link>

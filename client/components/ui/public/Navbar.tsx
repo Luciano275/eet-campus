@@ -59,7 +59,7 @@ export default function Navbar() {
                 <div className="flex gap-5 items-center justify-end">
 
                     <ThemeButton />
-                    <MenuBarButton setShowNav={setShowNav} />
+                    <MenuBarButton setShowNav={setShowNav} showNav={showNav} />
 
                     <GenerateLinks
                         LINKS={LINKS}
