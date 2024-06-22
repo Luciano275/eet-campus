@@ -7,7 +7,7 @@ export default function TermsOfUsePage() {
     const { terms } = TermsOfUse;
 
     return (
-      <main className="min-h-screen w-full px-4 md:w-3/4 md:mx-auto pt-24 pb-8">
+      <main className="min-h-screen w-full px-4 md:w-3/4 md:mx-auto pt-24 pb-8 animate-blurred-fade-in">
         <h2 className="text-3xl font-semibold py-4 border-b mb-4">
           Términos de uso
         </h2>

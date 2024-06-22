@@ -40,7 +40,7 @@ const Creators = () => {
         <nav className="flex flex-col gap-1">
           <h6 className="footer-title">Creadores</h6>
           {INFO.creators.map(({ link, name }, index) => (
-            <a href={link} key={`${index}:${link}`} className="link link-hover">
+            <a href={link} key={`${index}:${link}`} className="link link-hover" target="_blank">
               {name}
             </a>
           ))}
@@ -55,7 +55,7 @@ const Social = () => {
           <div className="flex gap-4">
             {
                 INFO.social.map(({ icon: Icon, link, name, hoverIcon: hoverIcon }, index) => (
-                    <a href={link} key={`${index}:${link}`} className="transition-all contrast-0 hover:contrast-100">
+                    <a href={link} key={`${index}:${link}`} className="transition-all contrast-0 hover:contrast-100" target="_blank">
                         {hoverIcon}
                     </a>
                 ))
@@ -79,6 +79,7 @@ export default function Footer() {
             <a
               href={"https://www.instagram.com/corchogang_f.c/"}
               className="text-blue-700"
+              target="_blank"
             >
               Corcho Gang Org
             </a>
