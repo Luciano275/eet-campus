@@ -28,7 +28,7 @@ const INFO: IInfoFooter = {
         { name: 'Santiago Lopez', link: 'https://www.instagram.com/_santy_lopez_' },
         { name: 'Enzo Guzman', link: 'https://www.instagram.com/enzo_gzm_' },
         { name: 'Jorge Flores', link: 'https://www.instagram.com/jorgefloreszz_' },
-        { name: 'Joaquín Gimenez', link: 'https://youtube.com' }
+        { name: 'Joaquín Gimenez', link: 'https://www.instagram.com/j0ack0gmz_' }
     ],
     social: [
         { icon: FaFacebookF, link: 'https://www.facebook.com/profile.php?id=100063505073625', name: 'facebook', hoverIcon: <FaFacebookF className="text-blue-600" size={25} /> },
