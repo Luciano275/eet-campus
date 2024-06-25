@@ -15,6 +15,7 @@ export default function InitialText() {
               width={200}
               height={200}
               priority
+              className='animate-pulsing'
             />
           </div>
           <h2 className={`text-white text-4xl font-bold text-center`}>
