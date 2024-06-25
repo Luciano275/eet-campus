@@ -38,7 +38,7 @@ const INFO: IInfoFooter = {
 
 const Creators = () => {
     return (
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1 items-center">
           <h6 className="footer-title">Creadores</h6>
           {INFO.creators.map(({ link, name }, index) => (
             <a href={link} key={`${index}:${link}`} className="link link-hover" target="_blank">
@@ -51,7 +51,7 @@ const Creators = () => {
 
 const Social = () => {
     return (
-        <nav>
+        <nav className="flex flex-col items-center">
           <h6 className="footer-title">Redes sociales</h6>
           <div className="flex gap-4">
             {
@@ -69,7 +69,7 @@ const Social = () => {
 export default function Footer() {
     return (
       <footer
-        className="p-10 bg-base-300 text-base-content grid grid-cols-2 md:grid-cols-4 [&>*]:mx-auto gap-y-10 gap-x-4"
+        className="p-10 bg-base-300 text-base-content grid grid-cols-2 md:grid-cols-4 md:[&>*]:mx-auto gap-y-10 gap-x-4"
         id={FooterStyle.footer}
       >
         <aside className="flex flex-col justify-center items-center gap-4">
@@ -89,7 +89,7 @@ export default function Footer() {
 
         <Creators />
 
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1 items-center">
           <h6 className="footer-title">Legal</h6>
           <Link href="/termsofuse" className="link link-hover">
             Términos de uso
