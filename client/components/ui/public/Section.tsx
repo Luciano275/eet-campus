@@ -12,8 +12,8 @@ export default function Section() {
                 <Image
                     src={'/school-min.jpg'}
                     alt={'School photo'}
-                    width={600}
-                    height={400}
+                    width={700}
+                    height={500}
                     priority
                     className="rounded-xl mx-auto"
                 />

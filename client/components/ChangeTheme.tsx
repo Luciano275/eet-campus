@@ -8,7 +8,7 @@ export default function ChangeThemeHTML({children}: {children: React.ReactNode})
     const { theme, changeTheme } = useChangeThemeContext();
 
     useEffect(() => {
-        const defaultTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        let defaultTheme: 'dark' | 'light' = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
         changeTheme(defaultTheme)
     }, [])
