@@ -1,0 +1,15 @@
+/* #wallpaper {
+    background: rgb(2,0,36);
+    background: linear-gradient(35deg, rgba(2,0,36,1) 0%, rgba(136,139,249,1) 0%, rgba(255,187,187,1) 50%, rgba(255,172,172,1) 100%);
+    animation: bgFadeIn 2.5s ease forwards;
+} */
+
+#wallpaper {
+    background: rgb(255,224,224);
+    background: radial-gradient(at top right, rgba(219,224,255,1) 0%, rgba(176,176,255,1) 35%, rgba(255,201,201,1) 67%, rgba(255,162,162,1) 100%);
+    animation: bgFadeIn 2.5s ease forwards;
+}
+
+@keyframes bgFadeIn {
+    from {opacity: 0;}
+}

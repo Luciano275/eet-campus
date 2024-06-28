@@ -1,10 +1,10 @@
 #shadowButton {
-    box-shadow: 0 0 30px 0 #00B5FF;
+    box-shadow: 0 0 10px 0 #00B5FF, 0 0 60px #00B3FF;
     transition: box-shadow .25s ease, color .5s ease;
     animation: pulsingInfinite 1.5s ease-in infinite alternate;
     &:hover {
         color: #0090FF;
-        box-shadow: 0 0 30px 0 #0090FF;
+        box-shadow: 0 0 10px 0 #00B5FF, 0 0 80px #48e;
     }
 }
 
