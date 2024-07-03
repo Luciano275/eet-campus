@@ -21,7 +21,7 @@
 * [Joaquín Gimenez](https://github.com/j0ack0)
 * [Santiago Lopez](https://github.com/Elsanto67)
 * [Enzo Guzman](https://github.com/LeveKS)
-* Jorge Flores
+* [Jorge Flores] (https_//github.com/JorgeHFlores)
 
 ## Características principales<a name="caracteristicas"></a>
 
