@@ -18,10 +18,11 @@
 
 * [Luciano Luna](https://github.com/Luciano275)
 * [Fernando Gutierrez](https://github.com/FerchuGtz18)
-* [Joaquín Gimenez](https://github.com/j0ack0)
-* [Santiago Lopez](https://github.com/Elsanto67)
-* [Enzo Guzman](https://github.com/LeveKS)
-* [Jorge Flores] (https_//github.com/JorgeHFlores)
+* [Joaquín Gimenez](https://www.instagram.com/j0ack0gmz_)
+* [Santiago Lopez](https://www.instagram.com/_santy_lopez_)
+* [Enzo Guzman](https://www.instagram.com/enzo_gzm_)
+* [Jorge Flores](https://www.instagram.com/jorgefloreszz_)
+* [Marcos Arraya](https://www.instagram.com/marcostqsa_)
 
 ## Características principales<a name="caracteristicas"></a>
 
