@@ -31,7 +31,6 @@ export const LINKS: LinkType[] = [
     bg: "btn-info",
     hideOnMd: true,
   },
-  { href: "/signin", label: "Acceder", type: "right", bg: "btn-neutral" },
 ];
 
 export const NormalLink = (props: LinkType & { pathname: string, mobile?: boolean }) => {

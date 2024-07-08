@@ -1,6 +1,7 @@
 import { LINKS } from "./links"
 import { usePathname } from "next/navigation"
 import GenerateLinks from "./generate-links";
+import SignInButton from "../signin-button";
 
 export default function MobileNav(
     {showNav}
@@ -33,6 +34,8 @@ export default function MobileNav(
           condition="right"
           mobile
         />
+        
+        <SignInButton mobile />
       </nav>
     );
 }

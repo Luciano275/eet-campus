@@ -9,6 +9,7 @@ import MenuBarButton from "./menu-button";
 import MobileNav from "./mobile-nav";
 import GenerateLinks from "./generate-links";
 import Link from "next/link";
+import SignInButton from "../signin-button";
 
 export default function Navbar(
     { disableAutoBg }
@@ -76,6 +77,8 @@ export default function Navbar(
                         condition="right"
                         pathname={pathname}
                     />
+
+                    <SignInButton />
                 </div>
             </nav>
             <MobileNav showNav={showNav} />
