@@ -2,24 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { IconType } from "react-icons";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import FooterStyle from '@/styles/footer.module.css'
 import React from "react";
-
-interface IInfoFooter {
-    creators: {
-        name: string;
-        link: string;
-    }[],
-    social: {
-        icon: IconType
-        link: string,
-        name: 'facebook' | 'instagram',
-        hoverIcon: any
-    }[]
-}
+import { IInfoFooter } from "@/types";
 
 const INFO: IInfoFooter = {
     creators: [
