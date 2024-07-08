@@ -3,8 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
-import Footer from "@/components/ui/Footer";
-import Header from "@/components/ui/public/Header";
+import MainLayout from "@/components/ui/layouts/main-layout";
+import { SessionProvider } from "next-auth/react";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
@@ -24,11 +24,13 @@ export default function RootLayout({
   return (
     <ChangeThemeProvider>
       <ChangeThemeHTML>
-        <body className={roboto.className}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
+        <SessionProvider>
+          <body className={roboto.className}>
+            <MainLayout>
+              {children}
+            </MainLayout>
+          </body>
+        </SessionProvider>
       </ChangeThemeHTML>
     </ChangeThemeProvider>
   );
