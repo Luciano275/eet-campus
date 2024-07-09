@@ -1,7 +1,22 @@
-export default function CampusPage() {
+import { auth } from "@/auth"
+import ThemeButton from "@/components/ui/public/theme-button";
+import { Metadata } from "next"
+
+export async function generateMetadata(): Promise<Metadata> {
+    const session = await auth();
+
+    return {
+        title: session?.user?.name!
+    }
+}
+
+export default async function CampusPage() {
     return (
-        <main className="min-h-screen relative">
-            <h1>Campus page</h1>
-        </main>
+        <section className="min-h-screen relative overflow-x-hidden overflow-y-auto grow p-4">
+            <header className={`w-full flex justify-between items-center pb-4 border-b border-base-300`}>
+                <h1 className="text-3xl">Campus virtual</h1>
+                <ThemeButton whiteColor />
+            </header>
+        </section>
     )
 }
