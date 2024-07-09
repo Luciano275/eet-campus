@@ -3,7 +3,7 @@
 import { signInAction } from "@/lib/authActions"
 import { DEFAULT_REDIRECT } from "@/routes";
 import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignInButton (
     {mobile}
@@ -13,24 +13,32 @@ export default function SignInButton (
 ) {
 
     const session = useSession();
-
-    const { push } = useRouter()
+    const buttonClassName = `btn btn-neutral text-white ${
+            mobile
+              ? "btn-outline py-2 text-lg px-4 rounded-xl"
+              : `hidden md:inline-flex`
+          }`
 
     const onLogin = async () => {
         await signInAction();
     }
 
     return (
-      <button
-        onClick={session.status === 'authenticated' ? () => push(DEFAULT_REDIRECT) : onLogin}
-        className={`btn btn-neutral text-white ${
-          mobile
-            ? "btn-outline py-2 text-lg px-4 rounded-xl"
-            : `hidden md:inline-flex`
-        }`}
-      >
-        Acceder
-      </button>
+      session.status === 'authenticated' ? (
+        <Link
+          href={DEFAULT_REDIRECT}
+          className={buttonClassName}
+        >
+          Ir al campus
+        </Link>
+      ) : (
+        <button
+          onClick={onLogin}
+          className={buttonClassName}
+        >
+          Acceder
+        </button>
+      )
     );
    
 }

@@ -4,7 +4,12 @@ import { useChangeThemeContext } from "@/components/providers/change-theme-provi
 import { CSSProperties } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 
-export default function ThemeButton() {
+export default function ThemeButton(
+    {whiteColor}
+    : {
+        whiteColor?: boolean
+    }
+) {
 
     const { changeTheme, theme } = useChangeThemeContext()
 
@@ -32,7 +37,8 @@ export default function ThemeButton() {
             </span>
             <span style={{
                 ...styles,
-                opacity: theme === 'dark' ? 0 : 1
+                opacity: theme === 'dark' ? 0 : 1,
+                color: whiteColor? '#000' : '#fff'
             }}>
                 <BiMoon size={25} />
             </span>

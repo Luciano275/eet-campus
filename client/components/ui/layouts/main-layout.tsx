@@ -10,9 +10,7 @@ export default function MainLayout({children}: {children: React.ReactNode}) {
 
     return (
         pathname.includes('/campus') ? (
-            <>
-                {children}
-            </>
+            children
         ) : (
             <>
                 <Header />
