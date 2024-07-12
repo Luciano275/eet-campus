@@ -1,5 +1,6 @@
 export const PUBLIC_ROUTES = [
-    '/'
+    '/',
+    '/termsofuse'
 ]
 
 export const AUTH_ROUTES = [
