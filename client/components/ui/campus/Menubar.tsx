@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import LogoutButton from "./logout-button";
 import NavComponent from "./nav-component";
+import CampusLinks from "./links";
 
 export default async function MenuBar() {
 
@@ -8,25 +9,18 @@ export default async function MenuBar() {
 
     return (
       <NavComponent>
-        <div className="avatar flex flex-col items-center py-4 gap-y-4">
-          <div className="rounded-full w-24">
+        <div className="avatar flex pt-2 pb-4 gap-2 items-center border-b border-base-300 px-4">
+          <div className="rounded-full w-8 2xl:w-10">
             <img
               src={session?.user?.image!}
               alt={session?.user?.name!}
             />
           </div>
-          <h2 className="text-xl 2xl:text-2xl text-base-content">{session?.user?.name}</h2>
+          <h2 className="text-lg 2xl:text-xl text-base-content">{session?.user?.name}</h2>
         </div>
 
         {/* Links */}
-        <div className="grow py-2">
-          <ul className="flex flex-col gap-2 [&>*]:px-4 text-lg">
-            <li>No se que poner</li>
-            <li>No se que poner</li>
-            <li>No se que poner</li>
-            <li>No se que poner</li>
-          </ul>
-        </div>
+        <CampusLinks />
 
         <div className="p-2">
           <LogoutButton />

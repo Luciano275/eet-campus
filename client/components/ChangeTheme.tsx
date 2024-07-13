@@ -15,7 +15,7 @@ export default function ChangeThemeHTML({children}: {children: React.ReactNode})
 
     useEffect(() => {
         if (theme === 'dark') { setMenuBarBg('bg-gray-950'); setPrimaryColor('bg-gray-900') }
-        if (theme === 'light') { setMenuBarBg('bg-neutral-300'); setPrimaryColor('bg-neutral-400') }
+        if (theme === 'light') { setMenuBarBg('bg-neutral-300'); setPrimaryColor('bg-neutral-200') }
     }, [theme])
 
     return (

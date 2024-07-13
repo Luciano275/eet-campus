@@ -31,14 +31,14 @@ export default function SignInButton (
         >
           Ir al campus
         </Link>
-      ) : (
+      ) : session.status === 'unauthenticated' ? (
         <button
           onClick={onLogin}
           className={buttonClassName}
         >
           Acceder
         </button>
-      )
+      ) : <></>
     );
    
 }

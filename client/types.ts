@@ -21,3 +21,9 @@ export type IInfoFooter = {
       hoverIcon: any
   }[]
 }
+
+export type CampusLinkType = {
+  href: string;
+  label: string;
+  icon: IconType;
+}[]
