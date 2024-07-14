@@ -14,12 +14,24 @@ export default function LogoutButton () {
     }
 
     return (
+      // <div className="p-2" style={{
+      //   transition: 'box-shadow 500ms ease',
+      //   boxShadow: `0 -4px 15px 0 ${theme === 'dark' ? 'rgb(3 7 18)' : 'rgb(209 203 219)'}`
+      // }}>
+      //   <button
+      //     className={`flex justify-center items-center gap-2 py-2 px-4 ${primaryColor} rounded-xl hover:contrast-125 text-base w-full`}
+      //     onClick={onClick}
+      //   >
+      //     <BiLogOut size={20} />
+      //     Salir
+      //   </button>
+      // </div>
       <div className="p-2" style={{
         transition: 'box-shadow 500ms ease',
-        boxShadow: `0 -4px 15px 0 ${theme === 'dark' ? 'rgb(3 7 18)' : 'rgb(209 203 219)'}`
+        boxShadow: `0 -4px 15px 0 rgb(3 7 18)`
       }}>
         <button
-          className={`flex justify-center items-center gap-2 py-2 px-4 ${primaryColor} rounded-xl hover:contrast-125 text-base w-full`}
+          className={`flex justify-center items-center gap-2 py-2 px-4 bg-gray-900 rounded-xl hover:bg-red-600 text-white w-full`}
           onClick={onClick}
         >
           <BiLogOut size={20} />

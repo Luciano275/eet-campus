@@ -39,6 +39,34 @@ export default function CampusLinks() {
     }
 
     return (
+      // <div
+      //   className={`grow py-4 px-2 overflow-x-hidden overflow-y-auto`}
+      //   style={{
+      //     scrollbarWidth: 'thin',
+      //     scrollbarColor: `#09f transparent`
+      //   }}
+      // >
+      //   <ul className="flex flex-col gap-2">
+      //     {LINKS.map(({ href, icon: LinkIcon, label }, index) => (
+      //       <Link
+      //         href={href}
+      //         key={`${index}:${label}`}
+      //         className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
+      //           pathname === href
+      //             ? primaryColor
+      //             : active === index
+      //             ? primaryColor
+      //             : ""
+      //         }`}
+      //         onMouseEnter={() => changeActiveElement(index)}
+      //         onMouseLeave={() => changeActiveElement(0)}
+      //       >
+      //         <LinkIcon size={25} />
+      //         {label}
+      //       </Link>
+      //     ))}
+      //   </ul>
+      // </div>
       <div
         className={`grow py-4 px-2 overflow-x-hidden overflow-y-auto`}
         style={{
@@ -52,11 +80,9 @@ export default function CampusLinks() {
               href={href}
               key={`${index}:${label}`}
               className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
-                pathname === href
-                  ? primaryColor
-                  : active === index
-                  ? primaryColor
-                  : ""
+                pathname === href || active === index
+                  ? 'bg-gray-900 text-white'
+                  : "text-neutral-400"
               }`}
               onMouseEnter={() => changeActiveElement(index)}
               onMouseLeave={() => changeActiveElement(0)}
