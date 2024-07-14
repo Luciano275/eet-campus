@@ -32,6 +32,22 @@ export const {
             if (!userFound) return false;
 
             return true;
+        },
+        async jwt({token, user}) {
+            if (user) {
+                //@ts-ignore
+                token.rol_id = user.rol === 'ADMIN' ? 1 : user.rol === 'TEACHER' ? 2 : 3;
+            }
+            return token;
+        },
+        async session({session, token}) {
+
+            if (token && session.user) {
+                //@ts-ignore
+                session.user.rol = token.rol_id;
+            }
+
+            return session;
         }
     },
     adapter: PrismaAdapter(db),

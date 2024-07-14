@@ -26,4 +26,5 @@ export type CampusLinkType = {
   href: string;
   label: string;
   icon: IconType;
+  type: 1 | 2 | 3
 }[]
