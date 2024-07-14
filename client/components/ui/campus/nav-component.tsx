@@ -14,7 +14,7 @@ export default function NavComponent (
     return (
       <nav
         role={"menubar"}
-        className={`min-w-56 2xl:min-w-72 flex flex-col ${menubarBg} py-2`}
+        className={`min-w-56 2xl:min-w-72 flex flex-col ${menubarBg} py-2 animate-fade-in overflow-hidden`}
       >
         {children}
       </nav>

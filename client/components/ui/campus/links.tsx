@@ -25,7 +25,7 @@ const LINKS: CampusLinkType = [
     { href: `${BASE_PATH}/users`, label: 'Usuarios', icon: FaUsers },
     //
 
-    { href: `${BASE_PATH}/settings`, label: 'Preferencias', icon: IoIosSettings }
+    { href: `${BASE_PATH}/settings`, label: 'Preferencias', icon: IoIosSettings },
 ]
 
 export default function CampusLinks() {
@@ -39,14 +39,24 @@ export default function CampusLinks() {
     }
 
     return (
-      <div className="grow py-4 px-2">
+      <div
+        className={`grow py-4 px-2 overflow-x-hidden overflow-y-auto`}
+        style={{
+          scrollbarWidth: 'thin',
+          scrollbarColor: `#09f transparent`
+        }}
+      >
         <ul className="flex flex-col gap-2">
           {LINKS.map(({ href, icon: LinkIcon, label }, index) => (
             <Link
               href={href}
               key={`${index}:${label}`}
               className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
-                pathname === href ? primaryColor : active === index ? primaryColor : ''
+                pathname === href
+                  ? primaryColor
+                  : active === index
+                  ? primaryColor
+                  : ""
               }`}
               onMouseEnter={() => changeActiveElement(index)}
               onMouseLeave={() => changeActiveElement(0)}

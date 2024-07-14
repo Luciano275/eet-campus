@@ -22,9 +22,7 @@ export default async function MenuBar() {
         {/* Links */}
         <CampusLinks />
 
-        <div className="p-2">
-          <LogoutButton />
-        </div>
+        <LogoutButton />
 
       </NavComponent>
     );
