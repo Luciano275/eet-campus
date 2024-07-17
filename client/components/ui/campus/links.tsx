@@ -13,7 +13,7 @@ export default function CampusLinks(
 ) {
 
     const pathname = usePathname();
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(-1);
 
     const LINKS = generateLinks(rol)
 
@@ -40,7 +40,7 @@ export default function CampusLinks(
                   : "text-neutral-400"
               }`}
               onMouseEnter={() => changeActiveElement(index)}
-              onMouseLeave={() => changeActiveElement(0)}
+              onMouseLeave={() => changeActiveElement(-1)}
             >
               <LinkIcon size={25} />
               {label}
