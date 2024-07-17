@@ -49,6 +49,9 @@ html[data-theme="light"] .rbc-calendar {
     .rbc-day-bg:hover {
         background: #eee;
     }
+    .rbc-today {
+        background: #c1c7ff;
+    }
 }
 
 html[data-theme="dark"] .rbc-calendar {

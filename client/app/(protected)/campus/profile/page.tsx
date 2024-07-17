@@ -14,7 +14,7 @@ export default async function ProfilePage(){
       <Section>
         <CampusHeader title="Tu perfil" />
         <div className="flex pt-8 pb-4 gap-4 justify-between flex-wrap">
-          <Left user={user} rol={session?.user.rol!} />
+          <Left user={user} rol={session?.user.rol!-1} />
         </div>
       </Section>
     );

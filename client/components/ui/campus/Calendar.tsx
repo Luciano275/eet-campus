@@ -11,41 +11,41 @@ export default function CalendarComponent() {
 
     const [events, setEvents] = useState([
         {
-            title: "Examen de Vila",
+            title: "Examen de Instalacion Basica de Software",
             start: new Date(2024, 6, 30),
             end: new Date(2024, 6, 30),
             id: 2,
         },
         {
-            title: "Tarea de Mereles",
+            title: "Tarea de Programacion",
             start: new Date(2024, 6, 31),
             end: new Date(2024, 6, 31),
             id: 3,
         },
         {
-            title: "Tarea de Fonseca",
+            title: "Tarea de Lenguajes",
             start: new Date(2024, 6, 29),
             end: new Date(2024, 6, 29),
             id: 4,
         },
         {
-            title: "Lo de la Soto",
+            title: "Examen de Tecnologia de los Materiales",
             start: new Date(2024, 6, 25, 15, 40),
             end: new Date(2024, 6, 25, 17, 10),
             id: 5,
         },
         {
-            title: "Lo de la Soto",
-            start: new Date(2024, 6, 25, 15, 40),
-            end: new Date(2024, 6, 25, 17, 10),
-            id: 8,
-        },
-        {
-            title: "Lo de la Dina",
+            title: "Tarea de Filosofia",
             start: new Date(2024, 6, 25, 15, 0),
             end: new Date(2024, 6, 25, 15, 40),
             id: 6,
         },
+        {
+          title: "Examen de Analisis Matematico",
+          start: new Date(2024, 6, 26, 15, 0),
+          end: new Date(2024, 6, 26, 16, 20),
+          id: 7,
+      },
     ])
 
     const locales = {
