@@ -79,6 +79,10 @@ export default function CalendarComponent() {
             event: "Tarea",
             noEventsInRange: "No hay tareas en este rango",
             showMore: (total: number) => `+${total} más`,
+            date: 'Fecha',
+            time: 'Hora',
+            tomorrow: 'Mañana',
+            yesterday: 'Ayer',
           }}
           style={{
             height: 600,

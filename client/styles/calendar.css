@@ -29,11 +29,22 @@
             background: #09f;
         }
     }
+    .rbc-agenda-table thead tr th {
+        padding: 20px 10px !important;
+    }
+    .rbc-agenda-table tbody tr, .rbc-agenda-table tbody tr td {
+        border: none !important;
+        padding: 20px 10px !important;
+    }
+    .rbc-agenda-table tbody > tr {
+        border-bottom: 1px solid #aaa !important;
+    }
 }
 
 html[data-theme="light"] .rbc-calendar {
     .rbc-header {
-        background: #f1f1f1;
+        background: #04f;
+        color: #fff;
     }
     .rbc-day-bg:hover {
         background: #eee;

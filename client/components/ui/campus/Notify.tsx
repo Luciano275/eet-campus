@@ -9,9 +9,9 @@ export default function Notify() {
 
     return (
       <nav
-        className={`absolute bg-base-200 ${
+        className={`absolute bg-base-300 ${
           isOpen ? `right-0` : `-right-full`
-        } min-h-screen max-h-screen 2xl:flex 2xl:static p-4 flex-col overflow-hidden min-w-72`}
+        } min-h-screen max-h-screen 2xl:flex 2xl:static p-4 flex-col overflow-hidden min-w-72 animate-fade-in`}
         style={{
           zIndex: "999999",
           transition: "right 500ms ease",
