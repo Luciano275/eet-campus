@@ -1,3 +1,4 @@
+import { $Enums } from "@prisma/client";
 import { IconType } from "react-icons";
 
 export type LinkType = {
@@ -28,3 +29,25 @@ export type CampusLinkType = {
   icon: IconType;
   type: 1 | 2 | 3
 }[]
+
+export type UserInfo = ({
+  courses: {
+      course: {
+          id: number;
+          course: number;
+          division: number;
+          cycle: string;
+      };
+  }[];
+} & {
+  id: string;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+  age: number;
+  rol: $Enums.Role;
+  dni: string;
+  tutor_name: string | null;
+  tutor_dni: bigint | null;
+} | null)

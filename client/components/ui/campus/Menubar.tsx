@@ -2,18 +2,15 @@ import { auth } from "@/auth";
 import LogoutButton from "./logout-button";
 import NavComponent from "./nav-component";
 import CampusLinks from "./links";
+import { getRol } from "@/lib/utils";
 
-const ROLES = [
-  'Administrador',
-  'Profesor',
-  'Estudiante',
-]
+
 
 export default async function MenuBar() {
 
     const session = await auth();
 
-    const rolName = ROLES[session?.user.rol!-1]
+    const rolName = getRol(session?.user.rol!-1)
 
     return (
       <NavComponent>
