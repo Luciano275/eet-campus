@@ -23,7 +23,7 @@
         transition: none;
     }
     .rbc-event {
-        background: #03f;
+        background: #06f;
         transition: background 150ms ease;
         &:hover {
             background: #09f;
@@ -43,7 +43,7 @@
 
 html[data-theme="light"] .rbc-calendar {
     .rbc-header {
-        background: #04f;
+        background: #09f;
         color: #fff;
     }
     .rbc-day-bg:hover {
@@ -56,7 +56,7 @@ html[data-theme="light"] .rbc-calendar {
 
 html[data-theme="dark"] .rbc-calendar {
     & * {
-        border-color: rgb(17 24 39);
+        border-color: rgb(3 7 18);
     }
     .rbc-today {
         background: #1a103e;
@@ -65,7 +65,7 @@ html[data-theme="dark"] .rbc-calendar {
         background: transparent;
     }
     .rbc-header {
-        background: rgb(17 24 39);
+        background: rgb(3 7 18);
         color: #fff;
     }
     .rbc-toolbar {
@@ -74,10 +74,10 @@ html[data-theme="dark"] .rbc-calendar {
         }
         .rbc-btn-group {
             & button {
-                background: #06f;
+                background: rgb(3 7 18);
                 color: #fff;
                 &:hover {
-                    background: #03f;
+                    background: rgb(17 24 39);
                 }
             }
         }
