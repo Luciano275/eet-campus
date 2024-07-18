@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import CampusHeader from "@/components/ui/campus/Header";
-import Left from "@/components/ui/campus/profile/left";
 import Section from "@/components/ui/campus/Section";
 import { getUserByEmail } from "@/lib/user";
+import UserInfo from "@/components/ui/campus/profile/user-info";
 
 export default async function ProfilePage(){
 
@@ -13,8 +13,8 @@ export default async function ProfilePage(){
     return (
       <Section>
         <CampusHeader title="Tu perfil" />
-        <div className="flex pt-8 pb-4 gap-4 justify-between flex-wrap">
-          <Left user={user} rol={session?.user.rol!-1} />
+        <div className="flex pt-10 pb-4 gap-y-5 flex-wrap justify-center">
+          <UserInfo user={user} rol={session?.user.rol!-1} />
         </div>
       </Section>
     );

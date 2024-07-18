@@ -19,6 +19,7 @@ enum Role {
   STUDENT
   TEACHER
 }
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -57,6 +58,7 @@ model User {
   age           Int
   rol           Role
   dni           String
+  turn          String
   tutor_name    String?
   tutor_dni     BigInt?
 

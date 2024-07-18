@@ -30,15 +30,17 @@ export type CampusLinkType = {
   type: 1 | 2 | 3
 }[]
 
+export type CourseType = {
+  course: {
+      id: number;
+      course: number;
+      division: number;
+      cycle: string;
+  };
+}
+
 export type UserInfo = ({
-  courses: {
-      course: {
-          id: number;
-          course: number;
-          division: number;
-          cycle: string;
-      };
-  }[];
+  courses: CourseType[]
 } & {
   id: string;
   name: string | null;
@@ -48,6 +50,7 @@ export type UserInfo = ({
   age: number;
   rol: $Enums.Role;
   dni: string;
+  turn: string;
   tutor_name: string | null;
   tutor_dni: bigint | null;
 } | null)
