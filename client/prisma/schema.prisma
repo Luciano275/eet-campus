@@ -61,6 +61,7 @@ model User {
   turn          String
   tutor_name    String?
   tutor_dni     BigInt?
+  address       String
 
   courses  UserCourse[]
   accounts Account[]
