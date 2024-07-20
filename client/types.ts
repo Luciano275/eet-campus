@@ -35,7 +35,7 @@ export type CourseType = {
       id: number;
       course: number;
       division: number;
-      cycle: string;
+      cycle: $Enums.Cycle;
   };
 }
 
@@ -43,14 +43,19 @@ export type UserInfo = ({
   courses: CourseType[]
 } & {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
   emailVerified: Date | null;
   image: string | null;
   age: number;
   rol: $Enums.Role;
   dni: string;
-  turn: string;
+  turn: $Enums.Turn;
   tutor_name: string | null;
   tutor_dni: bigint | null;
+  tutor_phone: string | null;
+  address: string | null;
+  phone: string;
+  gender: $Enums.Gender;
+  birthday: Date;
 } | null)

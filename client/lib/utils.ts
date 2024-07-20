@@ -13,6 +13,12 @@ export const ROLES = [
   'Estudiante',
 ]
 
+export const GENDER = [
+  'Masculino',
+  'Femenino',
+  'Otro'
+]
+
 const ALL_LINKS: CampusLinkType = [
   { href: `${BASE_PATH}`, label: 'Inicio', icon: FaHome, type: 3 },
   { href: `${BASE_PATH}/profile`, label: 'Perfil', icon: CgProfile, type: 3 },
@@ -26,3 +32,4 @@ const ALL_LINKS: CampusLinkType = [
 
 export const generateLinks = (rol: number) => ALL_LINKS.filter(link => link.type >= rol)
 export const getRol = (rol: number) => ROLES[rol]
+export const getGender = (gender: number) => GENDER[gender]

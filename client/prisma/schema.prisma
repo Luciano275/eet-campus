@@ -20,6 +20,22 @@ enum Role {
   TEACHER
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Cycle {
+  CS
+  CB
+}
+
+enum Turn {
+  AFTERNOON
+  MORNING
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -44,26 +60,28 @@ model Course {
   id       Int    @id @unique @default(autoincrement())
   course   Int
   division Int
-  cycle    String
+  cycle    Cycle
 
   students UserCourse[]
 }
 
 model User {
   id            String    @id @default(uuid())
-  name          String?
-  email         String?   @unique
+  name          String
+  email         String   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   age           Int
   rol           Role
   dni           String
-  turn          String
+  turn          Turn
   tutor_name    String?
   tutor_dni     BigInt?
   tutor_phone   String?
-  address       String
+  address       String?
   phone         String
+  gender        Gender
+  birthday      DateTime
 
   courses  UserCourse[]
   accounts Account[]

@@ -33,10 +33,20 @@ export const {
 
             return true;
         },
-        async jwt({token, user}) {
+        async jwt({token, user, profile, account}) {
             if (user) {
                 //@ts-ignore
                 token.rol_id = user.rol === 'ADMIN' ? 1 : user.rol === 'TEACHER' ? 2 : 3;
+            }
+            if (profile && profile.email) {
+                await db.user.update({
+                    where: {
+                        email: profile.email
+                    },
+                    data: {
+                        image: profile.picture
+                    }
+                })
             }
             return token;
         },
