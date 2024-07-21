@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { generateLinks } from "@/lib/utils";
+import { useToggleMenuContext } from "@/components/providers/toggle-menu-provider";
 
 export default function CampusLinks(
   {rol}
@@ -14,6 +15,8 @@ export default function CampusLinks(
 
     const pathname = usePathname();
     const [active, setActive] = useState(-1);
+
+    const { setOpen } = useToggleMenuContext()
 
     const LINKS = generateLinks(rol)
 
@@ -41,6 +44,7 @@ export default function CampusLinks(
               }`}
               onMouseEnter={() => changeActiveElement(index)}
               onMouseLeave={() => changeActiveElement(-1)}
+              onClick={() => setOpen(false)}
             >
               <LinkIcon size={25} />
               {label}

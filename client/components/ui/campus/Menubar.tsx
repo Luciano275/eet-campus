@@ -4,8 +4,9 @@ import NavComponent from "./nav-component";
 import CampusLinks from "./links";
 import { getRol } from "@/lib/utils";
 import { getUserByEmail } from "@/lib/user";
-
-
+import MenuBarStyles from '@/styles/menubar.module.css';
+import { FaX } from "react-icons/fa6";
+import MenuBarButton from "./menubar-button";
 
 export default async function MenuBar() {
 
@@ -23,10 +24,12 @@ export default async function MenuBar() {
               alt={user?.name!}
             />
           </div>
-          <h2 className="text-white flex flex-col">
+          <h2 className="text-white flex flex-col grow">
             <span className="text-lg 2xl:text-xl">{session?.user?.name}</span>
             <span className="text-sm text-neutral-400">{rolName}</span>
           </h2>
+          
+          <MenuBarButton type="x" white />
         </div>
 
         {/* Links */}

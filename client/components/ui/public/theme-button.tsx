@@ -28,19 +28,19 @@ export default function ThemeButton(
     }
 
     return (
-        <button className="text-white relative w-10 h-10 outline-none" onClick={alternateTheme}>
+        <button className="text-white relative w-10 h-10 outline-none [&>*]:text-xl sm:[&>*]:text-2xl" onClick={alternateTheme}>
             <span style={{
                 ...styles,
                 opacity: theme === 'dark' ? 1 : 0
             }}>
-                <BiSun size={25} />
+                <BiSun />
             </span>
             <span style={{
                 ...styles,
                 opacity: theme === 'dark' ? 0 : 1,
                 color: whiteColor? '#000' : '#fff'
             }}>
-                <BiMoon size={25} />
+                <BiMoon />
             </span>
         </button>
     )

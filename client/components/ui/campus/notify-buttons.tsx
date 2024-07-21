@@ -12,9 +12,9 @@ export const OpenNotifyButton = () => {
     return (
       <button
         onClick={toggle}
-        className={`block 2xl:hidden px-2 transition-colors ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-blue-500`}
+        className={`block 2xl:hidden text-xl sm:text-2xl px-2 transition-colors ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-blue-500`}
       >
-        <IoIosNotifications size={25} />
+        <IoIosNotifications />
       </button>
     );
 }

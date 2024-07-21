@@ -1,0 +1,25 @@
+.menubar-responsive-button {
+  display: none;
+}
+
+.menubar-responsive {
+  position: static;
+}
+
+@media (width <= 880px) {
+  .menubar-responsive {
+    position: fixed;
+    min-height: 100vh;
+    z-index: 999;
+    transition: left 300ms ease;
+    left: -100%;
+    width: 100%;
+    max-width: 100%;
+  }
+  .menubar-responsive-button {
+    display: block;
+  }
+  .active-menubar {
+    left: 0 !important;
+  }
+}
