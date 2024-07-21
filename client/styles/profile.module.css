@@ -1,0 +1,44 @@
+@media ((width <= 1024px) and (width > 880px)) or (width <= 660px) {
+  .profile-left {
+    width: 100% !important;
+    max-width: 100%;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+  }
+  .profile-left .container-information {
+    flex-grow: 1;
+  }
+  .profile-left #user-logo {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media (width <= 650px) {
+  .profile-container {
+    flex-direction: column;
+  }
+}
+
+@media (width <= 520px) {
+  .profile-left {
+    align-items: flex-start;
+  }
+  .profile-left #user-logo {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (width <= 400px) {
+  .profile-left {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+  .profile-left .container-information {
+    flex-grow: 0;
+    width: 100%;
+  }
+}

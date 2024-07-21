@@ -1,3 +1,5 @@
+import ProfileStyles from '@/styles/profile.module.css';
+
 export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | 'light'}) => {
   return (
     <h3 className={`${theme === 'dark' ? 'text-white' : 'text-neutral-400'} py-4`}>{text}</h3>
@@ -15,9 +17,9 @@ export const Information = (
 ) => {
   if (!oneToMany) {
     return (
-      <div className="flex flex-col gap-4 sm:gap-1 mb-5">
+      <div className="flex flex-col gap-1 mb-5">
         {Array.from({length: keys.length}).map((_, index) => (
-          <p key={`${index}:key:span`} className="grid grid-cols-1 sm:grid-cols-2">
+          <p key={`${index}:key:span`} className={`grid grid-cols-2 ${ProfileStyles['information-grid']}`}>
             <span className={`font-bold`}>{keys[index]}</span>
             <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
           </p>

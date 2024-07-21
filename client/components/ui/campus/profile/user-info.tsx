@@ -5,6 +5,7 @@ import { BiMessageDetail } from "react-icons/bi";
 import { getGender } from "@/lib/utils";
 import { format } from 'date-fns'
 import { es } from "date-fns/locale/es"
+import ProfileStyles from '@/styles/profile.module.css';
 
 interface IProps {
   theme: 'dark' | 'light';
@@ -16,54 +17,56 @@ export const Left = (
   { user, rolName, theme }: IProps
 ) => {
   return (
-    <article className="min-w-[216px] max-w-[220px] md:min-w-[275px] md:max-w-[300px] flex flex-col md:px-4 lg:px-8">
+    <article className={`min-w-[216px] max-w-[220px] lg:min-w-[275px] lg:max-w-[300px] flex flex-col lg:px-8 ${ProfileStyles['profile-left']}`}>
       <div className="avatar">
-        <div className="w-full rounded-lg">
+        <div className="w-full object-cover rounded-lg" id={ProfileStyles['user-logo']}>
           <img src={user?.image!} alt={user?.name!} />
         </div>
       </div>
 
-      <InformationTitle text="Información del tutor" theme={theme} />
-      <Information
-        keys={['Nombre', 'Teléfono', 'DNI']}
-        toRight
-        labels={[
-          user?.tutor_name || '-',
-          user?.tutor_phone || '-',
-          user?.tutor_dni?.toString() || '-'
-        ]}
-      />
+      <div className={`${ProfileStyles['container-information']}`}>
+        <InformationTitle text="Información del tutor" theme={theme} />
+        <Information
+          keys={['Nombre', 'Teléfono', 'DNI']}
+          toRight
+          labels={[
+            user?.tutor_name || '-',
+            user?.tutor_phone || '-',
+            user?.tutor_dni?.toString() || '-'
+          ]}
+        />
 
-      {
-        user?.courses.length && (
-          <>
-            <InformationTitle text={`Información del ${rolName.toLowerCase()}`} theme={theme} />
-            {
-              user?.courses.length === 1 ? (
-                <Information
-                  keys={['Curso', 'División', 'Ciclo']}
-                  toRight
-                  labels={[
-                    user.courses[0].course.course.toString() + 'º',
-                    user.courses[0].course.division.toString() + 'º',
-                    user.courses[0].course.cycle
-                  ]}
-                />
-              ) : (
-                <Information
-                  keys={['Curso', 'División', 'Ciclo']}
-                  oneToMany
-                  labels={[
-                    user?.courses.map(({ course }) => course.course.toString()),
-                    user?.courses.map(({ course }) => course.division.toString()),
-                    user?.courses.map(({ course }) => course.cycle),
-                  ]}
-                />
-              )
-            }
-          </>
-        )
-      }
+        {
+          user?.courses.length && (
+            <>
+              <InformationTitle text={`Información del ${rolName.toLowerCase()}`} theme={theme} />
+              {
+                user?.courses.length === 1 ? (
+                  <Information
+                    keys={['Curso', 'División', 'Ciclo']}
+                    toRight
+                    labels={[
+                      user.courses[0].course.course.toString() + 'º',
+                      user.courses[0].course.division.toString() + 'º',
+                      user.courses[0].course.cycle
+                    ]}
+                  />
+                ) : (
+                  <Information
+                    keys={['Curso', 'División', 'Ciclo']}
+                    oneToMany
+                    labels={[
+                      user?.courses.map(({ course }) => course.course.toString()),
+                      user?.courses.map(({ course }) => course.division.toString()),
+                      user?.courses.map(({ course }) => course.cycle),
+                    ]}
+                  />
+                )
+              }
+            </>
+          )
+        }
+      </div>
 
     </article>
   )
