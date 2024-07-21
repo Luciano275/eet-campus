@@ -47,7 +47,6 @@ export type UserInfo = ({
   email: string;
   emailVerified: Date | null;
   image: string | null;
-  age: number;
   rol: $Enums.Role;
   dni: string;
   turn: $Enums.Turn;
@@ -57,5 +56,5 @@ export type UserInfo = ({
   address: string | null;
   phone: string;
   gender: $Enums.Gender;
-  birthday: Date;
+  birthday: Date | null;
 } | null)

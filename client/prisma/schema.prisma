@@ -71,7 +71,6 @@ model User {
   email         String   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  age           Int
   rol           Role
   dni           String
   turn          Turn
@@ -81,7 +80,7 @@ model User {
   address       String?
   phone         String
   gender        Gender
-  birthday      DateTime
+  birthday      DateTime?
 
   courses  UserCourse[]
   accounts Account[]

@@ -25,18 +25,10 @@ const Information = (
 ) => {
   if (!oneToMany) {
     return (
-      // <div className="grid grid-cols-1 md:grid-cols-2">
-      //   <span className="flex flex-col gap-2">
-      //     {keys.map((key, index) => <p key={`${index}:${key}`}>{key}</p>)}
-      //   </div>
-      //   <div className={`flex flex-col gap-2 ${toRight && 'items-end'}`}>
-      //     {labels.map((label, index) => <p key={`${index}:${label}`}>{label}</p>)}
-      //   </p>
-      // </div>
       <div className="flex flex-col gap-4 sm:gap-1 mb-5">
         {Array.from({length: keys.length}).map((_, index) => (
           <p key={`${index}:key:span`} className="grid grid-cols-1 sm:grid-cols-2">
-            <span className={`font-bold sm:font-normal`}>{keys[index]}</span>
+            <span className={`font-bold`}>{keys[index]}</span>
             <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
           </p>
         ))}
@@ -79,6 +71,11 @@ export default function UserCards(
   const rolName = getRol(rol)
   const genderName = getGender(user?.gender === 'MALE' ? 0 : user?.gender === 'FEMALE' ? 1 : 2);
 
+  const difMilliseconds = user?.birthday ? new Date().getTime() - user?.birthday?.getTime() : null;
+  const millisecondsToYear = 1000 * 60 * 60 * 24 * 365.25;
+
+  const edad = difMilliseconds ? Math.floor(difMilliseconds / millisecondsToYear).toString() : '-';
+
   return (
     <>
       <article className="min-w-[216px] max-w-[220px] md:min-w-[275px] md:max-w-[300px] flex flex-col md:px-4 lg:px-8">
@@ -91,10 +88,11 @@ export default function UserCards(
         <InformationTitle text="Información del tutor" theme={theme} />
         <Information
           keys={['Nombre', 'Teléfono', 'DNI']}
+          toRight
           labels={[
             user?.tutor_name || '-',
             user?.tutor_phone || '-',
-            user?.tutor_name || '-'
+            user?.tutor_dni?.toString() || '-'
           ]}
         />
 
@@ -155,9 +153,9 @@ export default function UserCards(
               keys={['Nacimiento', 'Género', 'Edad']}
               labels={[
                 //@ts-ignore
-                format(user?.birthday, "d 'de' MMMM 'del' yyyy", {locale: es}),
+                user?.birthday ? format(user?.birthday, "d 'de' MMMM 'del' yyyy", {locale: es}) : '-',
                 genderName,
-                user?.age.toString() || '-'
+                edad
               ]}
             />
 
