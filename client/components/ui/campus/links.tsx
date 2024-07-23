@@ -1,10 +1,10 @@
 'use client'
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { generateLinks } from "@/lib/utils";
 import { useToggleMenuContext } from "@/components/providers/toggle-menu-provider";
+import LinkLoading from "@/components/Link-loading";
 
 export default function CampusLinks(
   {rol}
@@ -16,12 +16,16 @@ export default function CampusLinks(
     const pathname = usePathname();
     const [active, setActive] = useState(-1);
 
-    const { setOpen } = useToggleMenuContext()
+    const { setOpen } = useToggleMenuContext();
 
     const LINKS = generateLinks(rol)
 
     const changeActiveElement = (value: number) => {
         setActive(value);
+    }
+
+    const handleClickLink = () => {
+      setOpen(false);
     }
 
     return (
@@ -34,7 +38,7 @@ export default function CampusLinks(
       >
         <ul className="flex flex-col gap-2">
           {LINKS?.map(({ href, icon: LinkIcon, label }, index) => (
-            <Link
+            <LinkLoading
               href={href}
               key={`${index}:${label}`}
               className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
@@ -44,11 +48,11 @@ export default function CampusLinks(
               }`}
               onMouseEnter={() => changeActiveElement(index)}
               onMouseLeave={() => changeActiveElement(-1)}
-              onClick={() => setOpen(false)}
+              onClick={handleClickLink}
             >
               <LinkIcon size={25} />
               {label}
-            </Link>
+            </LinkLoading>
           ))}
         </ul>
       </div>

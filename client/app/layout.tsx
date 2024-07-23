@@ -5,6 +5,7 @@ import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
 import MainLayout from "@/components/ui/layouts/main-layout";
 import { SessionProvider } from "next-auth/react";
+import LoadingProvider from "@/components/providers/loading-provider";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
@@ -22,16 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ChangeThemeProvider>
-      <ChangeThemeHTML>
-        <SessionProvider>
-          <body className={roboto.className}>
-            <MainLayout>
-              {children}
-            </MainLayout>
-          </body>
-        </SessionProvider>
-      </ChangeThemeHTML>
-    </ChangeThemeProvider>
+    <LoadingProvider>
+      <ChangeThemeProvider>
+        <ChangeThemeHTML>
+          <SessionProvider>
+            <body className={roboto.className}>
+              <MainLayout>
+                {children}
+              </MainLayout>
+            </body>
+          </SessionProvider>
+        </ChangeThemeHTML>
+      </ChangeThemeProvider>
+    </LoadingProvider>
   );
 }

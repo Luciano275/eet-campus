@@ -1,7 +1,7 @@
 import { LinkType } from "@/types";
 import { DropdownLink, NormalLink } from "./links";
 import { Fragment } from "react";
-import Link from "next/link";
+import LinkLoading from "@/components/Link-loading";
 
 export default function GenerateLinks(
     {LINKS, pathname, mobile, condition}
@@ -39,21 +39,21 @@ export default function GenerateLinks(
             return (
               link.type === "right" &&
               (mobile ? (
-                <Link
+                <LinkLoading
                   href={link.href}
                   key={`${index}:${link.href}`}
                   className={`btn ${link.bg} btn-outline text-white py-2 text-lg px-4 rounded-xl`}
                 >
                   {link.label}
-                </Link>
+                </LinkLoading>
               ) : (
-                <Link
+                <LinkLoading
                   href={link.href}
                   key={`${index}:${link.href}`}
                   className={`hidden md:inline-flex btn ${link.bg} text-white`}
                 >
                   {link.label}
-                </Link>
+                </LinkLoading>
               ))
             );
         })

@@ -1,11 +1,15 @@
 'use client';
 
+import { useLoading } from "@/components/providers/loading-provider";
 import { signOutAction } from "@/lib/authActions";
 import { BiLogOut } from "react-icons/bi";
 
 export default function LogoutButton () {
 
+    const { setLoading } = useLoading();
+
     const onClick = async () => {
+        setLoading(false);
         await signOutAction();
         window.location.href = '/'
     }

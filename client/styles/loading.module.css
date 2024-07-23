@@ -1,0 +1,13 @@
+#loading-anim {
+  animation: leftToRight 1s linear infinite;
+  left: -100%;
+}
+
+@keyframes leftToRight {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
