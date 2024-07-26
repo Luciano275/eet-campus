@@ -1,5 +1,6 @@
 'use client';
 
+import Main from "@/components/ui/public/Main";
 import { AuthError } from "next-auth";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -24,8 +25,8 @@ export default function AuthErrorPage() {
     }, [error, message])
 
     return (
-        <main className="min-h-screen flex justify-center items-center">
+        <Main className="flex justify-center items-center">
             <h1 className="px-4 text-2xl">🙁 {message}</h1>
-        </main>
+        </Main>
     )
 }

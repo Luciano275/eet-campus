@@ -1,4 +1,5 @@
 import { DisableLoading } from "@/components/handle-loading";
+import Footer from "./Footer";
 
 export default function Section(
     {className, children}
@@ -11,6 +12,7 @@ export default function Section(
         <section className={`min-h-screen overflow-x-hidden overflow-y-auto grow p-4 animate-fade-in ${className && className}`}>
             <DisableLoading />
             {children}
+            <Footer />
         </section>
     )
 }
