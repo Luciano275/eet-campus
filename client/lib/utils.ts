@@ -1,8 +1,12 @@
-import { CampusLinkType } from "@/types"
+import { CampusLinkType, GenderOptions } from "@/types"
 import { CgProfile } from "react-icons/cg";
-import { FaHome, FaUsers } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
+import { GoIssueOpened } from "react-icons/go";
 import { IoIosSettings } from "react-icons/io";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { PiStudent } from "react-icons/pi";
 import { SiGoogleclassroom } from "react-icons/si";
 
 const BASE_PATH = '/campus'
@@ -19,14 +23,27 @@ export const GENDER = [
   'Otro'
 ]
 
+export const GENDER_OPTIONS: GenderOptions = [
+  { value: 'MALE', label: 'Masculino' },
+  { value: 'FEMALE', label: 'Femenino' },
+  { value: 'OTHER', label: 'Otro' },
+]
+
 const ALL_LINKS: CampusLinkType = [
+  
+  //STUDENT-TEACHER
   { href: `${BASE_PATH}`, label: 'Inicio', icon: FaHome, type: 3 },
   { href: `${BASE_PATH}/profile`, label: 'Perfil', icon: CgProfile, type: 3 },
   { href: `${BASE_PATH}/classrooms`, label: 'Aulas', icon: SiGoogleclassroom, type: 3 },
 
+  //ADMIN
   { href: `${BASE_PATH}/courses`, label: 'Cursos', icon: FaGraduationCap, type: 1 },
-  { href: `${BASE_PATH}/users`, label: 'Usuarios', icon: FaUsers, type: 1 },
+  { href: `${BASE_PATH}/admins`, label: 'Administradores', icon: MdAdminPanelSettings, type: 1 },
+  { href: `${BASE_PATH}/teachers`, label: 'Profesores', icon: LiaChalkboardTeacherSolid, type: 1 },
+  { href: `${BASE_PATH}/students`, label: 'Estudiantes', icon: PiStudent, type: 1 },
+  { href: `${BASE_PATH}/issues`, label: 'Reportes', icon: GoIssueOpened, type: 1 },
 
+  //STUDENT-TEACHER
   { href: `${BASE_PATH}/settings`, label: 'Ajustes', icon: IoIosSettings, type: 3 },
 ]
 
