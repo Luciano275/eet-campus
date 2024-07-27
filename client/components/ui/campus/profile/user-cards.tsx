@@ -4,12 +4,14 @@ import { useChangeThemeContext } from "@/components/providers/change-theme-provi
 import { getRol } from "@/lib/utils"
 import { UserInfo } from "@/types"
 import { Left, Right } from "./user-info"
+import { Session } from "next-auth"
 
 export default function UserCards(
-  {user, rol}
+  {user, rol, userSession}
   : {
     user: UserInfo
     rol: number;
+    userSession: Session['user']
   }
 ) {
 
@@ -30,6 +32,7 @@ export default function UserCards(
         rolName={rolName}
         user={user}
         theme={theme}
+        userSession={userSession}
       />
       
     </>
