@@ -55,6 +55,7 @@ export const {
             if (token && session.user) {
                 //@ts-ignore
                 session.user.rol = token.rol_id;
+                session.user.id = token.sub!;
             }
 
             return session;
