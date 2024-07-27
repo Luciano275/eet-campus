@@ -48,8 +48,8 @@ export type UserInfo = ({
   emailVerified: Date | null;
   image: string | null;
   rol: $Enums.Role;
-  dni: string;
-  turn: $Enums.Turn;
+  dni: string | null;
+  turn: $Enums.Turn | null;
   tutor_name: string | null;
   tutor_dni: bigint | null;
   tutor_phone: string | null;
@@ -58,3 +58,8 @@ export type UserInfo = ({
   gender: $Enums.Gender;
   birthday: Date | null;
 } | null)
+
+export type GenderOptions = {
+  value: $Enums.Gender;
+  label: string;
+}[]
