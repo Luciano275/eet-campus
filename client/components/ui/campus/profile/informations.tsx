@@ -1,4 +1,6 @@
 import ProfileStyles from '@/styles/profile.module.css';
+import EditInput from './edit-input';
+import { GenderOptions } from '@/types';
 
 export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | 'light'}) => {
   return (
@@ -7,12 +9,15 @@ export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | '
 }
 
 export const Information = (
-  {keys, labels, oneToMany, toRight}
+  {keys, labels, oneToMany, toRight, edit, only, options}
   : {
     keys: string[];
     labels: string[] | string[][];
     oneToMany?: boolean;
     toRight?: boolean;
+    edit?: boolean;
+    only?: string[];
+    options?: GenderOptions
   }
 ) => {
   if (!oneToMany) {
@@ -21,7 +26,18 @@ export const Information = (
         {Array.from({length: keys.length}).map((_, index) => (
           <p key={`${index}:key:span`} className={`grid grid-cols-2 ${ProfileStyles['information-grid']}`}>
             <span className={`font-bold`}>{keys[index]}</span>
-            <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
+            {
+              !edit || ( only && !only.includes(keys[index]) ) ? (
+                <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
+              ) : (
+                <EditInput
+                  index={index}
+                  labels={labels}
+                  toRight={toRight}
+                  options={options}
+                />
+              )
+            }
           </p>
         ))}
       </div>

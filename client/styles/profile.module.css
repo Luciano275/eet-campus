@@ -1,4 +1,4 @@
-@media ((width <= 1024px) and (width > 880px)) or (width <= 660px) {
+@media ((width <= 1024px) and (width > 880px)) or (width <= 731px) {
   .profile-left {
     width: 100% !important;
     max-width: 100%;
