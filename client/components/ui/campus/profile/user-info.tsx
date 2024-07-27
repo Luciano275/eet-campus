@@ -35,11 +35,12 @@ export const Left = ({ user, rolName, theme }: IProps) => {
           keys={["Nombre", "Teléfono", "DNI"]}
           toRight
           labels={[
-            user?.tutor_name || "-",
-            user?.tutor_phone || "-",
-            user?.tutor_dni?.toString() || "-",
+            user?.tutor_name || "",
+            user?.tutor_phone || "",
+            user?.tutor_dni?.toString() || "",
           ]}
           edit={editMode}
+          names={['tutor_name', 'tutor_phone', 'tutor_dni']}
         />
 
         {user?.courses && user?.courses.length > 0 && (

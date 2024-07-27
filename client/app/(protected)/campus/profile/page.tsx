@@ -4,6 +4,7 @@ import Section from "@/components/ui/campus/Section";
 import { getUserByEmail } from "@/lib/user";
 import UserCards from "@/components/ui/campus/profile/user-cards";
 import ProfileStyles from "@/styles/profile.module.css";
+import { EditFormProvider } from "@/components/providers/edit-form-provider";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -11,17 +12,19 @@ export default async function ProfilePage() {
   const user = await getUserByEmail(session?.user.email!);
 
   return (
-    <Section>
-      <CampusHeader title="Tu perfil" />
-      <div
-        className={`flex pt-5 md:pt-10 pb-4 md:px-10 gap-x-10 gap-y-5 flex-wrap ${ProfileStyles["profile-container"]}`}
-      >
-        <UserCards
-          userSession={session?.user!}
-          user={user}
-          rol={session?.user.rol! - 1}
-        />
-      </div>
-    </Section>
+    <EditFormProvider>
+      <Section>
+        <CampusHeader title="Tu perfil" />
+        <div
+          className={`flex pt-5 md:pt-10 pb-4 md:px-10 gap-x-10 gap-y-5 flex-wrap ${ProfileStyles["profile-container"]}`}
+        >
+          <UserCards
+            userSession={session?.user!}
+            user={user}
+            rol={session?.user.rol! - 1}
+          />
+        </div>
+      </Section>
+    </EditFormProvider>
   );
 }

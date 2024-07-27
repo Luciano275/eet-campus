@@ -39,9 +39,7 @@ export type CourseType = {
   };
 }
 
-export type UserInfo = ({
-  courses: CourseType[]
-} & {
+export type UserInfo = {
   id: string;
   name: string;
   email: string;
@@ -57,9 +55,19 @@ export type UserInfo = ({
   phone: string;
   gender: $Enums.Gender;
   birthday: Date | null;
-} | null)
+  courses: CourseType[]
+} | null
 
 export type GenderOptions = {
   value: $Enums.Gender;
   label: string;
 }[]
+
+export interface IEditFormProvider{
+  gender: $Enums.Gender;
+  phone: string;
+  address: string | null;
+  tutor_name: string | null;
+  tutor_dni: bigint | null;
+  tutor_phone: string | null;
+}

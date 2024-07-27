@@ -1,6 +1,6 @@
 import ProfileStyles from '@/styles/profile.module.css';
 import EditInput from './edit-input';
-import { GenderOptions } from '@/types';
+import { GenderOptions, IEditFormProvider } from '@/types';
 
 export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | 'light'}) => {
   return (
@@ -9,10 +9,11 @@ export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | '
 }
 
 export const Information = (
-  {keys, labels, oneToMany, toRight, edit, only, options}
+  {keys, labels, oneToMany, toRight, edit, only, options, names}
   : {
     keys: string[];
     labels: string[] | string[][];
+    names?: string[];
     oneToMany?: boolean;
     toRight?: boolean;
     edit?: boolean;
@@ -31,6 +32,7 @@ export const Information = (
                 <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
               ) : (
                 <EditInput
+                  inputNames={names!}
                   index={index}
                   labels={labels}
                   toRight={toRight}

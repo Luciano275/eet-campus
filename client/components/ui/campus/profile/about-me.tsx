@@ -25,7 +25,7 @@ export default function AboutMe(
 
   const edad = difMilliseconds
     ? Math.floor(difMilliseconds / millisecondsToYear).toString()
-    : "-";
+    : "";
 
   return (
     <div>
@@ -43,21 +43,23 @@ export default function AboutMe(
                 ? format(user?.birthday, "d 'de' MMMM 'del' yyyy", {
                     locale: es,
                   })
-                : "-",
+                : "",
               genderName,
               edad,
             ]}
             edit={editMode}
             only={['Género']}
+            names={['birthday', 'gender', 'age']}
             options={GENDER_OPTIONS}
           />
 
           <InformationTitle text="Información de contacto" theme={theme} />
           <Information
             keys={["Email", "Teléfono", "Dirección"]}
-            labels={[user?.email!, user?.phone!, user?.address || "-"]}
+            labels={[user?.email!, user?.phone!, user?.address || ""]}
             edit={editMode}
-            only={['Teléfono']}
+            only={['Teléfono', 'Dirección']}
+            names={['email', 'phone', 'address']}
           />
         </article>
       </div>
