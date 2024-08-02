@@ -1,10 +1,12 @@
 'use client';
 
-import { IEditFormProvider } from '@/types';
+import { EditUserActionType, IEditFormProvider } from '@/types';
 import { useContext, useState, createContext } from 'react';
 
 interface IContext extends IEditFormProvider {
   setEditForm: (key: keyof IEditFormProvider, value: IEditFormProvider[keyof IEditFormProvider]) => void;
+  action: EditUserActionType
+  setAction: (action: EditUserActionType) => void;
 }
 
 export const defaultValues: IContext = {
@@ -14,7 +16,13 @@ export const defaultValues: IContext = {
   tutor_name: null,
   tutor_dni: null,
   tutor_phone: null,
-  setEditForm: (key: keyof IEditFormProvider, value: IEditFormProvider[keyof IEditFormProvider]) => {}
+  action: {
+    message: null,
+    errors: {},
+    success: null
+  },
+  setEditForm: (key: keyof IEditFormProvider, value: IEditFormProvider[keyof IEditFormProvider]) => {},
+  setAction: (action: EditUserActionType) => {}
 }
 
 const EditFormContext = createContext<IContext>(defaultValues)
@@ -28,6 +36,8 @@ export const EditFormProvider = ({ children }: { children: React.ReactNode }) =>
   const [tutor_name, setTutorName] = useState<IContext['tutor_name']>(defaultValues.tutor_name);
   const [tutor_dni, setTutorDni] = useState<IContext['tutor_dni']>(defaultValues.tutor_dni);
   const [tutor_phone, setTutorPhone] = useState<IContext['tutor_phone']>(defaultValues.tutor_phone);
+
+  const [action, setAction] = useState<IContext['action']>(defaultValues.action);
 
   const changeValues = (key: keyof IEditFormProvider, value: IEditFormProvider[keyof IEditFormProvider]) => {
     switch (key) {
@@ -61,8 +71,12 @@ export const EditFormProvider = ({ children }: { children: React.ReactNode }) =>
       tutor_name,
       tutor_dni,
       tutor_phone,
+      action,
       setEditForm: (key, value) => {
         changeValues(key, value);
+      },
+      setAction: (action) => {
+        setAction(action);
       }
     }}>
       {children}

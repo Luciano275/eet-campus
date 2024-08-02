@@ -71,3 +71,19 @@ export interface IEditFormProvider{
   tutor_dni: bigint | null;
   tutor_phone: string | null;
 }
+
+export type EditUserActionError = {
+  address?: string[];
+  gender?: string[];
+  phone?: string[];
+  tutor_name?: string[];
+  tutor_dni?: string[];
+  tutor_phone?: string[];
+  id?: string[];
+}
+
+export type EditUserActionType = {
+  errors?: EditUserActionError;
+  message: string | null;
+  success: boolean | null;
+}

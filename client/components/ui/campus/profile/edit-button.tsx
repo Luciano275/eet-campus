@@ -1,5 +1,7 @@
+import { useAlert } from "@/components/providers/alert-provider";
 import { useEditFormProvider } from "@/components/providers/edit-form-provider";
 import { useEditMode } from "@/components/providers/edit-mode-provider";
+import { editUserAction } from "@/lib/edit";
 import { UserInfo } from "@/types"
 import { Session } from "next-auth";
 import { useEffect } from "react";
@@ -15,19 +17,37 @@ export default function EditButton(
 ) {
 
   const { editMode, setEditMode } = useEditMode();
-  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, setEditForm } = useEditFormProvider();
+  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, setEditForm, setAction } = useEditFormProvider();
+
+  const { setAlert } = useAlert();
 
   const className = "flex gap-1 items-center text-blue-4000 hover:text-blue-600 hover:underline cursor-pointer";
   
-  const handleSave = () => {
-    console.log(
-      address,
-      gender,
-      phone,
-      tutor_name,
-      tutor_dni,
-      tutor_phone
-    );
+  const handleSave = async () => {
+    try {
+
+      setAlert(null, null, true);
+
+      const { errors, message, success } = await editUserAction({
+        address,
+        gender,
+        phone,
+        tutor_name,
+        tutor_dni,
+        tutor_phone,
+        id: userSession.id!
+      });
+  
+      setAlert(message, success, true);
+      setAction({
+        message,
+        success,
+        errors
+      })
+
+    }catch (e) {
+      setAlert('Error al editar el usuario', false, true);
+    }
   }
 
   const handleToggle = () => {
