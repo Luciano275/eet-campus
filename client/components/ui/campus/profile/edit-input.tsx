@@ -1,15 +1,16 @@
 import { useEditFormProvider } from "@/components/providers/edit-form-provider";
 import { EditUserActionError, GenderOptions, IEditFormProvider } from "@/types";
 import ErrorInput from "./error-input";
+import { GENDER_OPTIONS } from "@/lib/utils";
+import { format } from "date-fns";
 
 export default function EditInput (
-  {labels, index, toRight, options, inputNames}
+  {labels, index, toRight, inputNames}
   : {
     labels: string[] | string[][];
     index: number;
     inputNames: string[];
     toRight?: boolean;
-    options?: GenderOptions
   }
 ) {
 
@@ -19,16 +20,29 @@ export default function EditInput (
     setEditForm(key, value === '' ? null : value);
   }
 
-  if (!options){
+  if (inputNames[index] !== 'gender'){
     return (
       <div className="overflow-hidden flex flex-col">
-        <input
-          type="text"
-          defaultValue={labels[index]}
-          className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${toRight && 'text-end'}`}
-          onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
-          aria-describedby={`${inputNames[index]}-error`}
-        />
+        {
+          inputNames[index] !== 'birthday'
+          ? (
+            <input
+              type="text"
+              defaultValue={labels[index]}
+              className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${toRight && 'text-end'}`}
+              onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
+              aria-describedby={`${inputNames[index]}-error`}
+            />
+          ) : (
+            <input
+              type="date"
+              defaultValue={format(new Date(labels[index] as string), "yyyy'-'MM'-'dd")}
+              className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${toRight && 'text-end'}`}
+              onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
+              aria-describedby={`${inputNames[index]}-error`}
+            />
+          )
+        }
         <ErrorInput
           state={action}
           id={`${inputNames[index]}-error`}
@@ -42,10 +56,10 @@ export default function EditInput (
     <div className="overflow-hidden flex flex-col">
       <select
         onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
-        className="p-1 bg-base-300 rounded outline-none border border-base-3000 focus:border-blue-500"
+        className="p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500"
         aria-describedby={`${inputNames[index]}-error`}
       >
-        {options.map((option) => (
+        {GENDER_OPTIONS.map((option) => (
           option.label === labels[index] ? (
             <option key={`option:${option.value}`} value={option.value} defaultChecked>{option.label}</option>
           ) : (

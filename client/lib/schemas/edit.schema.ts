@@ -19,11 +19,14 @@ export const UserEditSchema = z.object({
   tutor_name: z.string({
     invalid_type_error: 'Nombre del tutor inválido'
   }).nullable(),
-  tutor_dni: z.coerce.bigint({
+  tutor_dni: z.string({
     invalid_type_error: 'DNI del tutor inválido',
-  }).nullable(),
+  }).min(7, 'DNI Inválido').max(8, 'DNI Inválido').nullable(),
   tutor_phone: z.string().refine(isMobilePhone, 'Teléfono del tutor inválido').nullable(),
   id: z.string({
     required_error: 'ID requerido'
   }).uuid('ID inválido'),
+  birthday: z.coerce.date({
+    invalid_type_error: 'Fecha inválida'
+  }).nullable()
 })

@@ -17,7 +17,7 @@ export default function EditButton(
 ) {
 
   const { editMode, setEditMode } = useEditMode();
-  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, setEditForm, setAction } = useEditFormProvider();
+  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, birthday, setEditForm, setAction } = useEditFormProvider();
 
   const { setAlert } = useAlert();
 
@@ -35,7 +35,8 @@ export default function EditButton(
         tutor_name,
         tutor_dni,
         tutor_phone,
-        id: userSession.id!
+        id: userSession.id!,
+        birthday
       });
   
       setAlert(message, success, true);
@@ -62,6 +63,7 @@ export default function EditButton(
       setEditForm('tutor_name', user.tutor_name);
       setEditForm('tutor_dni', user.tutor_dni);
       setEditForm('tutor_phone', user.tutor_phone);
+      setEditForm('birthday', user.birthday)
     }
   }, [editMode])
 

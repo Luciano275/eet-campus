@@ -70,6 +70,7 @@ export interface IEditFormProvider{
   tutor_name: string | null;
   tutor_dni: bigint | null;
   tutor_phone: string | null;
+  birthday: Date | null;
 }
 
 export type EditUserActionError = {

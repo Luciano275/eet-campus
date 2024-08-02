@@ -1,6 +1,5 @@
 import ProfileStyles from '@/styles/profile.module.css';
 import EditInput from './edit-input';
-import { GenderOptions, IEditFormProvider } from '@/types';
 
 export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | 'light'}) => {
   return (
@@ -9,7 +8,7 @@ export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | '
 }
 
 export const Information = (
-  {keys, labels, oneToMany, toRight, edit, only, options, names}
+  {keys, labels, oneToMany, toRight, edit, only, names}
   : {
     keys: string[];
     labels: string[] | string[][];
@@ -18,7 +17,6 @@ export const Information = (
     toRight?: boolean;
     edit?: boolean;
     only?: string[];
-    options?: GenderOptions
   }
 ) => {
   if (!oneToMany) {
@@ -36,7 +34,6 @@ export const Information = (
                   index={index}
                   labels={labels}
                   toRight={toRight}
-                  options={options}
                 />
               )
             }

@@ -38,19 +38,20 @@ export default function AboutMe(
           <Information
             keys={["Nacimiento", "Género", "Edad"]}
             labels={[
-              user?.birthday
+              editMode ? user?.birthday?.toString() || '' : (
+                user?.birthday
                 //@ts-ignore
                 ? format(user?.birthday, "d 'de' MMMM 'del' yyyy", {
                     locale: es,
                   })
-                : "",
+                : ""
+              ),
               genderName,
               edad,
             ]}
             edit={editMode}
-            only={['Género']}
+            only={['Nacimiento', 'Género']}
             names={['birthday', 'gender', 'age']}
-            options={GENDER_OPTIONS}
           />
 
           <InformationTitle text="Información de contacto" theme={theme} />
