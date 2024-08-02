@@ -9,9 +9,11 @@ export default function Section(
     }
 ) {
     return (
-        <section className={`min-h-screen overflow-x-hidden overflow-y-auto grow p-4 animate-fade-in ${className && className}`}>
+        <section className={`min-h-screen overflow-x-hidden overflow-y-auto grow p-4 animate-fade-in flex flex-col ${className && className}`}>
             <DisableLoading />
-            {children}
+            <div className="grow">
+                {children}
+            </div>
             <Footer />
         </section>
     )
