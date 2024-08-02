@@ -1,5 +1,6 @@
 import { useEditFormProvider } from "@/components/providers/edit-form-provider";
-import { GenderOptions, IEditFormProvider } from "@/types";
+import { EditUserActionError, GenderOptions, IEditFormProvider } from "@/types";
+import ErrorInput from "./error-input";
 
 export default function EditInput (
   {labels, index, toRight, options, inputNames}
@@ -12,35 +13,52 @@ export default function EditInput (
   }
 ) {
 
-  const { setEditForm } = useEditFormProvider();
+  const { setEditForm, action } = useEditFormProvider();
 
   const handleChange = (key: keyof IEditFormProvider, value: IEditFormProvider[keyof IEditFormProvider]) => {
-    setEditForm(key, value);
+    setEditForm(key, value === '' ? null : value);
   }
 
   if (!options){
     return (
-      <input
-        type="text"
-        defaultValue={labels[index]}
-        className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${toRight && 'text-end'}`}
-        onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
-      />
+      <div className="overflow-hidden flex flex-col">
+        <input
+          type="text"
+          defaultValue={labels[index]}
+          className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${toRight && 'text-end'}`}
+          onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
+          aria-describedby={`${inputNames[index]}-error`}
+        />
+        <ErrorInput
+          state={action}
+          id={`${inputNames[index]}-error`}
+          field={inputNames[index] as keyof EditUserActionError}
+        />
+      </div>
     )
   }
 
   return (
-    <select
-      onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
-      className="p-1 bg-base-300 rounded outline-none border border-base-3000 focus:border-blue-500"
-    >
-      {options.map((option) => (
-        option.label === labels[index] ? (
-          <option value={option.value} defaultChecked>{option.label}</option>
-        ) : (
-          <option value={option.value}>{option.label}</option>
-        )
-      ))}
-    </select>
+    <div className="overflow-hidden flex flex-col">
+      <select
+        onChange={(e) => handleChange(inputNames[index] as keyof IEditFormProvider, e.target.value)}
+        className="p-1 bg-base-300 rounded outline-none border border-base-3000 focus:border-blue-500"
+        aria-describedby={`${inputNames[index]}-error`}
+      >
+        {options.map((option) => (
+          option.label === labels[index] ? (
+            <option key={`option:${option.value}`} value={option.value} defaultChecked>{option.label}</option>
+          ) : (
+            <option key={`option:${option.value}`} value={option.value}>{option.label}</option>
+          )
+        ))}
+      </select>
+
+      <ErrorInput
+        state={action}
+        id={`${inputNames[index]}-error`}
+        field={inputNames[index] as keyof EditUserActionError}
+      />
+    </div>
   )
 }
