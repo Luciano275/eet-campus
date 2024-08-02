@@ -3,13 +3,14 @@
 import Link, { LinkProps } from "next/link";
 import { useLoading } from "./providers/loading-provider";
 import { usePathname } from "next/navigation";
+import { AnchorHTMLAttributes } from "react";
 
 export default function LinkLoading(
   props
   : LinkProps & {
     children: React.ReactNode
     className?: string;
-  } | any
+  } & AnchorHTMLAttributes<HTMLAnchorElement>
 ) {
 
   const { children, onClick, href } = props;
