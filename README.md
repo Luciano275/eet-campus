@@ -4,8 +4,6 @@
 
 <h1 align="center">🏫 Campus Virtual</h1>
 
-<img src="https://github.com/CorchoGangOrg/eet-campus/blob/main/screenshot.png" />
-
 **Índice**
 1. [Introducción](#introduccion)
 2. [Integrantes](#integrantes)
