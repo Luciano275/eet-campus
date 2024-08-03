@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { FaArrowCircleDown } from "react-icons/fa";
 import shadowStyles from '@/styles/shadow.module.css'
 import arrowStyles from "@/styles/arrow.module.css"
-import LinkLoading from '@/components/Link-loading';
+import Link from 'next/link';
 
 export default function InitialText() {
     return (
@@ -22,12 +22,12 @@ export default function InitialText() {
             Daniel Óscar Reyes
           </h2>
         </div>
-        <LinkLoading
+        <Link
           href={"/register"}
           className="btn border-info bg-transparent text-info hover:bg-info hover:text-white hover:border-info"
         >
           Empezar ya
-        </LinkLoading>
+        </Link>
         <div className="absolute bottom-0 py-5" id={arrowStyles.arrowDown}>
           <a
             href="#campus"

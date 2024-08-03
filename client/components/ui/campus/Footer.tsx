@@ -1,4 +1,4 @@
-import LinkLoading from "@/components/Link-loading";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -19,18 +19,18 @@ export default function Footer() {
         </p>
       </div>
       <div className="flex gap-x-4 gap-y-2 flex-wrap justify-center items-center text-sm">
-        <LinkLoading
+        <Link
           href={'/termsofuse'}
           className="hover:underline"
         >
           Términos de uso
-        </LinkLoading>
-        <LinkLoading
+        </Link>
+        <Link
           href={'/termsofuse#cookie-warning'}
           className="hover:underline"
         >
           Aviso de cookies
-        </LinkLoading>
+        </Link>
       </div>
     </footer>
   )

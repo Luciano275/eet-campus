@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Header from "../public/Header";
 import Footer from "../Footer";
-import LoadingComponent from "@/components/Loading";
 
 export default function MainLayout({children}: {children: React.ReactNode}) {
 
@@ -14,7 +13,6 @@ export default function MainLayout({children}: {children: React.ReactNode}) {
             children
         ) : (
             <>  
-                <LoadingComponent />
                 <Header />
                 {children}
                 <Footer />

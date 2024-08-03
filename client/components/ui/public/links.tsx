@@ -1,5 +1,5 @@
-import LinkLoading from "@/components/Link-loading";
 import { LinkType } from "@/types";
+import Link from "next/link";
 import { FaArrowCircleDown } from "react-icons/fa";
 
 export const LINKS: LinkType[] = [
@@ -37,14 +37,14 @@ export const NormalLink = (props: LinkType & { pathname: string, mobile?: boolea
   const { href, label, pathname, mobile } = props;
 
   return (
-    <LinkLoading
+    <Link
       href={href}
       className={`${
         pathname === href ? "text-info" : "text-white"
       } hover:text-info ${mobile && 'text-lg'}`}
     >
       {label}
-    </LinkLoading>
+    </Link>
   );
 };
 

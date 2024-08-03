@@ -1,5 +1,3 @@
-import { DisableLoading } from "@/components/handle-loading";
-
 export default function Main(
   {className, children}
   : {
@@ -9,7 +7,6 @@ export default function Main(
 ) {
   return (
     <main className={`min-h-screen relative ${className && className}`}>
-      <DisableLoading />
       {children}
     </main>
   )

@@ -9,7 +9,7 @@ import MenuBarButton from "./menu-button";
 import MobileNav from "./mobile-nav";
 import GenerateLinks from "./generate-links";
 import SignInButton from "../signin-button";
-import LinkLoading from "@/components/Link-loading";
+import Link from "next/link";
 
 export default function Navbar(
     { disableAutoBg }
@@ -47,7 +47,7 @@ export default function Navbar(
                 <div className="flex items-center gap-5">
                     <div className="px-4">
                         <div className="w-10">
-                            <LinkLoading href='/'>
+                            <Link href='/'>
                                 <Image
                                     src={'/logo.jpg'}
                                     alt="Logo"
@@ -56,7 +56,7 @@ export default function Navbar(
                                     priority
                                     className="w-full max-w-full h-auto"
                                 />
-                            </LinkLoading>
+                            </Link>
                         </div>
                     </div>
                     <div className="hidden md:flex gap-4">

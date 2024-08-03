@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { generateLinks } from "@/lib/utils";
 import { useToggleMenuContext } from "@/components/providers/toggle-menu-provider";
-import LinkLoading from "@/components/Link-loading";
+import Link from "next/link";
 
 export default function CampusLinks(
   {rol}
@@ -38,7 +38,7 @@ export default function CampusLinks(
       >
         <ul className="flex flex-col gap-2">
           {LINKS?.map(({ href, icon: LinkIcon, label }, index) => (
-            <LinkLoading
+            <Link
               href={href}
               key={`${index}:${label}`}
               className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
@@ -52,7 +52,7 @@ export default function CampusLinks(
             >
               <LinkIcon size={25} />
               {label}
-            </LinkLoading>
+            </Link>
           ))}
         </ul>
       </div>

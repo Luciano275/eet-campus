@@ -3,12 +3,9 @@
 import { signInAction } from "@/lib/authActions";
 import { DEFAULT_REDIRECT } from "@/routes";
 import { useSession } from "next-auth/react";
-import LinkLoading from "../Link-loading";
-import { useLoading } from "../providers/loading-provider";
+import Link from "next/link";
 
 export default function SignInButton({ mobile }: { mobile?: boolean }) {
-  const { setLoading } = useLoading();
-
   const session = useSession();
   const buttonClassName = `btn btn-neutral text-white ${
     mobile
@@ -17,14 +14,13 @@ export default function SignInButton({ mobile }: { mobile?: boolean }) {
   }`;
 
   const onLogin = async () => {
-    setLoading(true);
     await signInAction();
   };
 
   return session.status === "authenticated" ? (
-    <LinkLoading href={DEFAULT_REDIRECT} className={buttonClassName}>
+    <Link href={DEFAULT_REDIRECT} className={buttonClassName}>
       Ir al campus
-    </LinkLoading>
+    </Link>
   ) : session.status === "unauthenticated" ? (
     <button onClick={onLogin} className={buttonClassName}>
       Acceder

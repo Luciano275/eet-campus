@@ -6,7 +6,7 @@ import { FaFacebookF } from "react-icons/fa";
 import FooterStyle from "@/styles/footer.module.css";
 import React from "react";
 import { IInfoFooter } from "@/types";
-import LinkLoading from "../Link-loading";
+import Link from "next/link";
 
 const INFO: IInfoFooter = {
   creators: [
@@ -100,18 +100,18 @@ export default function Footer() {
 
       <nav className="flex flex-col gap-1 items-center">
         <h6 className="footer-title">Legal</h6>
-        <LinkLoading
+        <Link
           href="/termsofuse"
           className="link link-hover"
         >
           Términos de uso
-        </LinkLoading>
-        <LinkLoading
+        </Link>
+        <Link
           href="/termsofuse#cookie-warning"
           className="link link-hover"
         >
           Aviso de cookies
-        </LinkLoading>
+        </Link>
       </nav>
 
       <Social />
