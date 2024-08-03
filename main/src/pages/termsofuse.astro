@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { TermsOfUse, CookieAlert } from '../components/terms'
+import { marked } from 'marked'
+
+const { terms } = TermsOfUse
+const { content } = CookieAlert;
+---
+
+<Layout
+  title="Términos de Uso"
+  description="Estos son los Términos de Uso que el usuario se compromete a cumplir en el uso del Campus Virtual."
+>
+  <section class="px-4 md:w-3/4 md:mx-auto pt-24 pb-8 animate-blurred-fade-in">
+    <h1 class="text-3xl font-semibold py-4 border-b mb-4">Términos de Uso del Software</h1>
+
+    <div class="flex flex-col gap-8 mb-8">
+        { terms.map(({ title, content }) => (
+        <article class="flex flex-col gap-1">
+          <h2 class="text-xl font-semibold">{title}</h2>
+          { content.map((item) => <p set:html={marked.parse(item)}></p>) }
+        </article>
+      )) }
+    </div>
+
+    <article class="flex flex-col" id="cookie-warning">
+      <h2 class="text-3xl font-semibold py-4 border-b mb-4">Aviso de Cookies</h2>
+      { <p set:html={marked.parse(content)}></p> }
+    </article>
+  </section>
+</Layout>

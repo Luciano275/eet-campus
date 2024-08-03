@@ -6,7 +6,7 @@ export default function Main(
   }
 ) {
   return (
-    <main className={`min-h-screen relative ${className && className}`}>
+    <main className={`grow ${className && className}`}>
       {children}
     </main>
   )
