@@ -28,14 +28,15 @@ export default function EditButton(
 
       setAlert(null, null, true);
 
-      const { errors, message, success } = await editUserAction({
+      const editUserActionBind = editUserAction.bind(null, userSession.id!)
+
+      const { errors, message, success } = await editUserActionBind({
         address,
         gender,
         phone,
         tutor_name,
         tutor_dni,
         tutor_phone,
-        id: userSession.id!,
         birthday
       });
   

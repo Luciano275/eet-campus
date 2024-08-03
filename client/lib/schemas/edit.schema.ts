@@ -24,9 +24,6 @@ export const UserEditSchema = z.object({
     invalid_type_error: 'DNI del tutor inválido',
   }).refine(value => dniRegex.test(value), 'DNI del tutor inválido').nullable(),
   tutor_phone: z.string().refine(isMobilePhone, 'Teléfono del tutor inválido').nullable(),
-  id: z.string({
-    required_error: 'ID requerido'
-  }).uuid('ID inválido'),
   birthday: z.coerce.date({
     invalid_type_error: 'Fecha inválida'
   }).nullable()

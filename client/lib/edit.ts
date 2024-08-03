@@ -5,9 +5,7 @@ import { UserEditSchema } from "./schemas/edit.schema";
 import { revalidatePath } from "next/cache";
 import { updateUserById } from "./user";
 
-export async function editUserAction(user: IEditFormProvider & {
-  id: string
-}): Promise<EditUserActionType> {
+export async function editUserAction(id:string, user: IEditFormProvider): Promise<EditUserActionType> {
 
   const parsedData = UserEditSchema.safeParse(user);
 
@@ -19,7 +17,7 @@ export async function editUserAction(user: IEditFormProvider & {
     }
   }
 
-  const { id, ...rest } = parsedData.data;
+  const { ...rest } = parsedData.data;
 
   const dni = rest.tutor_dni ? BigInt(rest.tutor_dni) : null;
 
