@@ -19,7 +19,7 @@ export default async function ProfilePage() {
     <EditFormProvider>
       <CampusHeader title="Tu perfil" />
       <div
-        className={`flex pt-5 md:pt-10 pb-4 md:px-10 gap-x-10 gap-y-5 flex-wrap ${ProfileStyles["profile-container"]}`}
+        className={`flex pt-5 md:pt-10 pb-4 md:px-10 gap-x-10 gap-y-5 flex-wrap animate-fade-in ${ProfileStyles["profile-container"]}`}
       >
         <UserCards
           userSession={session?.user!}

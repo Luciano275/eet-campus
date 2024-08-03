@@ -5,6 +5,7 @@ import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
 import MainLayout from "@/components/ui/layouts/main-layout";
 import { SessionProvider } from "next-auth/react";
+import Loading from "@/components/Loading";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <SessionProvider>
           <body className={roboto.className}>
             <MainLayout>
+              <Loading />
               {children}
             </MainLayout>
           </body>

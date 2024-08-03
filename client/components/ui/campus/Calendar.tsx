@@ -61,7 +61,7 @@ export default function CalendarComponent() {
     })
 
     return (
-      <section className='py-4'>
+      <div className='py-4 animate-fade-in'>
         <Calendar
           localizer={localizer}
           events={events}
@@ -88,6 +88,6 @@ export default function CalendarComponent() {
             height: 600,
           }}
         />
-      </section>
+      </div>
     );
 }
