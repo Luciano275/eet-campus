@@ -2,7 +2,7 @@ import { FaUser } from "react-icons/fa";
 import { Information, InformationTitle } from "./informations";
 import { UserInfo } from "@/types";
 import { es } from "date-fns/locale/es";
-import { GENDER_OPTIONS, getGender } from "@/lib/utils";
+import { getGender } from "@/lib/utils";
 import { format } from 'date-fns';
 
 export default function AboutMe(
