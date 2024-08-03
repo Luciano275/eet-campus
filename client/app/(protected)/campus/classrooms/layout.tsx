@@ -15,7 +15,8 @@ export default async function ClassroomsLayout(
 
   return (
     <>
-      {admin}
+      {children}
+      {rol === 1 ? admin : student}
     </>
   )
 }

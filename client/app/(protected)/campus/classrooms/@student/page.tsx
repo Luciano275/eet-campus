@@ -1,7 +1,7 @@
 export default function PublicClassroomsView() {
   return (
     <>
-      <h2>Public view</h2>
+      <h2>Student view</h2>
     </>
   )
 }
