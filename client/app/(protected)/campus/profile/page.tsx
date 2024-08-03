@@ -5,6 +5,11 @@ import { getUserByEmail } from "@/lib/user";
 import UserCards from "@/components/ui/campus/profile/user-cards";
 import ProfileStyles from "@/styles/profile.module.css";
 import { EditFormProvider } from "@/components/providers/edit-form-provider";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Mí perfil'
+}
 
 export default async function ProfilePage() {
   const session = await auth();
