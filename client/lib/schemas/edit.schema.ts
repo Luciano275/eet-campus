@@ -3,6 +3,7 @@ import { GENDER_OPTIONS } from '../utils'
 import { isMobilePhone } from 'validator'
 
 const GENDER_ENUM = GENDER_OPTIONS.map((gender) => gender.value as string) as [string, ...string[]];
+const dniRegex = /^[0-9]{7,8}$/;
 
 export const UserEditSchema = z.object({
   address: z.string({
@@ -21,7 +22,7 @@ export const UserEditSchema = z.object({
   }).nullable(),
   tutor_dni: z.string({
     invalid_type_error: 'DNI del tutor inválido',
-  }).min(7, 'DNI Inválido').max(8, 'DNI Inválido').nullable(),
+  }).refine(value => dniRegex.test(value), 'DNI del tutor inválido').nullable(),
   tutor_phone: z.string().refine(isMobilePhone, 'Teléfono del tutor inválido').nullable(),
   id: z.string({
     required_error: 'ID requerido'
