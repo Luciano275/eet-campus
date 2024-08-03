@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/campus/Footer";
 import Main from "@/components/ui/public/Main";
 import SignInButton from "@/components/ui/signin-button";
 import { AuthError } from "next-auth";
@@ -26,6 +27,7 @@ export default async function Home(
           </div>
         )}
       </Main>
+      <Footer />
     </>
   );
 }

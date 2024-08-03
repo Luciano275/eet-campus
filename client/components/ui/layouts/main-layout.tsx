@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import Header from "../public/Header";
-import Footer from "../campus/Footer";
 
 export default function MainLayout({children}: {children: React.ReactNode}) {
 
@@ -15,7 +14,6 @@ export default function MainLayout({children}: {children: React.ReactNode}) {
             <div className="flex flex-col min-h-screen">
                 <Header />
                 {children}
-                <Footer />
             </div>
         )
     )
