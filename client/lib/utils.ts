@@ -1,7 +1,7 @@
 import { defaultValues, useEditFormProvider } from "@/components/providers/edit-form-provider";
 import { CampusLinkType, GenderOptions, IEditFormProvider } from "@/types"
 import { CgProfile } from "react-icons/cg";
-import { FaHome } from "react-icons/fa";
+import { FaFacebookMessenger, FaHome } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
 import { GoIssueOpened } from "react-icons/go";
 import { IoIosSettings } from "react-icons/io";
@@ -36,6 +36,7 @@ const ALL_LINKS: CampusLinkType = [
   { href: `${BASE_PATH}`, label: 'Inicio', icon: FaHome, type: 3 },
   { href: `${BASE_PATH}/profile`, label: 'Perfil', icon: CgProfile, type: 3 },
   { href: `${BASE_PATH}/classrooms`, label: 'Aulas', icon: SiGoogleclassroom, type: 3 },
+  { href: `${BASE_PATH}/messages`, label: 'Mensajes', icon: FaFacebookMessenger, type: 3 },
 
   //ADMIN
   { href: `${BASE_PATH}/courses`, label: 'Cursos', icon: FaGraduationCap, type: 1 },
