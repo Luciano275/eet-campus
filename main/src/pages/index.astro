@@ -22,7 +22,7 @@ import Layout from "../layouts/Layout.astro";
           id="logo-image"
           loading={"eager"}
         />
-        <h1 class="text-white font-bold text-2xl xl:text-3xl py-4">
+        <h1 class="text-white font-bold text-2xl xl:text-3xl 2xl:text-4xl py-4">
           Daniel Óscar Reyes
         </h1>
         <a
@@ -76,16 +76,22 @@ import Layout from "../layouts/Layout.astro";
       rgba(255, 162, 162, 1) 100%
     );
     background-attachment: fixed;
-    background-size: cover;
   }
   
   .register-button:hover {
     background: #3b82f6;
   }
 
-  @media (width >= 1280px) {
+  @media (width >= 1280px) and (height >= 700px) {
     #logo-image {
       width: 180px;
+      height: auto;
+    }
+  }
+
+  @media(width >= 1600px) and (height >= 900px) {
+    #logo-image {
+      width: 225px;
       height: auto;
     }
   }
