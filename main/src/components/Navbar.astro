@@ -10,20 +10,7 @@ const pathname = Astro.url.pathname;
   id="desktop-nav"
   class={`fixed top-0 left-0 w-full flex justify-between py-4 px-4 lg:px-8 items-center bg-opacity-90 ${pathname !== "/" && "bgNavbar"}`}
 >
-  <div class="flex gap-x-5 items-center">
-    <div class="avatar">
-      <div class="w-9">
-        <Image
-          src="/logo.jpg"
-          alt="Logo"
-          width={36}
-          height={36}
-          loading={"eager"}
-        />
-      </div>
-    </div>
-    <NavbarLinks />
-  </div>
+  <NavbarLinks />
   <div class="flex items-center gap-4">
     <ThemeButton />
     <a

@@ -8,7 +8,7 @@ export default function Header () {
                 <ThemeButton whiteColor />
             </div>
             <Image
-                src={'/logo.jpg'}
+                src={'/logo.png'}
                 alt="Logo"
                 width={150}
                 height={150}
