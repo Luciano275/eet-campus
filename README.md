@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/954964da-8eca-430d-82e8-5e492f27fcfc" />
+  <img src="https://github.com/user-attachments/assets/954964da-8eca-430d-82e8-5e492f27fcfc" width="200px"/>
 </p>
 
 <h1 align="center">🏫 Campus Virtual</h1>
