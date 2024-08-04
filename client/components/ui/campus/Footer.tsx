@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="flex gap-2 items-center">
         <div className="w-6">
             <img
-              src={'/logo.jpg'}
+              src={'/logo.png'}
               alt={'Logo'}
               className="w-full max-w-full h-auto"
             />
