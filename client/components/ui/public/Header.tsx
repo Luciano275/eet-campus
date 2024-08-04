@@ -13,7 +13,7 @@ export default function Header () {
                 width={150}
                 height={150}
                 priority
-                className="mx-auto"
+                className="mx-auto w-full max-w-[180px]"
             />
         </header>
     )
