@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/CorchoGangOrg/eet-campus/assets/71286132/ae92821d-976d-462a-b0ab-9f617d607e25" />
+  <img src="https://github.com/user-attachments/assets/954964da-8eca-430d-82e8-5e492f27fcfc" />
 </p>
 
 <h1 align="center">🏫 Campus Virtual</h1>
