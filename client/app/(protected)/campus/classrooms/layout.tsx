@@ -11,7 +11,7 @@ export default async function ClassroomsLayout(
 
   const session = await auth();
 
-  const rol = session?.user?.rol!;
+  const rol = session?.user.rol!;
 
   return (
     <>
