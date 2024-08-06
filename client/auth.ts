@@ -32,6 +32,10 @@ export const {
 
             if (!userFound) return false;
 
+            const isActive = userFound.active;
+
+            if (!isActive) return '/?error=AccountTerminated'
+
             return true;
         },
         async jwt({token, user, profile, account}) {

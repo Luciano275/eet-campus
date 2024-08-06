@@ -3,13 +3,13 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import Header from "../public/Header";
 import AuthErrorPage from "@/components/AuthError";
-import { AuthError } from "next-auth";
+import { ErrorEnums } from "@/types";
 
 export default function MainLayout({children}: {children: React.ReactNode}) {
 
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const error = searchParams.get('error') as AuthError['type'] || undefined;
+    const error = searchParams.get('error') as ErrorEnums || undefined;
 
     return (
         pathname.includes('/campus') ? (

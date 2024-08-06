@@ -55,6 +55,7 @@ export type UserInfo = {
   phone: string;
   gender: $Enums.Gender;
   birthday: Date | null;
+  active: boolean;
   courses: CourseType[]
 } | null
 
@@ -87,4 +88,10 @@ export type EditUserActionType = {
   errors?: EditUserActionError;
   message: string | null;
   success: boolean | null;
+}
+
+export enum ErrorEnums {
+  Configuration = 'Configuration',
+  AccessDenied = 'AccessDenied',
+  AccountTerminated = 'AccountTerminated',
 }
