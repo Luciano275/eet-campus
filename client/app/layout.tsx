@@ -10,8 +10,6 @@ import { Suspense } from "react";
 
 const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
 
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
   title: {
     template: '%s - E.E.T 3117',
