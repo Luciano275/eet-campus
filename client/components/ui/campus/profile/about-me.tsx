@@ -36,7 +36,8 @@ export default function AboutMe({
       <article>
         <InformationTitle text="Información básica" theme={theme} />
         <Information
-          keys={["Nacimiento", "Género", "Edad"]}
+          keys={["Nacimiento", "Género", "Edad", "DNI"]}
+          names={["birthday", "gender", "age", "dni"]}
           labels={[
             editMode
               ? user?.birthday?.toString() || ""
@@ -48,10 +49,10 @@ export default function AboutMe({
               : "-",
             genderName,
             edad || "-",
+            user?.dni || '-'
           ]}
           edit={editMode}
-          only={["Nacimiento", "Género"]}
-          names={["birthday", "gender", "age"]}
+          only={["Nacimiento", "Género", "DNI"]}
         />
 
         <InformationTitle text="Información de contacto" theme={theme} />

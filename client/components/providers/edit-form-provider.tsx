@@ -17,6 +17,7 @@ export const defaultValues: IContext = {
   tutor_dni: null,
   tutor_phone: null,
   birthday: null,
+  dni: null,
   action: {
     message: null,
     errors: {},
@@ -38,6 +39,7 @@ export const EditFormProvider = ({ children }: { children: React.ReactNode }) =>
   const [tutor_dni, setTutorDni] = useState<IContext['tutor_dni']>(defaultValues.tutor_dni);
   const [tutor_phone, setTutorPhone] = useState<IContext['tutor_phone']>(defaultValues.tutor_phone);
   const [birthday, setBirthday] = useState<IContext['birthday']>(defaultValues.birthday);
+  const [dni, setDni] = useState<IContext['dni']>(defaultValues.dni);
 
   const [action, setAction] = useState<IContext['action']>(defaultValues.action);
 
@@ -66,6 +68,10 @@ export const EditFormProvider = ({ children }: { children: React.ReactNode }) =>
       case 'birthday':
         setBirthday(value as IEditFormProvider['birthday']);
         break;
+
+      case 'dni':
+        setDni(value as IEditFormProvider['dni']);
+        break;
     }
   }
 
@@ -79,6 +85,7 @@ export const EditFormProvider = ({ children }: { children: React.ReactNode }) =>
       tutor_phone,
       action,
       birthday,
+      dni,
       setEditForm: (key, value) => {
         changeValues(key, value);
       },

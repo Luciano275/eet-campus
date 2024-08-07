@@ -19,13 +19,10 @@ export async function editUserAction(id:string, user: IEditFormProvider): Promis
 
   const { ...rest } = parsedData.data;
 
-  const dni = rest.tutor_dni ? BigInt(rest.tutor_dni) : null;
-
   try {
 
     await updateUserById(id, {
       ...rest,
-      tutor_dni: dni,
       birthday: rest.birthday ? new Date(rest.birthday.setHours(rest.birthday.getHours() + 3)) : null
     } as IEditFormProvider)
 

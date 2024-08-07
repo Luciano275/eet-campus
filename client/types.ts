@@ -49,7 +49,7 @@ export type UserInfo = {
   dni: string | null;
   turn: $Enums.Turn | null;
   tutor_name: string | null;
-  tutor_dni: bigint | null;
+  tutor_dni: string | null;
   tutor_phone: string | null;
   address: string | null;
   phone: string;
@@ -69,9 +69,10 @@ export interface IEditFormProvider{
   phone: string;
   address: string | null;
   tutor_name: string | null;
-  tutor_dni: bigint | null;
+  tutor_dni: string | null;
   tutor_phone: string | null;
   birthday: Date | null;
+  dni: string | null;
 }
 
 export type EditUserActionError = {

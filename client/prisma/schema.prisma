@@ -75,7 +75,7 @@ model User {
   dni           String?
   turn          Turn?
   tutor_name    String?
-  tutor_dni     BigInt?
+  tutor_dni     String?
   tutor_phone   String?
   address       String?
   phone         String

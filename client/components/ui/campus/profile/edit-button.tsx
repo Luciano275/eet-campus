@@ -17,7 +17,7 @@ export default function EditButton(
 ) {
 
   const { editMode, setEditMode } = useEditMode();
-  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, birthday, setEditForm, setAction } = useEditFormProvider();
+  const { address, gender, phone, tutor_name, tutor_dni, tutor_phone, birthday, dni, setEditForm, setAction } = useEditFormProvider();
 
   const { setAlert } = useAlert();
 
@@ -28,7 +28,7 @@ export default function EditButton(
 
       setAlert(null, null, true);
 
-      const editUserActionBind = editUserAction.bind(null, userSession.id!)
+      const editUserActionBind = editUserAction.bind(null, userSession.id!);
 
       const { errors, message, success } = await editUserActionBind({
         address,
@@ -37,15 +37,16 @@ export default function EditButton(
         tutor_name,
         tutor_dni,
         tutor_phone,
-        birthday
+        birthday,
+        dni
       });
-  
+
       setAlert(message, success, true);
       setAction({
         message,
         success,
-        errors
-      })
+        errors,
+      });
 
     }catch (e) {
       setAlert('Error al editar el usuario', false, true);
@@ -64,7 +65,8 @@ export default function EditButton(
       setEditForm('tutor_name', user.tutor_name);
       setEditForm('tutor_dni', user.tutor_dni);
       setEditForm('tutor_phone', user.tutor_phone);
-      setEditForm('birthday', user.birthday)
+      setEditForm('birthday', user.birthday);
+      setEditForm('dni', user.dni);
     }
   }, [editMode])
 

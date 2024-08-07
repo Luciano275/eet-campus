@@ -73,6 +73,8 @@ export default function EditInput({
     );
   }
 
+  console.log(GENDER_OPTIONS, labels[index])
+
   return (
     <div className="overflow-hidden flex flex-col">
       <select
@@ -85,21 +87,11 @@ export default function EditInput({
         className="p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500"
         aria-describedby={`${inputNames[index]}-error`}
       >
-        {GENDER_OPTIONS.map((option) =>
-          option.label === labels[index] ? (
-            <option
-              key={`option:${option.value}`}
-              value={option.value}
-              defaultChecked
-            >
-              {option.label}
-            </option>
-          ) : (
-            <option key={`option:${option.value}`} value={option.value}>
-              {option.label}
-            </option>
-          )
-        )}
+        { GENDER_OPTIONS.map(({value, label}) => (
+          <option key={`option:${value}`} value={value} selected={labels[index] === label}>
+            {label}
+          </option>
+        )) }
       </select>
 
       <ErrorInput
