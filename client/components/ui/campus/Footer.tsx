@@ -1,3 +1,5 @@
+import { MAIN_PAGE } from "@/routes";
+
 export default function Footer() {
   return (
     <footer className="flex flex-wrap justify-center gap-x-10 gap-y-4 py-4 px-2 md:px-4 lg:px-8 items-center border-t border-t-base-300 mt-4">
@@ -18,13 +20,13 @@ export default function Footer() {
       </div>
       <div className="flex gap-x-4 gap-y-2 flex-wrap justify-center items-center text-sm">
         <a
-          href={`${process.env.MAIN_PAGE}/termsofuse`}
+          href={`${MAIN_PAGE}/termsofuse`}
           className="hover:underline"
         >
           Términos de uso
         </a>
         <a
-          href={`${process.env.MAIN_PAGE}/termsofuse`}
+          href={`${MAIN_PAGE}/termsofuse`}
           className="hover:underline"
         >
           Aviso de cookies

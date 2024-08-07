@@ -1,0 +1,1 @@
+export const CAMPUS_PAGE = import.meta.env.MODE === 'production' ? '' : 'http://localhost:3000'
