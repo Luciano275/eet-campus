@@ -57,18 +57,19 @@ model Account {
 }
 
 model Course {
-  id       Int    @id @unique @default(autoincrement())
+  id       Int   @id @unique @default(autoincrement())
   course   Int
   division Int
   cycle    Cycle
 
-  students UserCourse[]
+  students   UserCourse[]
+  classrooms Classroom[]
 }
 
 model User {
   id            String    @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String    @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   rol           Role
@@ -81,10 +82,12 @@ model User {
   phone         String
   gender        Gender
   birthday      DateTime?
-  active        Boolean @default(false)
+  active        Boolean   @default(false)
 
-  courses  UserCourse[]
-  accounts Account[]
+  courses          UserCourse[]
+  accounts         Account[]
+  classroomsMember ClassroomMember[]
+  classroomsOwner  Classroom[]
 
   @@map("users")
 }
@@ -97,4 +100,27 @@ model UserCourse {
   course Course @relation(fields: [courseId], references: [id])
 
   @@id([studentId, courseId])
+}
+
+model Classroom {
+  id            String @id @default(uuid())
+  name          String
+  ownerId       String
+  classroomCode String
+  courseId      Int
+
+  owner  User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  members ClassroomMember[]
+}
+
+model ClassroomMember {
+  userId      String
+  classroomId String
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([userId, classroomId])
 }
