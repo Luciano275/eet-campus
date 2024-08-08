@@ -9,6 +9,7 @@ const errorMap = {
   [ErrorEnums.AccessDenied]: "No tienes permiso para entrar al campus.",
   [ErrorEnums.AccountTerminated]:
     "Tu cuenta ha sido dada de baja. Por favor, contactate con el administrador del campus para poder recuperarla.",
+  [ErrorEnums.OAuthAccountNotLinked]: "No se ha podido conectarte con tu cuenta. Intentalo nuevamente con otro proveedor."
 };
 
 export default function AuthErrorPage({ error }: { error?: ErrorEnums }) {

@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from '@/auth.config'
 import { db } from '@/lib/db'
-import { getUserByEmail } from "./lib/user";
+import { getProviderUser, getUserByEmail } from "./lib/user";
 
 export const {
     handlers,
@@ -26,7 +26,7 @@ export const {
         }
     },
     callbacks: {
-        async signIn({ user }) {
+        async signIn({ user, account }) {
 
             const userFound = await getUserByEmail(user.email!);
 
@@ -34,7 +34,15 @@ export const {
 
             const isActive = userFound.active;
 
-            if (!isActive) return '/?error=AccountTerminated'
+            if (!isActive) return '/?error=AccountTerminated';
+
+            const providerUser = await getProviderUser(userFound.id);
+
+            if (providerUser && account) {
+                const isNotLinked = providerUser.accounts.some(acc => acc.provider === account.provider);
+
+                if (!isNotLinked) return '/?error=OAuthAccountNotLinked';
+            }
 
             return true;
         },

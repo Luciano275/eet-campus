@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import Header from "../public/Header";
-import AuthErrorPage from "@/components/AuthError";
+import AuthErrorPage from "@/components/errors/AuthError";
 import { ErrorEnums } from "@/types";
 
 export default function MainLayout({children}: {children: React.ReactNode}) {

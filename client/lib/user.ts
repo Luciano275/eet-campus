@@ -32,3 +32,17 @@ export async function updateUserById(id: string, userData: IEditFormProvider) {
         throw new Error('Failed to update user by id');
     }
 }
+
+export async function getProviderUser(id: string) {
+    try {
+        const user = await db.user.findUnique({
+            where: { id },
+            include: { accounts: { select: { provider: true } } }
+        })
+
+        return user;
+    }catch (e) {
+        console.error(e);
+        throw new Error('Failed to get provider user by id');
+    }
+}

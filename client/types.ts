@@ -95,4 +95,5 @@ export enum ErrorEnums {
   Configuration = 'Configuration',
   AccessDenied = 'AccessDenied',
   AccountTerminated = 'AccountTerminated',
+  OAuthAccountNotLinked = 'OAuthAccountNotLinked'
 }
