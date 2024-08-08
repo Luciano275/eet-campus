@@ -1,7 +1,7 @@
 export default function AdminClassroomView() {
   return (
     <>
-      <h2>Admin view</h2>
+      <h2>Teacher view</h2>
     </>
   )
 }

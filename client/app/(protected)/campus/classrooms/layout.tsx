@@ -1,10 +1,11 @@
 import { auth } from "@/auth"
+import Container from "@/components/ui/campus/classrooms/Container";
 
 export default async function ClassroomsLayout(
-  {children, admin, student}
+  {children, teacher, student}
   : {
     children: React.ReactNode;
-    admin: React.ReactNode;
+    teacher: React.ReactNode;
     student: React.ReactNode;
   }
 ) {
@@ -16,7 +17,9 @@ export default async function ClassroomsLayout(
   return (
     <>
       {children}
-      {rol === 1 ? admin : student}
+      <Container>
+        {rol === 1 || rol === 2 ? teacher : student}
+      </Container>
     </>
   )
 }
