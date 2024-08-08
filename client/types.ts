@@ -97,3 +97,7 @@ export enum ErrorEnums {
   AccountTerminated = 'AccountTerminated',
   OAuthAccountNotLinked = 'OAuthAccountNotLinked'
 }
+
+export enum TypeModal {
+  JoinClassroom = 'JoinClassroom',
+}
