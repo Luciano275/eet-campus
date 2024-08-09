@@ -1,7 +1,15 @@
-export default function AdminClassroomView() {
+import Button from "@/components/ui/campus/classrooms/Button";
+import Search from "@/components/ui/campus/classrooms/Search";
+import { Suspense } from "react";
+
+export default function TeacherClassroomView() {
   return (
     <>
-      <h2>Teacher view</h2>
+      <Suspense>
+        <Search />
+      </Suspense>
+
+      <Button type="add" text="Crear" />
     </>
-  )
+  );
 }

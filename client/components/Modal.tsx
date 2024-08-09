@@ -2,14 +2,20 @@
 
 import { useEffect, useRef } from "react";
 import { useModal } from "./providers/modal-provider";
-import { TypeModal } from "@/types";
+import { FindCoursesType, TypeModal } from "@/types";
 import JoinModal from "./ui/join-modal";
+import AddModal from "./ui/add-modal";
 
-const typeMap = {
-  [TypeModal.JoinClassroom]: <JoinModal />,
-};
+export default function CampusModal({
+  courses,
+}: {
+  courses: FindCoursesType[];
+}) {
+  const typeMap = {
+    [TypeModal.JoinClassroom]: <JoinModal />,
+    [TypeModal.AddClassroom]: <AddModal courses={courses} />,
+  };
 
-export default function CampusModal() {
   const { isOpen, toggle, type } = useModal();
   const modalRef = useRef(null);
 

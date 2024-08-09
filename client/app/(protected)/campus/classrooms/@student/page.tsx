@@ -1,17 +1,15 @@
-import JoinButton from "@/components/ui/campus/classrooms/Join";
 import Search from "@/components/ui/campus/classrooms/Search";
 import { Suspense } from "react";
+import Button from "@/components/ui/campus/classrooms/Button";
 
-export default function PublicClassroomsView(
-  {searchParams}
-  : {
-    searchParams: {
-      name?: string;
-    }
-  }
-) {
-
-  const classroomName = searchParams.name || '';
+export default function PublicClassroomsView({
+  searchParams,
+}: {
+  searchParams: {
+    name?: string;
+  };
+}) {
+  const classroomName = searchParams.name || "";
 
   return (
     <>
@@ -19,7 +17,7 @@ export default function PublicClassroomsView(
         <Search />
       </Suspense>
 
-      <JoinButton />
+      <Button type="join" text="Unirse" />
     </>
-  )
+  );
 }

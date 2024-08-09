@@ -12,32 +12,32 @@ export type LinkType = {
 
 export type IInfoFooter = {
   creators: {
-      name: string;
-      link: string;
-  }[],
+    name: string;
+    link: string;
+  }[];
   social: {
-      icon: IconType
-      link: string,
-      name: 'facebook' | 'instagram',
-      hoverIcon: any
-  }[]
-}
+    icon: IconType;
+    link: string;
+    name: "facebook" | "instagram";
+    hoverIcon: any;
+  }[];
+};
 
 export type CampusLinkType = {
   href: string;
   label: string;
   icon: IconType;
-  type: 1 | 2 | 3
-}[]
+  type: 1 | 2 | 3;
+}[];
 
 export type CourseType = {
   course: {
-      id: number;
-      course: number;
-      division: number;
-      cycle: $Enums.Cycle;
+    id: number;
+    course: number;
+    division: number;
+    cycle: $Enums.Cycle;
   };
-}
+};
 
 export type UserInfo = {
   id: string;
@@ -56,15 +56,15 @@ export type UserInfo = {
   gender: $Enums.Gender;
   birthday: Date | null;
   active: boolean;
-  courses: CourseType[]
-} | null
+  courses: CourseType[];
+} | null;
 
 export type GenderOptions = {
   value: $Enums.Gender;
   label: string;
-}[]
+}[];
 
-export interface IEditFormProvider{
+export interface IEditFormProvider {
   gender: $Enums.Gender;
   phone: string;
   address: string | null;
@@ -83,21 +83,29 @@ export type EditUserActionError = {
   tutor_dni?: string[];
   tutor_phone?: string[];
   id?: string[];
-}
+};
 
 export type EditUserActionType = {
   errors?: EditUserActionError;
   message: string | null;
   success: boolean | null;
-}
+};
 
 export enum ErrorEnums {
-  Configuration = 'Configuration',
-  AccessDenied = 'AccessDenied',
-  AccountTerminated = 'AccountTerminated',
-  OAuthAccountNotLinked = 'OAuthAccountNotLinked'
+  Configuration = "Configuration",
+  AccessDenied = "AccessDenied",
+  AccountTerminated = "AccountTerminated",
+  OAuthAccountNotLinked = "OAuthAccountNotLinked",
 }
 
 export enum TypeModal {
-  JoinClassroom = 'JoinClassroom',
+  JoinClassroom = "JoinClassroom",
+  AddClassroom = "AddClassroom",
 }
+
+export type FindCoursesType = {
+  course: number;
+  id: number;
+  division: number;
+  cycle: $Enums.Cycle;
+};
