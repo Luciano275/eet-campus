@@ -9,8 +9,11 @@ export default function JoinButton() {
 
   return (
     <button
-      onClick={() => {setType(TypeModal.JoinClassroom); toggle()}}
-      className="btn btn-primary text-white w-full max-w-44"
+      onClick={() => {
+        setType(TypeModal.JoinClassroom);
+        toggle();
+      }}
+      className="btn btn-md btn-primary text-white w-full max-w-44"
     >
       <span>
         <FaArrowRightToBracket size={20} />

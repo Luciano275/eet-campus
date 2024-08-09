@@ -6,8 +6,8 @@ import { TypeModal } from "@/types";
 import JoinModal from "./ui/join-modal";
 
 const typeMap = {
-  [TypeModal.JoinClassroom]: <JoinModal />
-}
+  [TypeModal.JoinClassroom]: <JoinModal />,
+};
 
 export default function CampusModal() {
   const { isOpen, toggle, type } = useModal();
@@ -22,7 +22,7 @@ export default function CampusModal() {
 
   return (
     <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
+      <div className="modal-box w-11/12 max-w-xl">
         <form method="dialog">
           <button
             onClick={toggle}
@@ -31,9 +31,8 @@ export default function CampusModal() {
             ✕
           </button>
         </form>
-        
-        {typeMap[type]}
 
+        {typeMap[type]}
       </div>
     </dialog>
   );
