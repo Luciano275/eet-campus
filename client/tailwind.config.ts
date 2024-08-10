@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
-import daisyui from 'daisyui'
+import daisyui from "daisyui";
 //@ts-ignore
-import miduAnimations from '@midudev/tailwind-animations'
+import miduAnimations from "@midudev/tailwind-animations";
 
 const config: Config = {
   content: [
@@ -18,6 +18,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [daisyui, miduAnimations]
+  plugins: [daisyui, miduAnimations],
 };
 export default config;

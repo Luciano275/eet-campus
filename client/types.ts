@@ -98,11 +98,6 @@ export enum ErrorEnums {
   OAuthAccountNotLinked = "OAuthAccountNotLinked",
 }
 
-export enum TypeModal {
-  JoinClassroom = "JoinClassroom",
-  AddClassroom = "AddClassroom",
-}
-
 export type FindCoursesType = {
   course: number;
   id: number;

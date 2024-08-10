@@ -1,27 +1,19 @@
 "use client";
 
-import { useModal } from "@/components/providers/modal-provider";
-import { TypeModal } from "@/types";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { MdLibraryAdd } from "react-icons/md";
+import Link from "next/link";
 
 export default function Button({
   type,
   text,
 }: {
-  type: "add" | "join";
+  type: "create" | "join";
   text: string;
 }) {
-  const { toggle, setType } = useModal();
-
   return (
-    <button
-      onClick={() => {
-        setType(
-          type === "join" ? TypeModal.JoinClassroom : TypeModal.AddClassroom,
-        );
-        toggle();
-      }}
+    <Link
+      href={`/campus/classrooms/${type}`}
       className={`btn btn-md ${type === "join" ? "btn-primary" : "btn-success"} text-white w-full max-w-44`}
     >
       <span>
@@ -32,6 +24,6 @@ export default function Button({
         )}
       </span>
       <span>{text}</span>
-    </button>
+    </Link>
   );
 }
