@@ -5,15 +5,12 @@ import { ToggleMenuProvider } from "@/components/providers/toggle-menu-provider"
 import MenuBar from "@/components/ui/campus/Menubar";
 import Notify from "@/components/ui/campus/Notify";
 import Section from "@/components/ui/campus/Section";
-import { getAllCoursesName } from "@/lib/course";
 
 export default async function CampusLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const courses = await getAllCoursesName();
-
   return (
     <AlertProvider>
       <ToggleMenuProvider>

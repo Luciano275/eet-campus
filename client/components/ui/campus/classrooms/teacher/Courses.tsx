@@ -4,15 +4,15 @@ export default async function CoursesSelect() {
   const courses = await getAllCoursesName();
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor="classroom_course">Curso</label>
-      <select className="select select-bordered">
+    <>
+      <label htmlFor="classroomCourse">Curso</label>
+      <select name="classroomCourse" className="select select-bordered" aria-labelledby="classroomCourseError">
         {courses.map(({ course, cycle, division, id }, index) => (
-          <option key={`${index}:${id}`}>
+          <option key={`${index}:${id}`} value={id}>
             {course}º {division}º {cycle}
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 }

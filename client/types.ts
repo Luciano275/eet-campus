@@ -104,3 +104,18 @@ export type FindCoursesType = {
   division: number;
   cycle: $Enums.Cycle;
 };
+
+export type CreateClassroomErrors = {
+  classroomName?: string[];
+  classroomCourse?: string[];
+}
+
+export type CreateClassroomType = {
+  errors?: CreateClassroomErrors;
+  message: string | null;
+  success: false | null;
+} | {
+  message: string;
+  success: true;
+  readonly classroomCode: string;
+}

@@ -20,3 +20,16 @@ export async function getAllCoursesName() {
     throw new Error("Failed to get courses");
   }
 }
+
+export async function getCourseById(courseId: number) {
+  try {
+    const course = await db.course.findUnique({
+      where: { id: courseId },
+    });
+
+    return course;
+  } catch (e) {
+    console.error(e);
+    throw new Error("Failed to get course by id");
+  }
+}
