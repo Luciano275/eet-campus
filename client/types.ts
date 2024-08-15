@@ -108,6 +108,7 @@ export type FindCoursesType = {
 export type CreateClassroomErrors = {
   classroomName?: string[];
   classroomCourse?: string[];
+  classroomColor?: string[];
 }
 
 export type CreateClassroomType = {

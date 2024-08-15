@@ -7,6 +7,7 @@ import { createClassroom } from "../classroom";
 import { revalidatePath } from "next/cache";
 
 export async function createClassroomAction(ownerId: string, prevState: CreateClassroomType, formData: FormData): Promise<CreateClassroomType> {
+
   const parsedData = createClassroomSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (!parsedData.success) {
@@ -17,7 +18,7 @@ export async function createClassroomAction(ownerId: string, prevState: CreateCl
     }
   }
 
-  const { classroomCourse: courseId, classroomName: name } = parsedData.data;
+  const { classroomCourse: courseId, classroomName: name, classroomColor } = parsedData.data;
 
   const isCourseExists = !!(await getCourseById(courseId));
 
@@ -38,7 +39,8 @@ export async function createClassroomAction(ownerId: string, prevState: CreateCl
       courseId,
       name,
       ownerId,
-      classroomCode
+      classroomCode,
+      classroomColor
     })
   }catch (e) {
     console.error(e);

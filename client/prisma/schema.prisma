@@ -103,11 +103,12 @@ model UserCourse {
 }
 
 model Classroom {
-  id            String @id @default(uuid())
-  name          String
-  ownerId       String
-  classroomCode String
-  courseId      Int
+  id             String  @id @default(uuid())
+  name           String
+  ownerId        String
+  classroomCode  String
+  courseId       Int
+  classroomColor String?
 
   owner  User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
