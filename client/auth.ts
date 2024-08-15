@@ -38,10 +38,10 @@ export const {
 
             const providerUser = await getProviderUser(userFound.id);
 
-            if (providerUser && account) {
-                const isNotLinked = providerUser.accounts.some(acc => acc.provider === account.provider);
+            if (providerUser && providerUser.accounts.length && account) {
+                const isLinked = providerUser.accounts.some(acc => acc.provider === account.provider)
 
-                if (!isNotLinked) return '/?error=OAuthAccountNotLinked';
+                if (!isLinked) return '/?error=OAuthAccountNotLinked';
             }
 
             return true;
