@@ -12,7 +12,10 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <button aria-disabled={pending} className={`btn btn-success btn-md text-white transition-opacity ${pending && 'cursor-default bg-opacity-10'}`}>Crear</button>
+    <button aria-disabled={pending} className={`btn btn-success btn-md text-white transition-opacity ${pending && 'cursor-default bg-opacity-10'} flex gap-1`}>
+      { pending && <span className="loading loading-spinner loading-lg"></span> }
+      <span className="grow">Crear</span>
+    </button>
   )
 }
 
@@ -58,6 +61,15 @@ export default function CreateClassroomForm(
         {select}
 
         <ErrorForm state={state} field="classroomCourse" id="classroomCourseError" />
+      </div>
+
+      <div>
+        <label htmlFor="classroomColor">Color:</label>
+        <input
+          type="color"
+          name="classroomColor"
+          className="input input-bordered w-full"
+        />
       </div>
 
       <SubmitButton />
