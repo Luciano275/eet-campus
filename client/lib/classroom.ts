@@ -45,3 +45,17 @@ export async function findMyClassrooms(ownerId: string) {
     throw new Error("Failed to find classrooms");
   }
 }
+
+export async function findClassroomsBelong(id: string) {
+  try {
+    const classrooms = await db.classroom.findMany({
+      where: { members: { some: { userId: id } } },
+      include: { course: { select: { course: true, division: true, cycle: true, id: true } } }
+    });
+
+    return classrooms;
+  }catch(e) {
+    console.error(e);
+    throw new Error("Failed to find classrooms belong");
+  }
+}

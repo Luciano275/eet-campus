@@ -1,11 +1,16 @@
 import { auth } from "@/auth";
-import { findMyClassrooms } from "@/lib/classroom";
+import { findClassroomsBelong, findMyClassrooms } from "@/lib/classroom";
 import Link from "next/link";
 import { FaPencil } from "react-icons/fa6";
 
-export default async function Classrooms() {
+export default async function Classrooms(
+  {teacher}
+  : {
+    teacher: boolean;
+  }
+) {
   const id = (await auth())?.user.id!;
-  const classroomsList = await findMyClassrooms(id);
+  const classroomsList = teacher ? await findMyClassrooms(id) : await findClassroomsBelong(id);
 
   return (
     <div className="flex flex-wrap justify-center items-center gap-4 mt-4">
@@ -27,15 +32,19 @@ export default async function Classrooms() {
               {classroom.course.course}º {classroom.course.division}º{" "}
               {classroom.course.cycle}
             </p>
-            <Link
-              href={`/campus/${classroom.id}/edit`}
-              className={`hover:bg-blue-500 p-2 rounded text-white`}
-              style={{
-                background: classroom.classroomColor || "#111827",
-              }}
-            >
-              <FaPencil size={20} />
-            </Link>
+            {
+              teacher && (
+                <Link
+                  href={`/campus/${classroom.id}/edit`}
+                  className={`hover:bg-blue-500 p-2 rounded text-white`}
+                  style={{
+                    background: classroom.classroomColor || "#111827",
+                  }}
+                >
+                  <FaPencil size={20} />
+                </Link>
+              )
+            }
           </div>
         </div>
       ))}

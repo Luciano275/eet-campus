@@ -1,20 +1,22 @@
 import Search from "@/components/ui/campus/classrooms/Search";
 import { Suspense } from "react";
 import Button from "@/components/ui/campus/classrooms/Button";
-import { Metadata } from "next";
+import { auth } from "@/auth";
+import { ClassroomSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
+import Classrooms from "@/components/ui/campus/classrooms/teacher/Classrooms";
 
-export const metadata: Metadata = {
-  title: "Aulas",
-};
-
-export default function PublicClassroomsView({
+export default async function PublicClassroomsView({
   searchParams,
 }: {
   searchParams: {
     name?: string;
   };
 }) {
-  const classroomName = searchParams.name || "";
+
+  const rol = (await auth())?.user.rol!;
+  const isTeacher = rol === 1 || rol === 2;
+
+  const classroomName = searchParams.name || null;
 
   return (
     <>
@@ -23,6 +25,10 @@ export default function PublicClassroomsView({
       </Suspense>
 
       <Button type="join" text="Unirse" />
+
+      <Suspense key={`${classroomName}`} fallback={<ClassroomSkeleton />}>
+        <Classrooms teacher={isTeacher} />
+      </Suspense>
     </>
   );
 }
