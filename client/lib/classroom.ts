@@ -36,7 +36,7 @@ export async function findMyClassrooms(ownerId: string) {
 
     const classrooms = await db.classroom.findMany({
       where: { ownerId },
-      include: { course: { select: { course: true, division: true, cycle: true, id: true } } }
+      include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
     return classrooms;
@@ -50,7 +50,7 @@ export async function findClassroomsBelong(id: string) {
   try {
     const classrooms = await db.classroom.findMany({
       where: { members: { some: { userId: id } } },
-      include: { course: { select: { course: true, division: true, cycle: true, id: true } } }
+      include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
     return classrooms;
@@ -71,6 +71,23 @@ export async function findClassroomByCode(classroomCode: string) {
   } catch(e) {
     console.error(e);
     throw new Error("Failed to find classroom by code");
+  }
+}
+
+export async function findAllMyClassrooms(id: string) {
+  try {
+    const classrooms = await db.classroom.findMany({
+      where: { OR: [
+        { members: { some: { userId: id } } },
+        { ownerId: id }
+      ] },
+      include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
+    });
+
+    return classrooms;
+  }catch(e) {
+    console.error(e);
+    throw new Error("Failed to find classrooms belong");
   }
 }
 
