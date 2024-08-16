@@ -120,3 +120,13 @@ export type CreateClassroomType = {
   success: true;
   readonly classroomCode: string;
 }
+
+export type JoinToClassroomErrors = {
+  classroomCode?: string[];
+}
+
+export type JoinToClassroomType = {
+  errors?: JoinToClassroomErrors;
+  message: string | null;
+  success: boolean | null;
+}

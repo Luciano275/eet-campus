@@ -16,3 +16,10 @@ export const createClassroomSchema = z.object({
     invalid_type_error: 'Color de aula inválido'
   }).refine((value) => regexHexadecimal.test(value), 'Color de aula inválido'),
 })
+
+export const joinToClassroomSchema = z.object({
+  classroomCode: z.string({
+    required_error: 'Código de aula requerido',
+    invalid_type_error: 'Código de aula inválido'
+  })
+})

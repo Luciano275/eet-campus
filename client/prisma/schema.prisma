@@ -106,7 +106,7 @@ model Classroom {
   id             String  @id @default(uuid())
   name           String
   ownerId        String
-  classroomCode  String
+  classroomCode  String  @unique
   courseId       Int
   classroomColor String?
 

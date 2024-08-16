@@ -59,3 +59,35 @@ export async function findClassroomsBelong(id: string) {
     throw new Error("Failed to find classrooms belong");
   }
 }
+
+export async function findClassroomByCode(classroomCode: string) {
+  try {
+    const classroom = await db.classroom.findUnique({
+      where: { classroomCode },
+      include: { course: { select: { course: true, division: true, cycle: true, id: true } } }
+    });
+
+    return classroom;
+  } catch(e) {
+    console.error(e);
+    throw new Error("Failed to find classroom by code");
+  }
+}
+
+export async function joinToClassroom(userId: string, classroomId: string) {
+  try {
+
+    const results = await db.classroomMember.create({
+      data: {
+        userId,
+        classroomId
+      }
+    })
+
+    return results;
+
+  }catch (e) {
+    console.error(e);
+    throw new Error("Failed to join to classroom");
+  }
+}
