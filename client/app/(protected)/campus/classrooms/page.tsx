@@ -1,17 +1,29 @@
+import { auth } from "@/auth";
 import CampusHeader from "@/components/ui/campus/Header";
 import { Metadata } from "next";
+import TeacherPage from '@/components/pages/teacher/TeacherPage';
+import StudentPage from '@/components/pages/student/StudentPage';
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Aulas - E.E.T 3117',
-    template: '%s - E.E.T 3117'
-  }
+  title: "Aulas"
 }
 
-export default function ClassroomsPage() {
+export default async function ClassroomsPage(
+  {searchParams}
+  : {
+    searchParams: {
+      name?: string;
+    }
+  }
+) {
+
+  const rol = (await auth())?.user.rol!;
+
   return (
     <>
       <CampusHeader title="Aulas" />
+
+      { rol === 1 || rol === 2 ? <TeacherPage admin={rol === 1} searchParams={searchParams} /> : <StudentPage searchParams={searchParams} /> }
     </>
   )
 }

@@ -3,9 +3,9 @@ import { Suspense } from "react";
 import Button from "@/components/ui/campus/classrooms/Button";
 import { auth } from "@/auth";
 import { ClassroomSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
-import Classrooms from "@/components/ui/campus/classrooms/teacher/Classrooms";
+import Classrooms from "@/components/ui/campus/classrooms/Classrooms";
 
-export default async function PublicClassroomsView({
+export default async function StudentPage({
   searchParams,
 }: {
   searchParams: {

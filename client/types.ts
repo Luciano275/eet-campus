@@ -130,3 +130,22 @@ export type JoinToClassroomType = {
   message: string | null;
   success: boolean | null;
 }
+
+export type ClassroomType = {
+  owner: {
+      name: string;
+  };
+  course: {
+      id: number;
+      course: number;
+      division: number;
+      cycle: $Enums.Cycle;
+  };
+} & {
+  id: string;
+  name: string;
+  ownerId: string;
+  classroomCode: string;
+  courseId: number;
+  classroomColor: string | null;
+}
