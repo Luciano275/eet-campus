@@ -104,14 +104,14 @@ export async function joinToClassroomAction(userId: string, prevState: JoinToCla
 
     const doIBelong = await belongClassroom(userId, classroom.id);
 
-    // if (doIBelong) {
-    //   return {
-    //     message: 'Tu ya perteneces a esa aula',
-    //     success: false
-    //   }
-    // }
+    if (doIBelong) {
+      return {
+        message: 'Tu ya perteneces a esa aula',
+        success: false
+      }
+    }
 
-    //await joinToClassroom(userId, classroom.id);
+    await joinToClassroom(userId, classroom.id);
 
     revalidatePath('/campus/classrooms')
 
