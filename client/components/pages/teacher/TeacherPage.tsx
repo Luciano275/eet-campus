@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import Button from "@/components/ui/campus/classrooms/Button";
 import Search from "@/components/ui/campus/classrooms/Search";
-import Classrooms from "@/components/ui/campus/classrooms/teacher/Classrooms";
+import Classrooms from "@/components/ui/campus/classrooms/Classrooms";
 import { ClassroomSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import { Suspense } from "react";
 

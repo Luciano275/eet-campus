@@ -3,7 +3,7 @@
 import { CreateClassroomType, JoinToClassroomType } from "@/types";
 import { createClassroomSchema, joinToClassroomSchema } from "../schemas/classroom.schema";
 import { getCourseById } from "../course";
-import { createClassroom, findClassroomByCode, joinToClassroom } from "../classroom";
+import { belongClassroom, createClassroom, findClassroomByCode, joinToClassroom } from "../classroom";
 import { revalidatePath } from "next/cache";
 
 export async function createClassroomAction(ownerId: string, prevState: CreateClassroomType, formData: FormData): Promise<CreateClassroomType> {
@@ -102,12 +102,21 @@ export async function joinToClassroomAction(userId: string, prevState: JoinToCla
       }
     }
 
-    await joinToClassroom(userId, classroom.id);
+    const doIBelong = await belongClassroom(userId, classroom.id);
+
+    // if (doIBelong) {
+    //   return {
+    //     message: 'Tu ya perteneces a esa aula',
+    //     success: false
+    //   }
+    // }
+
+    //await joinToClassroom(userId, classroom.id);
 
     revalidatePath('/campus/classrooms')
 
     return {
-      message: `Ahora perteneces al aula ${classroom.name}`,
+      message: `Ahora perteneces al aula **${classroom.name}**`,
       success: true
     }
 

@@ -108,3 +108,23 @@ export async function joinToClassroom(userId: string, classroomId: string) {
     throw new Error("Failed to join to classroom");
   }
 }
+
+export async function belongClassroom(id: string, classroomId: string) {
+  try {
+
+    const results = await db.classroomMember.findFirst({
+      where: {
+        AND: [
+          { userId: id },
+          { classroomId }
+        ]
+      }
+    })
+
+    return results;
+
+  }catch (e) {
+    console.error(e);
+    throw new Error('Failed to get classroom belong')
+  }
+}
