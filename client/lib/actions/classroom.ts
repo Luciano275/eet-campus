@@ -104,16 +104,18 @@ export async function joinToClassroomAction(userId: string, prevState: JoinToCla
 
     await joinToClassroom(userId, classroom.id);
 
+    revalidatePath('/campus/classrooms')
+
+    return {
+      message: `Ahora perteneces al aula ${classroom.name}`,
+      success: true
+    }
+
   }catch (e) {
     console.error(e);
     return {
       message: "Fallo al unirse a la aula",
       success: false,
     }
-  }
-
-  return {
-    message: 'Ahora perteneces al aula ...',
-    success: true
   }
 }
