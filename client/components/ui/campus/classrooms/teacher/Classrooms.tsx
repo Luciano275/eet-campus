@@ -28,7 +28,7 @@ export default async function Classrooms({
       {classroomsList.map((classroom) => (
         <div
           key={`${classroom.id}:${classroom.name}`}
-          className={`rounded-xl overflow-hidden max-w-[300px] min-w-[300px] border border-base-300`}
+          className={`rounded-xl overflow-hidden max-w-[300px] min-w-[300px] 2xl:min-w-[350px] 2xl:max-w-[350px] border border-base-300`}
         >
           <h2
             className={`text-2xl py-4 px-2 cursor-pointer hover:underline flex flex-col text-white`}

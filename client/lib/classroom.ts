@@ -31,7 +31,7 @@ export async function createClassroom({
   }
 }
 
-export async function findMyClassrooms(ownerId: string) {
+export async function findMyClassrooms(ownerId: string) { // Teacher
   try {
 
     const classrooms = await db.classroom.findMany({
@@ -46,7 +46,7 @@ export async function findMyClassrooms(ownerId: string) {
   }
 }
 
-export async function findClassroomsBelong(id: string) {
+export async function findClassroomsBelong(id: string) { // Student
   try {
     const classrooms = await db.classroom.findMany({
       where: { members: { some: { userId: id } } },
@@ -74,7 +74,7 @@ export async function findClassroomByCode(classroomCode: string) {
   }
 }
 
-export async function findAllMyClassrooms(id: string) {
+export async function findAllMyClassrooms(id: string) { // Admin
   try {
     const classrooms = await db.classroom.findMany({
       where: { OR: [
