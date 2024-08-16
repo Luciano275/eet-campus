@@ -4,7 +4,7 @@ import { createClassroomAction } from "@/lib/actions/classroom";
 import { useFormState, useFormStatus } from "react-dom";
 import ErrorForm from "./ErrorForm";
 import { FaCheck } from "react-icons/fa";
-import { BiCopy, BiErrorCircle } from "react-icons/bi";
+import { BiCopy } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import ErrorMessageForm from "../../error-message";
 
@@ -14,8 +14,9 @@ const SubmitButton = () => {
   return (
     <button
       aria-disabled={pending}
+      disabled={pending}
       className={`btn btn-success btn-md text-white transition-opacity ${
-        pending && "cursor-default bg-opacity-10"
+        pending && "cursor-default bg-opacity-50"
       } flex relative`}
     >
       {pending && (
@@ -104,7 +105,7 @@ export default function CreateClassroomForm({
             <p className="grow">
               Código: <b>{state.classroomCode}</b>
             </p>
-            <button className="hover:text-blue-400 relative flex items-center justify-center w-8 h-8">
+            <button type="button" className="hover:text-blue-400 relative flex items-center justify-center w-8 h-8">
               <span
                 className={`absolute transition-opacity`}
                 style={{
