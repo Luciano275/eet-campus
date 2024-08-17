@@ -143,3 +143,33 @@ export async function belongClassroom(id: string, classroomId: string) {
     throw new Error('Failed to get classroom belong')
   }
 }
+
+export async function findClassroomById(id: string) {
+  try {
+    const result = await db.classroom.findUnique({
+      where: { id },
+      include: {
+        members: { select: { user: { select: { name: true, email: true, image: true, id: true, phone: true } } } },
+        owner: { select: {
+          name: true,
+          email: true,
+          image: true,
+          id: true,
+          rol: true,
+          phone: true
+        } },
+        course: { select: {
+          id: true,
+          course: true,
+          division: true,
+          cycle: true
+        } }
+      }
+    })
+
+    return result;
+  }catch (e) {
+    console.error(e);
+    throw new Error('Failed to get classroom by id');
+  }
+}

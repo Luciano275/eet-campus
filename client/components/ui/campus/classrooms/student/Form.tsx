@@ -3,6 +3,7 @@
 import { joinToClassroomAction } from "@/lib/actions/classroom";
 import { useFormState, useFormStatus } from "react-dom";
 import ErrorMessageForm from "../error-message";
+import { useEffect } from "react";
 
 const SubmitButton = () => {
 
@@ -29,6 +30,15 @@ export default function FormJoin (
     success: null,
     errors: {}
   })
+
+  useEffect(() => {
+    if (state.success) {
+      setTimeout(() => {
+        state.success = null;
+        state.message = null;
+      }, 5000);
+    }
+  }, [state])
 
   return (
     <form action={action} className="w-full max-w-[400px] mx-auto mt-4 flex flex-col gap-4">

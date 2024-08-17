@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import CoursesSelect from "@/components/ui/campus/classrooms/teacher/Courses";
 import CreateClassroomForm from "@/components/ui/campus/classrooms/teacher/create/Form";
 import CampusHeader from "@/components/ui/campus/Header";
+import { CoursesInputSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -29,7 +30,7 @@ export default async function CreateClassroomPage() {
       <CampusHeader title="Crear aula" />
 
       <CreateClassroomForm ownerId={id}>
-        <Suspense fallback={<p>Cargando...</p>}>
+        <Suspense fallback={<CoursesInputSkeleton />}>
           <CoursesSelect />
         </Suspense>
       </CreateClassroomForm>
