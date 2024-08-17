@@ -109,6 +109,7 @@ export type CreateClassroomErrors = {
   classroomName?: string[];
   classroomCourse?: string[];
   classroomColor?: string[];
+  classroomDescription?: string[];
 }
 
 export type CreateClassroomType = {
@@ -148,4 +149,5 @@ export type ClassroomType = {
   classroomCode: string;
   courseId: number;
   classroomColor: string | null;
+  description: string | null;
 }

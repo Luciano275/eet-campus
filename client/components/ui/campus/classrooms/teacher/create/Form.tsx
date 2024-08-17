@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 import { BiCopy } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import ErrorMessageForm from "../../error-message";
+import dynamicSizeStyles from '@/styles/dynamic-size.module.css';
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -68,6 +69,21 @@ export default function CreateClassroomForm({
           state={state}
           field="classroomName"
           id="classroomNameError"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="classroomDescription">Descripción(opcional)</label>
+        <textarea
+          name="classroomDescription"
+          className={`textarea textarea-bordered w-full max-h-[300px] overflow-y-auto ${dynamicSizeStyles['dynamic-size-content']}`}
+          aria-labelledby="classroomDescriptionError"
+        />
+
+        <ErrorForm
+          state={state}
+          field="classroomDescription"
+          id="classroomDescriptionError"
         />
       </div>
 

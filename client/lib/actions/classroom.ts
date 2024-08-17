@@ -18,7 +18,7 @@ export async function createClassroomAction(ownerId: string, prevState: CreateCl
     }
   }
 
-  const { classroomCourse: courseId, classroomName: name, classroomColor } = parsedData.data;
+  const { classroomCourse: courseId, classroomName: name, classroomColor, classroomDescription } = parsedData.data;
 
   const isCourseExists = !!(await getCourseById(courseId));
 
@@ -49,7 +49,8 @@ export async function createClassroomAction(ownerId: string, prevState: CreateCl
           name,
           ownerId,
           classroomCode,
-          classroomColor
+          classroomColor,
+          classroomDescription
         })
       }catch (e) {
         console.error(e);
