@@ -1,3 +1,4 @@
+import ClassroomModalProvider from "@/components/providers/classroom-modal-provider"
 import Container from "@/components/ui/campus/classrooms/Container"
 
 export default function ClassroomLayout (
@@ -7,8 +8,10 @@ export default function ClassroomLayout (
   }
 ) {
   return (
-    <Container>
-      {children}
-    </Container>
+    <ClassroomModalProvider>
+      <Container>
+        {children}
+      </Container>
+    </ClassroomModalProvider>
   )
 }

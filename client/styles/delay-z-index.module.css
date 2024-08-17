@@ -1,0 +1,12 @@
+#close_classroom_modal {
+  animation: closeClassroomModal .3s ease forwards;
+}
+
+@keyframes closeClassroomModal {
+  from {
+    z-index: 99999;
+  }
+  to {
+    z-index: -100;
+  }
+}
