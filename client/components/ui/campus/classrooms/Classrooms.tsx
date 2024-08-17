@@ -11,18 +11,20 @@ import ClassroomInformation from "./ClassroomInfo";
 export default async function Classrooms({
   teacher,
   admin,
+  query
 }: {
   teacher: boolean;
   admin?: boolean;
+  query: string;
 }) {
   const session = await auth();
   const id = session?.user.id!;
   const myName = session?.user.name;
   const classroomsList = admin
-    ? await findAllMyClassrooms(id)
+    ? await findAllMyClassrooms(id, query)
     : teacher
-    ? await findMyClassrooms(id)
-    : await findClassroomsBelong(id);
+    ? await findMyClassrooms(id, query)
+    : await findClassroomsBelong(id, query);
 
   return (
     <div className="flex flex-wrap justify-center items-center gap-4 mt-4">

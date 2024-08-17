@@ -31,11 +31,16 @@ export async function createClassroom({
   }
 }
 
-export async function findMyClassrooms(ownerId: string) { // Teacher
+export async function findMyClassrooms(ownerId: string, query: string) { // Teacher
   try {
 
     const classrooms = await db.classroom.findMany({
-      where: { ownerId },
+      where: { 
+        AND: [
+          {ownerId},
+          { name: { contains: query, mode: 'insensitive' } }
+        ]
+       },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
@@ -46,10 +51,15 @@ export async function findMyClassrooms(ownerId: string) { // Teacher
   }
 }
 
-export async function findClassroomsBelong(id: string) { // Student
+export async function findClassroomsBelong(id: string, query: string) { // Student
   try {
     const classrooms = await db.classroom.findMany({
-      where: { members: { some: { userId: id } } },
+      where: { 
+        AND: [
+          { members: { some: { userId: id } } },
+          { name: { contains: query, mode: 'insensitive' } }
+        ]
+       },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
@@ -74,12 +84,17 @@ export async function findClassroomByCode(classroomCode: string) {
   }
 }
 
-export async function findAllMyClassrooms(id: string) { // Admin
+export async function findAllMyClassrooms(id: string, query: string) { // Admin
   try {
     const classrooms = await db.classroom.findMany({
-      where: { OR: [
-        { members: { some: { userId: id } } },
-        { ownerId: id }
+      where: { AND: [
+        { name: { contains: query, mode: 'insensitive' } },
+        {
+          OR: [
+            { members: { some: { userId: id } } },
+            { ownerId: id }
+          ]
+        }
       ] },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
@@ -87,7 +102,7 @@ export async function findAllMyClassrooms(id: string) { // Admin
     return classrooms;
   }catch(e) {
     console.error(e);
-    throw new Error("Failed to find classrooms belong");
+    throw new Error("Failed to find all my classrooms");
   }
 }
 

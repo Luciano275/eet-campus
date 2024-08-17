@@ -17,7 +17,7 @@ export default async function TeacherPage(
 
   const rol = (await auth())?.user.rol!;
 
-  const classroomName = searchParams?.name || null;
+  const classroomName = searchParams?.name || '';
 
   const isTeacher = rol === 1 || rol === 2;
 
@@ -33,7 +33,7 @@ export default async function TeacherPage(
       </div>
 
       <Suspense key={`${classroomName}`} fallback={<ClassroomSkeleton />}>
-        <Classrooms admin={admin} teacher={isTeacher} />
+        <Classrooms query={classroomName} admin={admin} teacher={isTeacher} />
       </Suspense>
     </>
   );

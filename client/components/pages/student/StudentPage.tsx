@@ -16,7 +16,7 @@ export default async function StudentPage({
   const rol = (await auth())?.user.rol!;
   const isTeacher = rol === 1 || rol === 2;
 
-  const classroomName = searchParams.name || null;
+  const classroomName = searchParams.name || '';
 
   return (
     <>
@@ -27,7 +27,7 @@ export default async function StudentPage({
       <Button type="join" text="Unirse" />
 
       <Suspense key={`${classroomName}`} fallback={<ClassroomSkeleton />}>
-        <Classrooms teacher={isTeacher} />
+        <Classrooms query={classroomName} teacher={isTeacher} />
       </Suspense>
     </>
   );
