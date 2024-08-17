@@ -1,7 +1,10 @@
 import { auth } from "@/auth";
-import CreateClassroom from "@/components/pages/teacher/create/Page";
+import CoursesSelect from "@/components/ui/campus/classrooms/teacher/Courses";
+import CreateClassroomForm from "@/components/ui/campus/classrooms/teacher/create/Form";
+import CampusHeader from "@/components/ui/campus/Header";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const rol = (await auth())?.user.rol!;
@@ -13,7 +16,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function CreateClassroomPage() {
   
-  const rol = (await auth())?.user.rol!;
+  const session = await auth()
+  const rol = session?.user.rol!;
+  const id = session?.user.id!;
 
   if (rol === 3) {
     notFound();
@@ -21,7 +26,13 @@ export default async function CreateClassroomPage() {
 
   return (
     <>
-      <CreateClassroom />
+      <CampusHeader title="Crear aula" />
+
+      <CreateClassroomForm ownerId={id}>
+        <Suspense fallback={<p>Cargando...</p>}>
+          <CoursesSelect />
+        </Suspense>
+      </CreateClassroomForm>
     </>
   )
 

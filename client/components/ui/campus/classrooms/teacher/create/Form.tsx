@@ -28,10 +28,10 @@ const SubmitButton = () => {
 };
 
 export default function CreateClassroomForm({
-  select,
+  children,
   ownerId,
 }: {
-  select: React.ReactNode;
+  children: React.ReactNode;
   ownerId: string;
 }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -72,7 +72,7 @@ export default function CreateClassroomForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        {select}
+        {children}
 
         <ErrorForm
           state={state}
