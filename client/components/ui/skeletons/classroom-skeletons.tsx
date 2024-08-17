@@ -20,3 +20,9 @@ export const ClassroomSkeleton = () => {
     </div>
   )
 }
+
+export const CoursesInputSkeleton = () => {
+  return (
+    <div className="h-10 rounded-lg skeleton"></div>
+  )
+}
