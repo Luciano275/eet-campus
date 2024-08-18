@@ -15,7 +15,7 @@ export default async function ClassroomPage(
   }
 
   return (
-    <div className="mt-4 p-4 border border-base-300 rounded-xl w-full max-w-[700px] mx-auto flex flex-col gap-3">
+    <div className="p-4 border border-base-300 rounded-xl mx-auto flex flex-col gap-3">
       <h2 className="text-2xl font-bold">Acerca de esta aula</h2>
       <p>{classroom.description || 'No se agregó una descripción'}</p>
     </div>

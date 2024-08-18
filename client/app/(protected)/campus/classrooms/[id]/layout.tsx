@@ -46,8 +46,12 @@ export default async function ClassroomLayout (
   return (
     <>
       <CampusHeader title={classroom.name} />
-      <ClassroomMenu classroomId={classroom.id} />
-      {children}
+      <section className="flex gap-4">
+        <ClassroomMenu classroomId={classroom.id} />
+        <main className="grow md:pb-0">
+          {children}
+        </main>
+      </section>
     </>
   )
 }

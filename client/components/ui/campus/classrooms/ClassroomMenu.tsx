@@ -37,17 +37,28 @@ export default function ClassroomMenu({
   const pathname = usePathname();
 
   return (
-    <ul className="menu menu-horizontal gap-2 bg-base-200 rounded-xl">
-      {LINKS.map(({ href, label, icon: Icon }, index) => (
-        <li key={`${index}:${href}`}>
-          <Link href={href} className={`${href === pathname && "active"}`}>
-            <span>
+    <>
+      <ul className="hidden md:menu menu-horizontal justify-center gap-2 bg-base-300 rounded-xl min-w-[250px] 2xl:min-w-[300px]">
+        {LINKS.map(({ href, label, icon: Icon }, index) => (
+          <li key={`${index}:${href}`}>
+            <Link href={href} className={`${href === pathname && "active"}`}>
+              <span>
+                <Icon size={18} />
+              </span>
+              <span>{label}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <ul className="btm-nav md:hidden bg-base-300">
+        {LINKS.map(({ href, icon: Icon }, index) => (
+          <li key={`${index}:${href}`} className={`${href === pathname && "active"}`}>
+            <Link href={href}>
               <Icon size={18} />
-            </span>
-            <span>{label}</span>
-          </Link>
-        </li>
-      ))}
-    </ul>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
