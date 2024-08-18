@@ -151,3 +151,13 @@ export type ClassroomType = {
   classroomColor: string | null;
   description: string | null;
 }
+
+export type ClassroomSendMessageErrors = {
+  message?: string[]
+}
+
+export type ClassroomSendMessageAction = {
+  errors?: ClassroomSendMessageErrors;
+  message: string | null;
+  success: boolean | null;
+}

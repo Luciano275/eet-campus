@@ -4,7 +4,8 @@ import { Server as SocketServer } from 'socket.io';
 
 export const corsOptions: CorsOptions = {
   origin: process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : process.env.CAMPUS_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }
 
 declare global {
