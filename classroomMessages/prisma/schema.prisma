@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Classroom {
+  id               String             @id
+  name             String
+  ownerId          String
+  classroomCode    String             @unique
+  courseId         Int
+  classroomColor   String?
+  description      String?
+  Course           Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  users            users              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ClassroomMember  ClassroomMember[]
+  ClassroomMessage ClassroomMessage[]
+}
+
+model ClassroomMember {
+  userId      String
+  classroomId String
+  Classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  users       users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, classroomId])
+}
+
+model ClassroomMessage {
+  id          String       @id
+  ownerId     String
+  classroomId String
+  body        String
+  created_at  DateTime     @default(now())
+  status      MessageState
+  Classroom   Classroom    @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  users       users        @relation(fields: [ownerId], references: [id])
+}
+
+model Course {
+  id         Int          @id @unique @default(autoincrement())
+  course     Int
+  division   Int
+  cycle      Cycle
+  Classroom  Classroom[]
+  UserCourse UserCourse[]
+}
+
+model UserCourse {
+  studentId String
+  courseId  Int
+  Course    Course @relation(fields: [courseId], references: [id])
+  users     users  @relation(fields: [studentId], references: [id])
+
+  @@id([studentId, courseId])
+}
+
+model accounts {
+  id                  String  @id
+  user_id             String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String?
+  access_token        String?
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String?
+  session_state       String?
+  users               users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+}
+
+model users {
+  id               String             @id
+  name             String
+  email            String             @unique
+  email_verified   DateTime?
+  image            String?
+  rol              Role
+  dni              String?
+  tutor_name       String?
+  tutor_dni        String?
+  tutor_phone      String?
+  address          String?
+  phone            String
+  gender           Gender
+  birthday         DateTime?
+  turn             Turn?
+  active           Boolean            @default(false)
+  Classroom        Classroom[]
+  ClassroomMember  ClassroomMember[]
+  ClassroomMessage ClassroomMessage[]
+  UserCourse       UserCourse[]
+  accounts         accounts[]
+}
+
+enum Cycle {
+  CS
+  CB
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MessageState {
+  ACTIVE
+  DELETED
+  UPDATED
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}
+
+enum Turn {
+  AFTERNOON
+  MORNING
+}
