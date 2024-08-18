@@ -3,40 +3,7 @@
 import { ClassroomSendMessageAction } from "@/types";
 import { ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
 import queryString from 'query-string'
-import { revalidatePath } from "next/cache";
-
-// const sendMessage = async (userId: string, classroomId: string, apiUrl: string) => {
-//   try {
-
-//     const url = queryString.stringifyUrl({
-//       url: apiUrl,
-//       query: {
-//         classroomId
-//       }
-//     })
-
-    // const rq = await fetch(url, {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   body: JSON.stringify({
-    //     content: 'Hola mundo',
-    //     userId
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-
-//     if (!rq.ok) {
-//       return rq.status;
-//     }
-
-//     return await rq.json();
-//   }catch (e) {
-//     console.error(e);
-//     throw e;
-//   }
-// }
+import { revalidateTag } from "next/cache";
 
 export async function sendMessageAction(userId: string, apiUrl: string, classroomId: string, prevState: ClassroomSendMessageAction, formData: FormData): Promise<ClassroomSendMessageAction> {
 
@@ -88,7 +55,7 @@ export async function sendMessageAction(userId: string, apiUrl: string, classroo
     }
   }
 
-  revalidatePath('/campus/classrooms/[id]/messages', 'page')
+  revalidateTag('classroom:messages')
 
   return {
     message: 'Mensaje enviado',

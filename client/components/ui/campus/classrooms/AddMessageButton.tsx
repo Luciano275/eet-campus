@@ -8,7 +8,7 @@ export default function AddMessageButton (
   }
 ) {
   return (
-    <header className="py-4 border-b border-base-300">
+    <header className="py-4 border-b border-base-content">
       <Link href={`/campus/classrooms/${classroomId}/messages/new`} className="flex gap-2 items-center">
         <div className="avatar">
           <div className="w-10 rounded-full overflow-hidden">

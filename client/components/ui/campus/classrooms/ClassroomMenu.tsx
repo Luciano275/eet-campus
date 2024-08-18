@@ -38,7 +38,7 @@ export default function ClassroomMenu({
 
   return (
     <>
-      <ul className="hidden md:menu menu-horizontal justify-center gap-2 bg-base-300 rounded-xl min-w-[250px] 2xl:min-w-[300px]">
+      <ul className="hidden md:menu menu-horizontal justify-start gap-2 bg-base-300 rounded-xl min-w-[250px] 2xl:min-w-[300px]">
         {LINKS.map(({ href, label, icon: Icon }, index) => (
           <li key={`${index}:${href}`}>
             <Link href={href} className={`${href === pathname && "active"}`}>

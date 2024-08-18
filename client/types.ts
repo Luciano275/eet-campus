@@ -161,3 +161,21 @@ export type ClassroomSendMessageAction = {
   message: string | null;
   success: boolean | null;
 }
+
+export type ClassroomMessagesResponse = {
+  id: string;
+  body: string;
+  created_at: Date;
+  owner: {
+    name: string;
+    email: string;
+    image: string;
+    id: string;
+  };
+  status: $Enums.MessageState
+};
+
+export type ClassroomHookMessages = {
+  messages: ClassroomMessagesResponse[];
+  nextCursor: number | null;
+}

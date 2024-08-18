@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import ClassroomQueryProvider from "@/components/providers/classroom-query-provider";
 import ClassroomSocketProvider from "@/components/providers/classroom-socket-provider";
 import ClassroomMenu from "@/components/ui/campus/classrooms/ClassroomMenu";
 import CampusHeader from "@/components/ui/campus/Header";
@@ -45,16 +46,18 @@ export default async function ClassroomLayout (
   }
 
   return (
-    <ClassroomSocketProvider
-      socketUrl={process.env.CLASSROOM_SOCKET_URL!}
-    >
-      <CampusHeader title={classroom.name} />
-      <section className="flex gap-4">
-        <ClassroomMenu classroomId={classroom.id} />
-        <main className="grow md:pb-0">
-          {children}
-        </main>
-      </section>
-    </ClassroomSocketProvider>
+    <ClassroomQueryProvider>
+      <ClassroomSocketProvider
+        socketUrl={process.env.CLASSROOM_SOCKET_URL!}
+      >
+        <CampusHeader title={classroom.name} />
+        <section className="flex gap-4">
+          <ClassroomMenu classroomId={classroom.id} />
+          <main className="grow md:pb-0">
+            {children}
+          </main>
+        </section>
+      </ClassroomSocketProvider>
+    </ClassroomQueryProvider>
   )
 }
