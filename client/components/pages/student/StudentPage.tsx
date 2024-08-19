@@ -16,16 +16,12 @@ export default async function StudentPage({
 
   const session = await auth();
   const rol = session?.user.rol!;
-  const id = session?.user.id!;
   const isTeacher = rol === 1 || rol === 2;
 
   const classroomName = searchParams.name || '';
 
   return (
     <>
-
-      <ClassroomModal id={id} />
-
       <Suspense>
         <Search />
       </Suspense>

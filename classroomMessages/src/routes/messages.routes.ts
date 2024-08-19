@@ -127,6 +127,55 @@ router.get('/', async (req: Request, res: Response) => {
   }
 })
 
+router.delete('/:messageId', async (req: Request, res: Response) => {
+  try {
+
+    const messageId: string = req.params.messageId;
+    const userId = req.body.userId as string | undefined;
+    const classroomId = req.body.classroomId as string | undefined;
+
+    if (!userId) return res.status(401).json({message: 'Unauthorized'})
+    if (!classroomId) return res.status(401).json({message: 'Unauthorized'})
+
+    const userFounded = await db.user.findUnique({
+      where: { id: userId }
+    })
+
+    if (!userFounded) return res.status(401).json({message: 'Unauthorized'})
+
+    const classroomFounded = await db.classroom.findUnique({
+      where: { id: classroomId }
+    })
+
+    if (!classroomFounded) return res.status(404).json({message: 'Classroom Not Found'})
+
+    const messageFounded = await db.classroomMessage.findUnique({
+      where: { id: messageId, ownerId: userId }
+    })
+
+    if (!messageFounded) return res.status(404).json({message: 'Message Not Found'})
+
+    const newMessage = await db.classroomMessage.update({
+      where: { id: messageFounded.id },
+      data: {
+        body: 'Mensaje borrado',
+        status: 'DELETED'
+      }
+    })
+
+    io.emit(`classroom:${classroomFounded.id}:messages`, newMessage)
+
+    return res.json({
+      message: 'Message deleted!',
+      message_id: messageFounded.id
+    })
+
+  }catch (e) {
+    console.error(e);
+    return res.status(500).json({message: 'Internal Server Error'})
+  }
+})
+
 router.use((req, res) => {
   return res.status(405).end();
 })

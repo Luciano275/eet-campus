@@ -3,17 +3,19 @@
 import { useClassroomModal } from "@/components/providers/classroom-modal-provider";
 import delayZIndex from "@/styles/delay-z-index.module.css";
 import { useEffect } from "react";
-import FormJoin from "./student/Form";
+import FormJoin from "../../../modals/Join";
 import { FaX } from "react-icons/fa6";
+import DeleteMessage from "@/components/modals/DeleteMessage";
 
 export default function ClassroomModal({ id }: { id: string }) {
-  const { isOpen, setIsOpen } = useClassroomModal();
+  const { isOpen, setIsOpen, setType } = useClassroomModal();
 
   useEffect(() => {
     if (window) {
       window.addEventListener("keyup", (e) => {
         if (e.key === "Escape") {
           setIsOpen(false);
+          setType(null);
         }
       });
     }
@@ -31,20 +33,8 @@ export default function ClassroomModal({ id }: { id: string }) {
       }
     >
       <div className="bg-base-300 w-full max-w-[400px] h-fit max-h-[400px] overflow-x-hidden overflow-y-auto p-4 rounded-lg">
-        <header className="relative">
-          <h2 className="text-xl lg:text-2xl pt-2 pb-4 border-b border-base-content">
-            Unirse a un aula
-          </h2>
-          <span
-            onClick={() => setIsOpen(false)}
-            className="text-base-content absolute right-2 top-4 cursor-pointer hover:text-blue-400"
-          >
-            <FaX size={18} />
-          </span>
-        </header>
-        <div>
-          <FormJoin userId={id} />
-        </div>
+        <FormJoin userId={id} />
+        <DeleteMessage />
       </div>
     </div>
   );

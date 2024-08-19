@@ -2,8 +2,10 @@
 
 import { joinToClassroomAction } from "@/lib/actions/classroom";
 import { useFormState, useFormStatus } from "react-dom";
-import ErrorMessageForm from "../error-message";
+import ErrorMessageForm from "../ui/campus/classrooms/error-message";
 import { useEffect } from "react";
+import { useClassroomModal } from "@/components/providers/classroom-modal-provider";
+import ModalHeader from "../ui/campus/classrooms/ModalHeader";
 
 const SubmitButton = () => {
 
@@ -24,6 +26,8 @@ export default function FormJoin (
   }
 ) {
 
+  const { isOpen, type } = useClassroomModal();
+
   const bindJoinToClassroomAction = joinToClassroomAction.bind(null, userId);
   const [state, action] = useFormState(bindJoinToClassroomAction, {
     message: null,
@@ -40,21 +44,28 @@ export default function FormJoin (
     }
   }, [state])
 
-  return (
-    <form action={action} className="w-full max-w-[400px] mx-auto mt-4 flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <label htmlFor="classroomCode">Código del aula</label>
-        <input
-          type="text"
-          name="classroomCode"
-          className="input input-bordered w-full"
-          aria-labelledby="classroomCodeError"
-        />
-      </div>
+  if ( isOpen && type === 'join' ) {
+    return (
+      <>
+        <ModalHeader title="Unirse a un aula" />
+        <form action={action} className="w-full mt-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="classroomCode">Código del aula</label>
+            <input
+              type="text"
+              name="classroomCode"
+              className="input input-bordered w-full"
+              aria-labelledby="classroomCodeError"
+            />
+          </div>
+    
+          <SubmitButton />
+    
+          <ErrorMessageForm state={state} type="join" />
+        </form>
+      </>
+    )
+  }
 
-      <SubmitButton />
-
-      <ErrorMessageForm state={state} type="join" />
-    </form>
-  )
+  return <></>
 }

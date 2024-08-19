@@ -13,12 +13,13 @@ export default function Button({
   text: string;
 }) {
 
-  const { setIsOpen } = useClassroomModal();
+  const { setIsOpen, setType } = useClassroomModal();
 
   const className = `btn btn-md ${type === 'join' ? 'btn-primary' : 'btn-success'} text-white w-full max-w-44`
 
   const handleClick = () => {
     setIsOpen(true);
+    setType('join')
   }
 
   return (
