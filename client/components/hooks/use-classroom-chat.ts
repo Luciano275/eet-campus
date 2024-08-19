@@ -4,11 +4,12 @@ import { useClassroomSocket } from "../providers/classroom-socket-provider";
 import { ClassroomHookMessages } from "@/types";
 
 export const useClassroomChatMessages = (
-  {apiUrl, classroomId, userId}
+  {apiUrl, classroomId, userId, queryKey}
   : {
     apiUrl: string;
     classroomId: string;
     userId: string;
+    queryKey: string;
   }
 ) => {
 
@@ -28,9 +29,7 @@ export const useClassroomChatMessages = (
 
       const rq = await fetch(url, {
         credentials: 'include',
-        next: {
-          tags: ['classroom:messages']
-        }
+        cache: 'no-store'
       })
 
       if (!rq.ok) {
@@ -57,11 +56,11 @@ export const useClassroomChatMessages = (
     isPending,
     fetchStatus
   } = useInfiniteQuery({
-    queryKey: [`classroom:${classroomId}`],
+    queryKey: [queryKey],
     initialPageParam: 1,
     queryFn: getMessages,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
-    refetchInterval: isConnected ? false : 1000
+    refetchInterval: isConnected ? false : 500
   })
 
   return {

@@ -9,6 +9,7 @@ import spanishStrings from "react-timeago/lib/language-strings/es";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { useChangeThemeContext } from "@/components/providers/change-theme-provider";
 import DeleteMessage from "./delete-message";
+import { useClassroomChatSocket } from "@/components/hooks/use-classroom-chat-socket";
 
 export default function ClassroomChatMessages({
   classroomId,
@@ -23,11 +24,19 @@ export default function ClassroomChatMessages({
 }) {
   const { theme } = useChangeThemeContext();
 
-  const { data, error, isLoading } = useClassroomChatMessages({
+  const queryKey = `classroom:${classroomId}`
+
+  const { data, error, isLoading, fetchNextPage, fetchStatus, hasNextPage, isFetchingNextPage, isPending, refetch, status } = useClassroomChatMessages({
     apiUrl,
     classroomId,
     userId,
+    queryKey
   });
+  useClassroomChatSocket({
+    addKey: `classroom:${classroomId}:messages`,
+    deletedKey: `classroom:${classroomId}:deleted`,
+    queryKey
+  })
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -64,7 +73,7 @@ export default function ClassroomChatMessages({
                 </p>
                 <h2 className="text-xl text-base-content justify-between flex gap-2 items-center">
                   <span>{msg.owner.name}</span>
-                  {userId === msg.owner.id && (
+                  {userId === msg.owner.id && msg.status !== 'DELETED' && (
                     <DeleteMessage
                       apiUrl={apiUrl}
                       classroomId={classroomId}

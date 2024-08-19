@@ -33,9 +33,13 @@ router.post('/', async (req: Request, res: Response) => {
         classroomId: classroomFounded.id,
         ownerId: userId
       },
-      include: {
-        owner: true
-      }
+      select: {
+        id: true,
+        body: true,
+        created_at: true,
+        owner: { select: { name: true, email: true, image: true, id: true } },
+        status: true
+      },
     })
 
     io.emit(`classroom:${classroomFounded.id}:messages`, message)
@@ -68,10 +72,15 @@ router.get('/', async (req: Request, res: Response) => {
     if (!userFounded) return res.status(401).json({message: 'Unauthorized'})
 
     const classroomFounded = await db.classroom.findUnique({
-      where: {id: classroomId}
+      where: {id: classroomId},
+      include: { members: true }
     })
 
     if (!classroomFounded) return res.status(404).json({message: 'Classroom Not Found'})
+
+    const isBelong = classroomFounded.members.some(({ userId: memberId }) => memberId === userId) || classroomFounded.ownerId === userId;
+
+    if (!isBelong) return res.status(403).json({message: 'Forbidden'})
 
     let messages = [];
 
@@ -83,6 +92,9 @@ router.get('/', async (req: Request, res: Response) => {
           created_at: true,
           owner: { select: { name: true, email: true, image: true, id: true } },
           status: true
+        },
+        where: {
+          classroomId
         },
         orderBy: { created_at: 'desc' },
         take: TOTAL_MESSAGES,
@@ -101,13 +113,7 @@ router.get('/', async (req: Request, res: Response) => {
           status: true
         },
         where: {
-          AND: [
-            { OR: [
-              { ownerId: userId },
-              { classroom: { members: { some: { userId } } } }
-            ] },
-            { classroomId }
-          ]
+          classroomId,
         },
         orderBy: { created_at: 'desc' },
         take: TOTAL_MESSAGES
@@ -160,10 +166,17 @@ router.delete('/:messageId', async (req: Request, res: Response) => {
       data: {
         body: 'Mensaje borrado',
         status: 'DELETED'
-      }
+      },
+      select: {
+        id: true,
+        body: true,
+        created_at: true,
+        owner: { select: { name: true, email: true, image: true, id: true } },
+        status: true
+      },
     })
 
-    io.emit(`classroom:${classroomFounded.id}:messages`, newMessage)
+    io.emit(`classroom:${classroomFounded.id}:deleted`, newMessage)
 
     return res.json({
       message: 'Message deleted!',

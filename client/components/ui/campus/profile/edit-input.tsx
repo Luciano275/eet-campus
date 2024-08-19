@@ -73,8 +73,6 @@ export default function EditInput({
     );
   }
 
-  console.log(GENDER_OPTIONS, labels[index])
-
   return (
     <div className="overflow-hidden flex flex-col">
       <select

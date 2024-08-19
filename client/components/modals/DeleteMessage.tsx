@@ -63,6 +63,8 @@ export default function DeleteMessage() {
           </p>
           <div className="flex justify-center gap-4">
             <button
+              aria-disabled={pending}
+              disabled={pending}
               className="btn btn-error btn-md text-white transition-opacity px-4"
               onClick={() => { setIsOpen(false); setIsOpen(false); setOptions({}) }}
             >

@@ -4,6 +4,7 @@ import { ClassroomSendMessageAction } from "@/types";
 import { ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
 import queryString from 'query-string'
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function sendMessageAction(userId: string, apiUrl: string, classroomId: string, prevState: ClassroomSendMessageAction, formData: FormData): Promise<ClassroomSendMessageAction> {
 
@@ -55,7 +56,7 @@ export async function sendMessageAction(userId: string, apiUrl: string, classroo
     }
   }
 
-  revalidateTag('classroom:messages')
+  redirect(`/campus/classrooms/${classroomId}/messages`)
 
   return {
     message: 'Mensaje enviado',

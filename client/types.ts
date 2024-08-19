@@ -179,3 +179,8 @@ export type ClassroomHookMessages = {
   messages: ClassroomMessagesResponse[];
   nextCursor: number | null;
 }
+
+export type ReactQueryClassroomMessages = {
+  pages?: ClassroomHookMessages[];
+  pageParams?: Number[]
+}
