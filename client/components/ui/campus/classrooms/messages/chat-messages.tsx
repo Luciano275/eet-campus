@@ -82,7 +82,7 @@ export default function ClassroomChatMessages({
                     />
                   )}
                 </h2>
-                <p className={`text-sm ${msg.status === 'DELETED' && 'italic'}`}>{msg.body}</p>
+                <div className={`text-sm whitespace-pre-line ${msg.status === 'DELETED' && 'italic'}`}>{msg.body}</div>
               </div>
             </div>
           ))}
