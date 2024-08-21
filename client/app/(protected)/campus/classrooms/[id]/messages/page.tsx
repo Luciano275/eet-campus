@@ -20,6 +20,8 @@ export default async function ClassroomMessagesPage (
       <AddMessageButton
         classroomId={id}
         image={image}
+        userId={userId}
+        apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/messages`}
       />
 
       <div className="py-4 flex-1">

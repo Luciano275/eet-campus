@@ -56,8 +56,6 @@ export async function sendMessageAction(userId: string, apiUrl: string, classroo
     }
   }
 
-  redirect(`/campus/classrooms/${classroomId}/messages`)
-
   return {
     message: 'Mensaje enviado',
     success: true

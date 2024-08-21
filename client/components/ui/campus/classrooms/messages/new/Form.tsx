@@ -2,6 +2,8 @@
 
 import { sendMessageAction } from '@/lib/actions/classroom-messages';
 import dynamicSizeStyles from '@/styles/dynamic-size.module.css';
+import { ClassroomSendMessageAction } from '@/types';
+import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
 
@@ -34,12 +36,26 @@ export default function NewMessageForm (
   }
 ) {
 
-  const bindSendMessage = sendMessageAction.bind(null, userId, apiUrl, classroomId);
-  const [state, action] = useFormState(bindSendMessage, {
+  const defaultState = {
     message: null,
     success: null,
     errors: {}
-  })
+  }
+
+  const [localState, setLocalState] = useState<ClassroomSendMessageAction>(defaultState);
+
+  const bindSendMessage = sendMessageAction.bind(null, userId, apiUrl, classroomId);
+  const [state, action] = useFormState(bindSendMessage, defaultState)
+
+  useEffect(() => {
+    setLocalState(state);
+
+    if (state.success) {
+      setTimeout(() => {
+        setLocalState(defaultState);
+      }, 3000);
+    }
+  }, [state])
 
   return (
     <form action={action} className="w-full max-w-[400px] mx-auto flex flex-col gap-3">
@@ -54,16 +70,16 @@ export default function NewMessageForm (
       <SubmitButton />
 
       {
-        state.message && (
-          <p className={`text-sm p-4 flex gap-2 items-center rounded-xl ${state.success ? 'bg-emerald-600' : 'bg-error'} text-white`}>
+        localState.message && (
+          <p className={`text-sm p-4 flex gap-2 items-center rounded-xl ${localState.success ? 'bg-emerald-600' : 'bg-error'} text-white`}>
             <span>
-              {state.success ? (
+              {localState.success ? (
                 <BiCheckCircle size={18} />
               ) : (
                 <BiErrorCircle size={18} />
               )}
             </span>
-            <span className='grow'>{state.message}</span>
+            <span className='grow'>{localState.message}</span>
           </p>
         )
       }
