@@ -90,15 +90,15 @@ export async function findClassroomByCode(classroomCode: string) {
 export async function findAllMyClassrooms(id: string, query: string) { // Admin
   try {
     const classrooms = await db.classroom.findMany({
-      where: { AND: [
-        { name: { contains: query, mode: 'insensitive' } },
-        {
-          OR: [
-            { members: { some: { userId: id } } },
-            { ownerId: id }
-          ]
-        }
-      ] },
+      // where: { AND: [
+      //   { name: { contains: query, mode: 'insensitive' } },
+      //   {
+      //     OR: [
+      //       { members: { some: { userId: id } } },
+      //       { ownerId: id }
+      //     ]
+      //   }
+      // ] },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
