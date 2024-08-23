@@ -30,6 +30,7 @@ export default async function ClassroomMessagesPage (
           socketUrl={process.env.CLASSROOM_SOCKET_URL!}
           classroomId={id}
           userId={userId}
+          rol={session?.user.rol!}
         />
       </div>
     </div>

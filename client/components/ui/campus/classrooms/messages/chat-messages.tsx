@@ -17,11 +17,13 @@ export default function ClassroomChatMessages({
   socketUrl,
   apiUrl,
   userId,
+  rol,
 }: {
   classroomId: string;
   socketUrl: string;
   apiUrl: string;
   userId: string;
+  rol: number;
 }) {
   const { theme } = useChangeThemeContext();
 
@@ -85,12 +87,12 @@ export default function ClassroomChatMessages({
                 </p>
                 <h2 className="text-xl text-base-content justify-between flex gap-2 items-center">
                   <span>{msg.owner.name}</span>
-                  {userId === msg.owner.id && msg.status !== "DELETED" && (
+                  {(userId === msg.owner.id || rol === 1) && msg.status !== "DELETED" && (
                     <DeleteMessage
                       apiUrl={apiUrl}
                       classroomId={classroomId}
                       messageId={msg.id}
-                      userId={userId}
+                      userId={msg.owner.id}
                     />
                   )}
                 </h2>
