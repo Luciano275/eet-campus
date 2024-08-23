@@ -50,13 +50,13 @@ export default function ClassroomMenu({
           </li>
         ))}
       </ul>
-      <ul className="btm-nav md:hidden bg-base-300">
+      <ul className="btm-nav md:hidden bg-base-300" style={{
+        zIndex: 999
+      }}>
         {LINKS.map(({ href, icon: Icon }, index) => (
-          <li key={`${index}:${href}`} className={`${href === pathname && "active"}`}>
-            <Link href={href}>
-              <Icon size={18} />
-            </Link>
-          </li>
+          <Link href={href} key={`${index}:${href}`} className={`${href === pathname && "active"}`}>
+            <Icon size={24} />
+          </Link>
         ))}
       </ul>
     </>

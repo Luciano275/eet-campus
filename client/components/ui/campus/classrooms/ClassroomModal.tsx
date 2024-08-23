@@ -4,8 +4,8 @@ import { useClassroomModal } from "@/components/providers/classroom-modal-provid
 import delayZIndex from "@/styles/delay-z-index.module.css";
 import { useEffect } from "react";
 import FormJoin from "../../../modals/Join";
-import { FaX } from "react-icons/fa6";
 import DeleteMessage from "@/components/modals/DeleteMessage";
+import Attachment from "@/components/modals/Attachment";
 
 export default function ClassroomModal({ id }: { id: string }) {
   const { isOpen, setIsOpen, setType } = useClassroomModal();
@@ -35,6 +35,7 @@ export default function ClassroomModal({ id }: { id: string }) {
       <div className="bg-base-300 w-full max-w-[400px] h-fit max-h-[400px] overflow-x-hidden overflow-y-auto p-4 rounded-lg">
         <FormJoin userId={id} />
         <DeleteMessage />
+        <Attachment />
       </div>
     </div>
   );

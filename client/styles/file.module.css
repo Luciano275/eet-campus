@@ -1,0 +1,4 @@
+#inputFile:hover ~ span span:last-child {
+  color: #02f;
+  text-decoration: underline;
+}

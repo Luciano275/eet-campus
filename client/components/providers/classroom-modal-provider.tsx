@@ -2,7 +2,7 @@
 
 import React, { useContext, createContext, useState } from "react";
 
-type TypeModals = 'join' | 'deleteMessage' | null
+type TypeModals = 'join' | 'deleteMessage' | 'attachment' | null
 
 interface IClassroomModalContext {
   isOpen: boolean;
