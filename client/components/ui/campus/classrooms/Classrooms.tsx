@@ -9,20 +9,18 @@ import ClassroomTitle from "./ClassroomTitle";
 import ClassroomInformation from "./ClassroomInfo";
 
 export default async function Classrooms({
-  teacher,
-  admin,
-  query
+  query,
+  rol
 }: {
-  teacher: boolean;
-  admin?: boolean;
+  rol: number
   query: string;
 }) {
   const session = await auth();
   const id = session?.user.id!;
   const myName = session?.user.name;
-  const classroomsList = admin
+  const classroomsList = rol === 1
     ? await findAllMyClassrooms(id, query)
-    : teacher
+    : rol === 2
     ? await findMyClassrooms(id, query)
     : await findClassroomsBelong(id, query);
 
@@ -34,7 +32,7 @@ export default async function Classrooms({
         >
           <ClassroomTitle classroom={classroom} myName={myName} />
           
-          <ClassroomInformation classroom={classroom} teacher={teacher} />
+          <ClassroomInformation classroom={classroom} rol={rol} />
         </ClassroomContainer>
       ))}
     </div>

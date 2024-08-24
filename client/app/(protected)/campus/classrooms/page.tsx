@@ -23,7 +23,7 @@ export default async function ClassroomsPage(
     <>
       <CampusHeader title="Aulas" />
 
-      { rol === 1 || rol === 2 ? <TeacherPage admin={rol === 1} searchParams={searchParams} /> : <StudentPage searchParams={searchParams} /> }
+      { rol === 1 || rol === 2 ? <TeacherPage searchParams={searchParams} /> : <StudentPage searchParams={searchParams} /> }
     </>
   )
 }

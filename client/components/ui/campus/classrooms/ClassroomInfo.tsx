@@ -3,10 +3,10 @@ import Link from "next/link"
 import { FaPencil } from "react-icons/fa6";
 
 export default function ClassroomInformation(
-  {classroom, teacher}
+  {classroom, rol}
   : {
     classroom: ClassroomType;
-    teacher: boolean;
+    rol: number
   }
 ) {
   return (
@@ -15,7 +15,7 @@ export default function ClassroomInformation(
         {classroom.course.course}º {classroom.course.division}º{" "}
         {classroom.course.cycle}
       </p>
-      {teacher && (
+      { rol === 1 || rol === 2 ? (
         <Link
           href={`/campus/classrooms/${classroom.id}/settings`}
           className={`hover:bg-blue-500 p-2 rounded text-white`}
@@ -25,7 +25,7 @@ export default function ClassroomInformation(
         >
           <FaPencil size={20} />
         </Link>
-      )}
+      ) : (<></>) }
     </div>
   )
 }
