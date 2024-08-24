@@ -29,7 +29,7 @@ export default async function CreateClassroomPage() {
     <>
       <CampusHeader title="Crear aula" />
 
-      <CreateClassroomForm ownerId={id}>
+      <CreateClassroomForm edit={false} ownerId={id}>
         <Suspense fallback={<CoursesInputSkeleton />}>
           <CoursesSelect />
         </Suspense>

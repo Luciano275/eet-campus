@@ -17,7 +17,7 @@ export default function ClassroomInformation(
       </p>
       {teacher && (
         <Link
-          href={`/campus/${classroom.id}/edit`}
+          href={`/campus/classrooms/${classroom.id}/settings`}
           className={`hover:bg-blue-500 p-2 rounded text-white`}
           style={{
             background: classroom.classroomColor || "#111827",

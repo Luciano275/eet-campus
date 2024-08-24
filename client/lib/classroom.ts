@@ -90,15 +90,6 @@ export async function findClassroomByCode(classroomCode: string) {
 export async function findAllMyClassrooms(id: string, query: string) { // Admin
   try {
     const classrooms = await db.classroom.findMany({
-      // where: { AND: [
-      //   { name: { contains: query, mode: 'insensitive' } },
-      //   {
-      //     OR: [
-      //       { members: { some: { userId: id } } },
-      //       { ownerId: id }
-      //     ]
-      //   }
-      // ] },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
     });
 
@@ -174,5 +165,38 @@ export async function findClassroomById(id: string) {
   }catch (e) {
     console.error(e);
     throw new Error('Failed to get classroom by id');
+  }
+}
+
+export async function updateClassroomById(id: string, {
+  classroomColor,
+  courseId,
+  description,
+  name
+}: {
+  name: string;
+  description: string | null;
+  courseId: number;
+  classroomColor: string | null;
+}) {
+  try {
+
+    const results = await db.classroom.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+        description,
+        courseId,
+        classroomColor
+      }
+    })
+
+    return results;
+
+  }catch (e) {
+    console.error(e);
+    throw new Error('Failed to update classroom by id');
   }
 }

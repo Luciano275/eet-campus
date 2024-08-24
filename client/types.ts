@@ -119,7 +119,7 @@ export type CreateClassroomType = {
 } | {
   message: string;
   success: true;
-  readonly classroomCode: string;
+  classroomCode?: string;
 }
 
 export type JoinToClassroomErrors = {
