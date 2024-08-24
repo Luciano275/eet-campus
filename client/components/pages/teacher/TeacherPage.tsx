@@ -49,11 +49,13 @@ export default async function TeacherPage(
             <TeacherFilters admin={rol === 1} />
           </Suspense>
 
-          <Suspense fallback={
-            <div className="skeleton w-20 h-10"></div>
-          }>
-            <StudentFilters admin={rol === 1} />
-          </Suspense>
+          { rol === 1 && (
+            <Suspense fallback={
+              <div className="skeleton w-20 h-10"></div>
+            }>
+              <StudentFilters admin />
+            </Suspense>
+          ) }
 
         </div>
       </div>
