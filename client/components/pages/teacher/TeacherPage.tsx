@@ -36,12 +36,12 @@ export default async function TeacherPage(
         <Search />
       </Suspense>
 
-      <div className="flex gap-2 justify-between items-center">
-        <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2 justify-between items-center">
+        <div className="flex flex-wrap gap-2 items-center">
           { rol === 1 && <Button type={'join'} text="Unirse" /> }
           <Button type={'create'} text="Crear" />
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 items-center">
 
           <Suspense fallback={
             <div className="skeleton w-20 h-10"></div>

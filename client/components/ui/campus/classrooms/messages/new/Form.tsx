@@ -1,17 +1,21 @@
 "use client";
 
-import { sendMessageAction } from "@/lib/actions/classroom-messages";
+import {
+  getSignedUrlAction,
+  sendFileAction,
+  sendMessageAction,
+} from "@/lib/actions/classroom-messages";
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomSendMessageAction } from "@/types";
-import { useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useState } from "react";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
-import { CgAttachment } from "react-icons/cg";
 import AttachmentButton from "./Attachment";
+import { useAttachmentContext } from "@/components/providers/attachment-provider";
+import { IoIosDocument } from "react-icons/io";
+import { isImage, regexToExtWithSlash } from "@/lib/utils";
+import { ClassroomMessageSchema } from "@/lib/schemas/classroom-messages.schema";
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
+const SubmitButton = ({ pending }: { pending: boolean }) => {
   return (
     <button
       aria-disabled={pending}
@@ -32,10 +36,12 @@ export default function NewMessageForm({
   userId,
   classroomId,
   apiUrl,
+  bucketURL
 }: {
   userId: string;
   classroomId: string;
   apiUrl: string;
+  bucketURL: string;
 }) {
   const defaultState = {
     message: null,
@@ -43,30 +49,134 @@ export default function NewMessageForm({
     errors: {},
   };
 
+  const { files, setFiles } = useAttachmentContext();
+  const [pending, setPending] = useState(false);
+  const [signedUrls, setSignedUrls] = useState<string[]>([]);
+
   const [localState, setLocalState] =
     useState<ClassroomSendMessageAction>(defaultState);
 
-  const bindSendMessage = sendMessageAction.bind(
-    null,
-    userId,
-    apiUrl,
-    classroomId
-  );
-  const [state, action] = useFormState(bindSendMessage, defaultState);
+  // const bindSendMessage = sendMessageAction.bind(
+  //   null,
+  //   userId,
+  //   apiUrl,
+  //   classroomId
+  // );
+  //const [state, action] = useFormState(bindSendMessage, defaultState);
 
-  useEffect(() => {
-    setLocalState(state);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (state.success) {
-      setTimeout(() => {
-        setLocalState(defaultState);
-      }, 3000);
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const parsedData = ClassroomMessageSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
+  
+    if (!parsedData.success) {
+      setLocalState({
+        errors: parsedData.error.flatten().fieldErrors,
+        message: "Verifica los campos",
+        success: false,
+      });
+      return;
     }
-  }, [state]);
+
+    try {
+
+      setPending(true);
+
+      const results = await sendMessageAction(
+        userId,
+        apiUrl,
+        classroomId,
+        parsedData.data.message
+      );
+
+      setLocalState(results)
+
+      if (files) {
+        Array.from(files).forEach(async (file) => {
+          let ext = file.name.match(/\.\w+$/)![0] || "";
+          const signedUrl = await getSignedUrlAction(ext);
+  
+          if (signedUrl.error) {
+            setLocalState({
+              message: signedUrl.error,
+              success: false,
+            });
+            return;
+          }
+  
+          try {
+            const rq = await fetch(signedUrl.success?.url!, {
+              method: 'PUT',
+              body: file,
+              headers: {
+                'Content-Type': file.type,
+              }
+            })
+  
+            if (!rq.ok) {
+              setLocalState({
+                message: 'Error al subir el archivo',
+                success: false
+              })
+              return;
+            }
+
+            const fileResultsAction = await sendFileAction(
+              file.name,
+              `${bucketURL}/${signedUrl.success?.key!}`,
+              classroomId,
+              userId,
+              `${apiUrl}/upload`,
+              results.messageId!
+            )
+
+            setLocalState(fileResultsAction)
+            setSignedUrls((prev) => [...prev, signedUrl.success?.key!])
+          }catch (error) {
+            console.error(error);
+            setLocalState({
+              message: 'Error en la petición',
+              success: false
+            });
+            return;
+          }
+        });
+      }
+
+      form.reset();
+      setFiles(null);
+      
+    }catch (e) {
+      console.error(e);
+      setLocalState({
+        message: "Error al mandar el mensaje",
+        success: false,
+      });
+      return;
+    }finally {
+      setPending(false);
+    }
+  };
+
+  // useEffect(() => {
+  //   setLocalState(state);
+
+  //   if (state.success) {
+  //     setTimeout(() => {
+  //       setLocalState(defaultState);
+  //     }, 3000);
+  //   }
+  // }, [state]);
 
   return (
     <form
-      action={action}
+      onSubmit={handleSubmit}
+      //action={action}
       className="w-full max-w-[400px] mx-auto flex flex-col gap-3"
     >
       <div className="flex flex-col gap-2">
@@ -81,7 +191,39 @@ export default function NewMessageForm({
         </div>
       </div>
 
-      <SubmitButton />
+      <div className="flex gap-3 flex-wrap">
+        {files &&
+          Array.from(files).map((file, index) =>
+            isImage(file.type.match(regexToExtWithSlash)?.[1] || "") ? (
+              <div
+                key={Math.random() * 1000}
+                className="avatar p-2 border border-base-300 rounded-xl"
+              >
+                <div className="w-[100px] rounded-xl overflow-hidden">
+                  <img src={URL.createObjectURL(file)} alt="Preview image" />
+                </div>
+              </div>
+            ) : (
+              <div
+                key={Math.random() * 1000}
+                className="flex flex-col justify-center items-center border border-base-300 p-2 rounded-xl w-[150px] max-w-[150px]"
+              >
+                <span>
+                  <IoIosDocument size={50} />
+                </span>
+                <div className="tooltip max-w-full" data-tip={file.name}>
+                  <div className="overflow-hidden">
+                    <span className="text-sm max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                      {file.name}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )
+          )}
+      </div>
+
+      <SubmitButton pending={pending} />
 
       {localState.message && (
         <p

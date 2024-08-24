@@ -5,82 +5,173 @@ import { io } from "..";
 const router = Router();
 const TOTAL_MESSAGES = 10;
 
-router.post('/', async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
+    const {
+      content,
+      userId,
+    }: { content: string | undefined; userId: string | undefined } = req.body;
+    const classroomId: string | undefined =
+      (req.query.classroomId as string) || undefined;
 
-    const { content, userId }: { content: string | undefined, userId: string | undefined } = req.body;
-    const classroomId: string | undefined = req.query.classroomId as string || undefined;
-
-    if (!userId) return res.status(400).json({message: 'User ID is missing'});
-    if (!content) return res.status(400).json({message: 'Message content is missing'});
-    if (!classroomId) return res.status(400).json({message: 'Classroom ID is missing'});
+    if (!userId) return res.status(400).json({ message: "User ID is missing" });
+    if (!content)
+      return res.status(400).json({ message: "Message content is missing" });
+    if (!classroomId)
+      return res.status(400).json({ message: "Classroom ID is missing" });
 
     const classroomFounded = await db.classroom.findUnique({
       where: { id: classroomId },
-      include: { members: true }
-    })
+      include: { members: true },
+    });
 
-    if (!classroomFounded) return res.status(404).json({message: 'Classroom Not Found'});
+    if (!classroomFounded)
+      return res.status(404).json({ message: "Classroom Not Found" });
 
-    const isBelong = classroomFounded.members.some(({ userId: memberId }) => memberId === userId) || classroomFounded.ownerId === userId;
+    const isBelong =
+      classroomFounded.members.some(
+        ({ userId: memberId }) => memberId === userId
+      ) || classroomFounded.ownerId === userId;
 
-    if (!isBelong) return res.status(403).json({message: 'Forbidden to send message here'})
+    if (!isBelong)
+      return res
+        .status(403)
+        .json({ message: "Forbidden to send message here" });
 
     const message = await db.classroomMessage.create({
       data: {
         body: content,
-        status: 'ACTIVE',
+        status: "ACTIVE",
         classroomId: classroomFounded.id,
-        ownerId: userId
+        ownerId: userId,
       },
       select: {
         id: true,
         body: true,
         created_at: true,
         owner: { select: { name: true, email: true, image: true, id: true } },
-        status: true
+        status: true,
       },
-    })
+    });
 
-    io.emit(`classroom:${classroomFounded.id}:messages`, message)
+    io.emit(`classroom:${classroomFounded.id}:messages`, message);
 
     return res.json({
-      message: 'Message sended!',
-      content: message
-    })
-
-  }catch (e) {
+      message: "Message sended!",
+      content: message,
+    });
+  } catch (e) {
     console.error(e);
-    return res.status(500).json({message: 'Internal Server Error'})
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 
-router.get('/', async (req: Request, res: Response) => {
+router.post("/upload", async (req: Request, res: Response) => {
   try {
+    const {
+      messageId,
+      name,
+      url,
+      userId,
+    }: {
+      messageId: string | undefined;
+      userId: string | undefined;
+      name: string | undefined;
+      url: string | undefined;
+    } = req.body;
+    const classroomId: string | undefined =
+      (req.query.classroomId as string) || undefined;
 
+    if (!messageId)
+      return res.status(400).json({ message: "Message ID is missing" });
+    if (!userId) return res.status(400).json({ message: "User ID is missing" });
+    if (!name) return res.status(400).json({ message: "File name is missing" });
+    if (!url) return res.status(400).json({ message: "File URL is missing" });
+    if (!classroomId)
+      return res.status(400).json({ message: "Classroom ID is missing" });
+
+    const classroomFounded = await db.classroom.findUnique({
+      where: { id: classroomId },
+      include: { members: true },
+    });
+
+    if (!classroomFounded)
+      return res.status(404).json({ message: "Classroom Not Found" });
+
+    const messageFounded = await db.classroomMessage.findUnique({
+      where: { id: messageId },
+      select: {
+        id: true,
+        body: true,
+        created_at: true,
+        owner: { select: { name: true, email: true, image: true, id: true } },
+        status: true,
+      },
+    });
+
+    if (!messageFounded)
+      return res.status(404).json({ message: "Message Not Found" });
+
+    const userFounded = db.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!userFounded) return res.status(401).json({ message: "Unauthorized" });
+
+    const isMyMessage = messageFounded.owner.id === userId;
+
+    if (!isMyMessage) return res.status(403).json({ message: "Forbidden" });
+
+    const result = await db.classroomAttachment.create({
+      data: {
+        name,
+        url,
+        messageId: messageFounded.id,
+        ownerId: userId,
+      },
+    });
+
+    io.emit(`classroom:${classroomFounded.id}:messages`, messageFounded);
+
+    return res.json({
+      message: "File uploaded!",
+      attachment: result,
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/", async (req: Request, res: Response) => {
+  try {
     const userId = req.query.userId as string | undefined;
     const classroomId = req.query.classroomId as string | undefined;
     const cursor = req.query.cursor as string | undefined;
 
-    if (!userId) return res.status(401).json({message: 'Unauthorized'})
-    if (!classroomId) return res.status(401).json({message: 'Unauthorized'})
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+    if (!classroomId) return res.status(401).json({ message: "Unauthorized" });
 
     const userFounded = await db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
-    if (!userFounded) return res.status(401).json({message: 'Unauthorized'})
+    if (!userFounded) return res.status(401).json({ message: "Unauthorized" });
 
     const classroomFounded = await db.classroom.findUnique({
-      where: {id: classroomId},
-      include: { members: true }
-    })
+      where: { id: classroomId },
+      include: { members: true },
+    });
 
-    if (!classroomFounded) return res.status(404).json({message: 'Classroom Not Found'})
+    if (!classroomFounded)
+      return res.status(404).json({ message: "Classroom Not Found" });
 
-    const isBelong = classroomFounded.members.some(({ userId: memberId }) => memberId === userId) || classroomFounded.ownerId === userId;
+    const isBelong =
+      classroomFounded.members.some(
+        ({ userId: memberId }) => memberId === userId
+      ) || classroomFounded.ownerId === userId;
 
-    if (!isBelong) return res.status(403).json({message: 'Forbidden'})
+    if (!isBelong) return res.status(403).json({ message: "Forbidden" });
 
     let messages = [];
 
@@ -91,106 +182,108 @@ router.get('/', async (req: Request, res: Response) => {
           body: true,
           created_at: true,
           owner: { select: { name: true, email: true, image: true, id: true } },
-          status: true
+          status: true,
         },
         where: {
-          classroomId
+          classroomId,
         },
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         take: TOTAL_MESSAGES,
         skip: 1,
         cursor: {
-          id: cursor
-        }
-      })
-    }else {
+          id: cursor,
+        },
+      });
+    } else {
       messages = await db.classroomMessage.findMany({
         select: {
           id: true,
           body: true,
           created_at: true,
           owner: { select: { name: true, email: true, image: true, id: true } },
-          status: true
+          status: true,
         },
         where: {
           classroomId,
         },
-        orderBy: { created_at: 'desc' },
-        take: TOTAL_MESSAGES
-      })
+        orderBy: { created_at: "desc" },
+        take: TOTAL_MESSAGES,
+      });
     }
 
-    const nextCursor = messages.length === TOTAL_MESSAGES ? messages[messages.length-1].id : null;
+    const nextCursor =
+      messages.length === TOTAL_MESSAGES
+        ? messages[messages.length - 1].id
+        : null;
 
     return res.json({
       messages,
-      nextCursor
-    })
-
-  }catch (e) {
+      nextCursor,
+    });
+  } catch (e) {
     console.error(e);
-    return res.status(500).json({message: 'Internal Server Error'})
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 
-router.delete('/:messageId', async (req: Request, res: Response) => {
+router.delete("/:messageId", async (req: Request, res: Response) => {
   try {
-
     const messageId: string = req.params.messageId;
     const userId = req.body.userId as string | undefined;
     const classroomId = req.body.classroomId as string | undefined;
 
-    if (!userId) return res.status(401).json({message: 'Unauthorized'})
-    if (!classroomId) return res.status(401).json({message: 'Unauthorized'})
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+    if (!classroomId) return res.status(401).json({ message: "Unauthorized" });
 
     const userFounded = await db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
-    if (!userFounded) return res.status(401).json({message: 'Unauthorized'})
+    if (!userFounded) return res.status(401).json({ message: "Unauthorized" });
 
     const classroomFounded = await db.classroom.findUnique({
-      where: { id: classroomId }
-    })
+      where: { id: classroomId },
+    });
 
-    if (!classroomFounded) return res.status(404).json({message: 'Classroom Not Found'})
+    if (!classroomFounded)
+      return res.status(404).json({ message: "Classroom Not Found" });
 
     const messageFounded = await db.classroomMessage.findUnique({
-      where: { id: messageId, ownerId: userId }
-    })
+      where: { id: messageId, ownerId: userId },
+    });
 
-    if (!messageFounded) return res.status(404).json({message: 'Message Not Found'})
+    if (!messageFounded)
+      return res.status(404).json({ message: "Message Not Found" });
 
     const newMessage = await db.classroomMessage.update({
       where: { id: messageFounded.id },
       data: {
-        body: 'Mensaje borrado',
-        status: 'DELETED'
+        body: "Mensaje borrado",
+        status: "DELETED",
       },
       select: {
         id: true,
         body: true,
         created_at: true,
         owner: { select: { name: true, email: true, image: true, id: true } },
-        status: true
+        status: true,
       },
-    })
+    });
 
-    io.emit(`classroom:${classroomFounded.id}:deleted`, newMessage)
+    io.emit(`classroom:${classroomFounded.id}:deleted`, newMessage);
 
     return res.json({
-      message: 'Message deleted!',
-      message_id: messageFounded.id
-    })
-
-  }catch (e) {
+      message: "Message deleted!",
+      message_id: messageFounded.id,
+    });
+  } catch (e) {
     console.error(e);
-    return res.status(500).json({message: 'Internal Server Error'})
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 
 router.use((req, res) => {
   return res.status(405).end();
-})
+});
 
 export default router;

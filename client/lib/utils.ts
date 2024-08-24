@@ -49,6 +49,8 @@ const ALL_LINKS: CampusLinkType = [
   { href: `${BASE_PATH}/settings`, label: 'Ajustes', icon: IoIosSettings, type: 3 },
 ]
 
+export const regexToExtWithSlash = /\/([^.]+)$/;
 export const generateLinks = (rol: number) => ALL_LINKS.filter(link => link.type >= rol)
 export const getRol = (rol: number) => ROLES[rol]
 export const getGender = (gender: number) => GENDER[gender]
+export const isImage = (ext: string) => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext);

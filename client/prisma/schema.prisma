@@ -90,11 +90,12 @@ model User {
   birthday      DateTime?
   active        Boolean   @default(false)
 
-  courses           UserCourse[]
-  accounts          Account[]
-  classroomsMember  ClassroomMember[]
-  classroomsOwner   Classroom[]
-  classroomMessages ClassroomMessage[]
+  courses              UserCourse[]
+  accounts             Account[]
+  classroomsMember     ClassroomMember[]
+  classroomsOwner      Classroom[]
+  classroomMessages    ClassroomMessage[]
+  classroomAttachments ClassroomAttachment[]
 
   @@map("users")
 }
@@ -145,4 +146,17 @@ model ClassroomMessage {
 
   owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  attachmets ClassroomAttachment[]
+}
+
+model ClassroomAttachment {
+  id        String @id @default(uuid())
+  messageId String
+  ownerId   String
+  name      String
+  url       String
+
+  message ClassroomMessage @relation(fields: [messageId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  owner   User             @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

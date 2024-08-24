@@ -15,7 +15,7 @@ export default function Button({
 
   const { setIsOpen, setType } = useClassroomModal();
 
-  const className = `btn btn-md ${type === 'join' ? 'btn-primary' : 'btn-success'} text-white w-full max-w-44`
+  const className = `flex items-center rounded-xl py-2 px-4 ${type === 'join' ? 'bg-blue-500 hover:bg-blue-700' : 'bg-green-500 hover:bg-green-700'} text-white gap-3`
 
   const handleClick = () => {
     setIsOpen(true);
@@ -31,7 +31,7 @@ export default function Button({
         <span>
           <FaArrowRightToBracket size={20} />
         </span>
-        <span>{text}</span>
+        <span className="grow">{text}</span>
       </button>
     ) : (
       <Link
@@ -41,7 +41,7 @@ export default function Button({
         <span>
           <MdLibraryAdd size={20} />
         </span>
-        <span>{text}</span>
+        <span className="grow">{text}</span>
       </Link>
     )
   );

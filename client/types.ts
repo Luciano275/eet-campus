@@ -160,6 +160,7 @@ export type ClassroomSendMessageAction = {
   errors?: ClassroomSendMessageErrors;
   message: string | null;
   success: boolean | null;
+  messageId?: string;
 }
 
 export type ClassroomMessagesResponse = {
@@ -188,4 +189,12 @@ export type ReactQueryClassroomMessages = {
 export type FiltersType = {
   course?: number;
   teacher?: string;
+}
+
+export type ResponseSignedURL = {
+  error?: string;
+  success?: {
+    url: string;
+    key: string;
+  }
 }

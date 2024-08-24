@@ -22,6 +22,7 @@ export default async function ClassroomMessagesPage (
         image={image}
         userId={userId}
         apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/messages`}
+        bucketURL={process.env.AWS_BUCKET_URL!}
       />
 
       <div className="py-4 flex-1">

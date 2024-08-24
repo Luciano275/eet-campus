@@ -4,22 +4,32 @@ import { useEffect, useState } from "react";
 import { useClassroomModal } from "../providers/classroom-modal-provider";
 import ModalHeader from "../ui/campus/classrooms/ModalHeader";
 import fileStyles from '@/styles/file.module.css'
+import { useAttachmentContext } from "../providers/attachment-provider";
 
 export default function Attachment() {
   
   const { type, isOpen, setIsOpen, setType } = useClassroomModal();
+  const { setFiles: setFilesContext } = useAttachmentContext()
 
   const [files, setFiles] = useState<null | FileList>(null);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setFilesContext(files);
+    setIsOpen(false);
+    setType(null);
+  }
+
   useEffect(() => {
-    console.log(files)
+    if (files?.length === 0) setFiles(null);
   }, [files])
 
   if (isOpen && type === "attachment") {
     return (
       <>
         <ModalHeader title="Adjuntar archivos" />
-        <form className="flex flex-col mt-4 gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col mt-4 gap-4">
           <div className="relative flex flex-col justify-center min-h-[100px] bg-base-100 rounded-lg">
             { !files || files.length === 0 ? (
               <>
