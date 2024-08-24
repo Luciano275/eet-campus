@@ -4,7 +4,7 @@ import Button from "@/components/ui/campus/classrooms/Button";
 import { auth } from "@/auth";
 import { ClassroomSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import Classrooms from "@/components/ui/campus/classrooms/Classrooms";
-import ClassroomModal from "@/components/ui/campus/classrooms/ClassroomModal";
+import StudentFilters from "@/components/ui/campus/classrooms/student/Filter";
 
 export default async function StudentPage({
   searchParams,
@@ -16,7 +16,6 @@ export default async function StudentPage({
 
   const session = await auth();
   const rol = session?.user.rol!;
-  const isTeacher = rol === 1 || rol === 2;
 
   const classroomName = searchParams.name || '';
 
@@ -26,10 +25,13 @@ export default async function StudentPage({
         <Search />
       </Suspense>
 
-      <Button type={'join'} text="Unirse" />
+      <div className="flex justify-between gap-2 items-center">
+        <Button type={'join'} text="Unirse" />
+        <StudentFilters />
+      </div>
 
       <Suspense key={`${classroomName}`} fallback={<ClassroomSkeleton />}>
-        <Classrooms query={classroomName} teacher={isTeacher} />
+        <Classrooms query={classroomName} rol={rol} />
       </Suspense>
     </>
   );

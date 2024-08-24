@@ -7,19 +7,22 @@ import {
 import ClassroomContainer from "./ClassroomContainer";
 import ClassroomTitle from "./ClassroomTitle";
 import ClassroomInformation from "./ClassroomInfo";
+import { FiltersType } from "@/types";
 
 export default async function Classrooms({
   query,
-  rol
+  rol,
+  filters
 }: {
   rol: number
   query: string;
+  filters?: FiltersType
 }) {
   const session = await auth();
   const id = session?.user.id!;
   const myName = session?.user.name;
   const classroomsList = rol === 1
-    ? await findAllMyClassrooms(id, query)
+    ? await findAllMyClassrooms(id, query, filters)
     : rol === 2
     ? await findMyClassrooms(id, query)
     : await findClassroomsBelong(id, query);

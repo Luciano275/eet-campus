@@ -1,3 +1,4 @@
+import { FiltersType } from "@/types";
 import { db } from "./db";
 
 export async function createClassroom({
@@ -87,16 +88,20 @@ export async function findClassroomByCode(classroomCode: string) {
   }
 }
 
-export async function findAllMyClassrooms(id: string, query: string) { // Admin
+export async function findAllMyClassrooms(id: string, query: string, filters?: FiltersType) { // Admin
   try {
     const classrooms = await db.classroom.findMany({
       where: {
-        OR: [
-          { name: {
-            contains: query,
-            mode: 'insensitive'
-          } },
-          { owner: { name: { contains: query, mode: 'insensitive' } } }
+        AND: [
+          { OR: [
+            { name: {
+              contains: query,
+              mode: 'insensitive'
+            } },
+            { owner: { name: { contains: query, mode: 'insensitive' } } }
+          ] },
+          { courseId: filters?.course },
+          { ownerId: filters?.teacher }
         ]
       },
       include: { course: { select: { course: true, division: true, cycle: true, id: true } }, owner: { select: { name: true } } }
@@ -207,5 +212,36 @@ export async function updateClassroomById(id: string, {
   }catch (e) {
     console.error(e);
     throw new Error('Failed to update classroom by id');
+  }
+}
+
+export async function findAllClassroomsTeachers(student?: boolean, studentId?: string) {
+  try {
+    
+    const teachers = !student ? (
+      await db.classroom.findMany({
+        select: {
+          owner: { select: { id: true, name: true, email: true } }
+        },
+      })
+    ) : (
+      await db.classroom.findMany({
+        select: {
+          owner: { select: { id: true, name: true, email: true } }
+        },
+        where: {
+          members: { some: { userId: studentId } }
+        }
+      })
+    )
+
+    const result = teachers.filter((obj, index, self) => (
+      index === self.findIndex((t) => t.owner.id === obj.owner.id)
+    ))
+
+    return result;
+  } catch (e) {
+    console.error(e);
+    throw new Error('Failed to get all classrooms teachers');
   }
 }

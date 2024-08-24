@@ -184,3 +184,8 @@ export type ReactQueryClassroomMessages = {
   pages?: ClassroomHookMessages[];
   pageParams?: Number[]
 }
+
+export type FiltersType = {
+  course?: number;
+  teacher?: string;
+}
