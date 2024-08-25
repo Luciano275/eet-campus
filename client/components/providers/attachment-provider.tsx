@@ -1,12 +1,10 @@
 'use client';
 
+import { FilesTypeAttachment } from '@/types';
 import { useContext, createContext, useState } from 'react';
 
-interface IAttachmentContext {
-  files: {
-    name: string;
-    url: string;
-  }[];
+export interface IAttachmentContext {
+  files: FilesTypeAttachment[];
   setFiles: (files: { name: string; url: string }[]) => void;
 }
 

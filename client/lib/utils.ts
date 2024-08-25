@@ -1,5 +1,4 @@
-import { defaultValues, useEditFormProvider } from "@/components/providers/edit-form-provider";
-import { CampusLinkType, GenderOptions, IEditFormProvider } from "@/types"
+import { CampusLinkType, GenderOptions } from "@/types"
 import { CgProfile } from "react-icons/cg";
 import { FaFacebookMessenger, FaHome } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
@@ -49,7 +48,6 @@ const ALL_LINKS: CampusLinkType = [
   { href: `${BASE_PATH}/settings`, label: 'Ajustes', icon: IoIosSettings, type: 3 },
 ]
 
-export const regexToExtWithSlash = /\/([^.]+)$/;
 export const regexToExt = /\.\w+$/;
 export const generateLinks = (rol: number) => ALL_LINKS.filter(link => link.type >= rol)
 export const getRol = (rol: number) => ROLES[rol]

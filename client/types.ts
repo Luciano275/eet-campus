@@ -203,3 +203,8 @@ export type ResponseSignedURL = {
     key: string;
   }
 }
+
+export type FilesTypeAttachment = {
+  name: string;
+  url: string;
+}
