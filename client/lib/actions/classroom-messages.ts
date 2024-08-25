@@ -1,7 +1,6 @@
 "use server";
 
 import { ClassroomSendMessageAction, ResponseSignedURL } from "@/types";
-import { ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
 import queryString from "query-string";
 import { v7 } from 'uuid'
 import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
@@ -66,60 +65,6 @@ export async function sendMessageAction(
       success: false
     }
   }
-}
-
-export async function sendFileAction(
-  name: string,
-  fileUrl: string,
-  classroomId: string,
-  userId: string,
-  apiUrl: string,
-  messageId: string
-) {
-
-  const url = queryString.stringifyUrl({
-    url: apiUrl,
-    query: {
-      classroomId
-    }
-  })
-
-  try {
-
-    const rq = await fetch(url, {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        messageId,
-        name,
-        url: fileUrl,
-        userId
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    if (!rq.ok) {
-      return {
-        message: (await rq.json()).message || rq.statusText,
-        success: false
-      }
-    }
-
-    return {
-      message: 'Mensaje enviado',
-      success: true
-    }
-
-  }catch (e) {
-    console.error(e);
-    return {
-      message: 'Error al enviar el archivo',
-      success: false
-    }
-  }
-  
 }
 
 export async function getSignedUrlAction(ext: string): Promise<ResponseSignedURL> {
