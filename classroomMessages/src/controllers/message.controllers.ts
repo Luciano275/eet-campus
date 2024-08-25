@@ -64,24 +64,22 @@ export class MessageControllers {
       });
 
       if (files && files.length > 0) {
-        await new Promise((resolve) =>
-          resolve(
-            files.forEach(async (file) => {
-              await db.classroomMessage.update({
-                where: { id: message.id },
-                data: {
-                  attachmets: {
-                    create: {
-                      name: file.name,
-                      url: file.url,
-                      ownerId: userId,
-                    },
+        await Promise.all(
+          files.map(async (file) => {
+            await db.classroomMessage.update({
+              where: { id: message.id },
+              data: {
+                attachmets: {
+                  create: {
+                    name: file.name,
+                    url: file.url,
+                    ownerId: userId,
                   },
                 },
-              });
-            })
-          )
-        );
+              },
+            });
+          })
+        )
       }
 
       const messageUpdated = await db.classroomMessage.findUnique({

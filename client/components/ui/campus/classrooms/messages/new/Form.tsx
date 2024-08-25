@@ -41,7 +41,7 @@ export default function NewMessageForm({
     errors: {},
   };
 
-  const { files, setFiles } = useAttachmentContext();
+  const { files, setFiles, deleteFile } = useAttachmentContext();
   const [pending, setPending] = useState(false);
 
   const [localState, setLocalState] =
@@ -89,7 +89,7 @@ export default function NewMessageForm({
 
       <FormAttachments
         files={files}
-        setFiles={setFiles}
+        deleteFile={deleteFile}
       />
 
       <SubmitButton pending={pending} />

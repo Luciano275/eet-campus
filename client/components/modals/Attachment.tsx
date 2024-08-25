@@ -69,13 +69,10 @@ export default function Attachment(
             return;
           }
 
-          setFilesContext([
-            ...filesContext,
-            {
-              name: file.name,
-              url: `${bucketURL}/${signedUrl.success?.key!}`,
-            }
-          ])
+          setFilesContext({
+            name: file.name,
+            url: `${bucketURL}/${signedUrl.success?.key!}`,
+          })
 
           if (index === self.length-1) {
             form.reset();

@@ -5,17 +5,15 @@ import { FaX } from "react-icons/fa6"
 import { IoIosDocument } from "react-icons/io"
 
 export default function FormAttachments(
-  {files, setFiles}
+  {files, deleteFile}
   : {
     files: FilesTypeAttachment[]
-    setFiles: IAttachmentContext['setFiles']
+    deleteFile: IAttachmentContext['deleteFile']
   }
 ) {
 
   const handleDeleteFile = (file: FilesTypeAttachment) => {
-    let tmp = [...files];
-    tmp = tmp.filter((f) => f.name !== file.name && f.url !== file.url);
-    setFiles(tmp);
+    deleteFile(file);
   }
 
   return (

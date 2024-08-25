@@ -12,7 +12,7 @@ export default function AttachmentsButtons (
     <div className="flex gap-2 justify-end">
       <button disabled={pending} className="btn btn-primary btn-md">Subir</button>
       { files && files.length > 0 && (
-        <button type="button" onClick={() => setFiles(null)} className="btn btn-error btn-outline btn-md">Cancelar</button>
+        <button disabled={pending} type="button" onClick={() => setFiles(null)} className="btn btn-error btn-outline btn-md">Cancelar</button>
       ) }
     </div>
   )

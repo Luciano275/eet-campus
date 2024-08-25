@@ -57,7 +57,7 @@ export const handleSubmit = async (
     setLocalState(results);
 
     form.reset();
-    setFiles([]);
+    setFiles(null);
   } catch (e) {
     console.error(e);
     setLocalState({
