@@ -27,7 +27,6 @@ export default async function ClassroomMessagesPage (
       <div className="py-4 flex-1">
         <ClassroomChatMessages
           apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/messages`}
-          socketUrl={process.env.CLASSROOM_SOCKET_URL!}
           classroomId={id}
           userId={userId}
           rol={session?.user.rol!}
