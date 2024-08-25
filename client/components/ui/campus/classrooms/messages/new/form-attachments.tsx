@@ -12,7 +12,7 @@ export default function FormAttachments(
   }
 ) {
 
-  const handleDeleteFile = (file: { name: string; url: string }) => {
+  const handleDeleteFile = (file: FilesTypeAttachment) => {
     let tmp = [...files];
     tmp = tmp.filter((f) => f.name !== file.name && f.url !== file.url);
     setFiles(tmp);

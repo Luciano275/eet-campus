@@ -5,7 +5,7 @@ import { useContext, createContext, useState } from 'react';
 
 export interface IAttachmentContext {
   files: FilesTypeAttachment[];
-  setFiles: (files: { name: string; url: string }[]) => void;
+  setFiles: (files: FilesTypeAttachment[]) => void;
 }
 
 const AttachmentContext = createContext<IAttachmentContext>({

@@ -1,6 +1,6 @@
 "use server";
 
-import { ClassroomSendMessageAction, ResponseSignedURL } from "@/types";
+import { ClassroomSendMessageAction, FilesTypeAttachment, ResponseSignedURL } from "@/types";
 import queryString from "query-string";
 import { v7 } from 'uuid'
 import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
@@ -18,9 +18,8 @@ export async function sendMessageAction(
   userId: string,
   apiUrl: string,
   classroomId: string,
-  //prevState: ClassroomSendMessageAction,
   message: string,
-  files: { name: string; url: string; }[]
+  files: FilesTypeAttachment[]
 ): Promise<ClassroomSendMessageAction> {
 
   const url = queryString.stringifyUrl({
