@@ -1,8 +1,8 @@
 import { IAttachmentContext } from "@/components/providers/attachment-provider"
-import { isImage } from "@/lib/utils"
+import { isImage, regexToExtWithoutDot } from "@/lib/utils"
 import { FilesTypeAttachment } from "@/types"
-import { FaX } from "react-icons/fa6"
 import { IoIosDocument } from "react-icons/io"
+import DeleteAttachment from "./delete-attachment"
 
 export default function FormAttachments(
   {files, deleteFile}
@@ -12,33 +12,29 @@ export default function FormAttachments(
   }
 ) {
 
-  const handleDeleteFile = (file: FilesTypeAttachment) => {
-    deleteFile(file);
-  }
+  
 
   return (
     <div className="flex gap-3 flex-wrap">
 
-    {files.map((file, index) => (
+    {files.map((file) => (
         isImage(
-          file.name.match(/\.\w+$/)?.[0] || ''
+          file.name.match(regexToExtWithoutDot)?.[0] || ''
         ) ? (
           <div
             key={Math.random() * 1000}
-            className="avatar p-2 border border-base-300 rounded-xl relative"
+            className="avatar p-2 border border-base-300 rounded-xl relative overflow-hidden"
           >
             <div className="w-[100px] rounded-xl overflow-hidden">
               <img src={file.url} alt="Preview image" />
             </div>
           
-            <span onClick={() => handleDeleteFile(file)} className="absolute right-2 top-2 hover:text-blue-500 cursor-pointer">
-              <FaX size={20} />
-            </span>
+            <DeleteAttachment deleteFile={deleteFile} file={file} />
           </div>
         ) : (
           <div
             key={Math.random() * 1000}
-            className="flex flex-col justify-center items-center border border-base-300 p-2 rounded-xl w-[150px] max-w-[150px] relative"
+            className="overflow-hidden flex flex-col justify-center items-center border border-base-300 p-2 rounded-xl w-[150px] max-w-[150px] relative"
           >
             <span>
               <IoIosDocument size={50} />
@@ -51,9 +47,7 @@ export default function FormAttachments(
               </div>
             </div>
 
-            <span onClick={() => handleDeleteFile(file)} className="absolute right-2 top-2 hover:text-blue-500 cursor-pointer">
-              <FaX size={20} />
-            </span>
+            <DeleteAttachment deleteFile={deleteFile} file={file} />
           </div>
         )
       ))

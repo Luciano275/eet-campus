@@ -1,4 +1,4 @@
-import { isImage } from "@/lib/utils"
+import { isImage, regexToExtWithoutDot } from "@/lib/utils"
 import { ClassroomMessagesResponse } from "@/types"
 import { IoIosDocument } from "react-icons/io"
 
@@ -21,7 +21,7 @@ export default function MessageAttachments(
               className="mt-4 p-2 border border-base-300 rounded-xl transition-transform w-fit hover:scale-110"
               download={attachment.name}
             >
-              { isImage(attachment.name.match(/(?<=\.)\w+$/)?.[0] || '') ? (
+              { isImage(attachment.name.match(regexToExtWithoutDot)?.[0] || '') ? (
                 <img
                   src={attachment.url}
                   alt="Image preview"
