@@ -16,9 +16,13 @@ export default function Attachment() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const form = e.target as HTMLFormElement;
+
     setFilesContext(files);
     setIsOpen(false);
     setType(null);
+    form.reset();
+    setFiles(null);
   }
 
   useEffect(() => {

@@ -11,6 +11,8 @@ import { useChangeThemeContext } from "@/components/providers/change-theme-provi
 import DeleteMessage from "./delete-message";
 import { useClassroomChatSocket } from "@/components/hooks/use-classroom-chat-socket";
 import MoreMessagesButton from "./more-message";
+import { isImage } from "@/lib/utils";
+import { IoIosDocument } from "react-icons/io";
 
 export default function ClassroomChatMessages({
   classroomId,
@@ -103,6 +105,35 @@ export default function ClassroomChatMessages({
                 >
                   {msg.body}
                 </div>
+
+                { msg.attachmets && (
+                  <div className="flex flex-wrap gap-4">
+                    {
+                      msg.attachmets.map((attachment, index) => (
+                        <a
+                          key={`attachment:${attachment.id}:${index}`}
+                          href={attachment.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 p-2 border border-base-300 rounded-xl transition-transform w-fit hover:scale-110"
+                          download={attachment.name}
+                        >
+                          { isImage(attachment.name.match(/(?<=\.)\w+$/)?.[0] || '') ? (
+                            <img
+                              src={attachment.url}
+                              alt="Image preview"
+                              className="w-40 h-auto max-w-40 object-cover rounded-xl"
+                            />
+                          ) : (
+                            <>
+                              <IoIosDocument size={62} />
+                            </>
+                          ) }
+                        </a>
+                      ))
+                    }
+                  </div>
+                ) }
               </div>
             </div>
           ))}

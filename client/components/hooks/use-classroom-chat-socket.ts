@@ -73,6 +73,40 @@ export const useClassroomChatSocket = (
       })
     })
 
+    socket.on(`${addKey}:upload`, (message: ClassroomMessagesResponse) => {
+      queryClient.setQueryData([queryKey], (oldData: ReactQueryClassroomMessages) => {
+        if (!oldData ||!oldData.pages || oldData.pages.length === 0) {
+          return {
+            pages: [
+              {
+                messages: [message],
+                nextCursor: null
+              }
+            ]
+          } satisfies ReactQueryClassroomMessages;
+        }
+
+        const newData = oldData.pages.map((page) => ({
+          ...page,
+          messages: page.messages.map((msg) => {
+            if (msg.id === message.id) {
+              return {
+               ...msg,
+                attachmets: message.attachmets
+              }
+            }
+
+            return msg;
+          })
+        }))
+
+        return {
+          ...oldData,
+          pages: newData
+        }
+      })
+    })
+
     return () => {
       socket.removeAllListeners(addKey)
     }

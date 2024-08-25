@@ -5,12 +5,22 @@ import { io } from "..";
 const router = Router();
 const TOTAL_MESSAGES = 10;
 
+const DEFAULT_SELECT_MESSAGE = {
+  id: true,
+  body: true,
+  created_at: true,
+  owner: { select: { name: true, email: true, image: true, id: true } },
+  status: true,
+  attachmets: { select: { url: true, id: true, name: true } }
+}
+
 router.post("/", async (req: Request, res: Response) => {
   try {
     const {
       content,
       userId,
-    }: { content: string | undefined; userId: string | undefined } = req.body;
+      files
+    }: { content: string | undefined; userId: string | undefined, files: { name: string, url: string }[] } = req.body;
     const classroomId: string | undefined =
       (req.query.classroomId as string) || undefined;
 
@@ -45,14 +55,23 @@ router.post("/", async (req: Request, res: Response) => {
         classroomId: classroomFounded.id,
         ownerId: userId,
       },
-      select: {
-        id: true,
-        body: true,
-        created_at: true,
-        owner: { select: { name: true, email: true, image: true, id: true } },
-        status: true,
-      },
+      select: DEFAULT_SELECT_MESSAGE,
     });
+
+    if (files && files.length > 0) {
+      await Promise.all(
+        files.map(async (file) => {
+          await db.classroomAttachment.create({
+            data: {
+              name: file.name,
+              url: file.url,
+              messageId: message.id,
+              ownerId: message.owner.id
+            },
+          });
+        })
+      );
+    }
 
     io.emit(`classroom:${classroomFounded.id}:messages`, message);
 
@@ -100,13 +119,7 @@ router.post("/upload", async (req: Request, res: Response) => {
 
     const messageFounded = await db.classroomMessage.findUnique({
       where: { id: messageId },
-      select: {
-        id: true,
-        body: true,
-        created_at: true,
-        owner: { select: { name: true, email: true, image: true, id: true } },
-        status: true,
-      },
+      select: DEFAULT_SELECT_MESSAGE,
     });
 
     if (!messageFounded)
@@ -131,7 +144,28 @@ router.post("/upload", async (req: Request, res: Response) => {
       },
     });
 
-    io.emit(`classroom:${classroomFounded.id}:messages`, messageFounded);
+    await db.classroomMessage.update({
+      where: { id: messageFounded.id },
+      data: {
+        attachmets: {
+          connectOrCreate: {
+            where: { id: result.id },
+            create: {
+              name: result.name,
+              url: result.url,
+              ownerId: userId,
+            },
+          },
+        }
+      }
+    })
+
+    const msg = await db.classroomMessage.findUnique({
+      where: { id: messageId },
+      select: DEFAULT_SELECT_MESSAGE,
+    })
+
+    io.emit(`classroom:${classroomFounded.id}:messages:upload`, msg);
 
     return res.json({
       message: "File uploaded!",
@@ -177,13 +211,7 @@ router.get("/", async (req: Request, res: Response) => {
 
     if (cursor && isNaN(Number(cursor))) {
       messages = await db.classroomMessage.findMany({
-        select: {
-          id: true,
-          body: true,
-          created_at: true,
-          owner: { select: { name: true, email: true, image: true, id: true } },
-          status: true,
-        },
+        select: DEFAULT_SELECT_MESSAGE,
         where: {
           classroomId,
         },
@@ -196,13 +224,7 @@ router.get("/", async (req: Request, res: Response) => {
       });
     } else {
       messages = await db.classroomMessage.findMany({
-        select: {
-          id: true,
-          body: true,
-          created_at: true,
-          owner: { select: { name: true, email: true, image: true, id: true } },
-          status: true,
-        },
+        select: DEFAULT_SELECT_MESSAGE,
         where: {
           classroomId,
         },
@@ -255,19 +277,17 @@ router.delete("/:messageId", async (req: Request, res: Response) => {
     if (!messageFounded)
       return res.status(404).json({ message: "Message Not Found" });
 
+    await db.classroomAttachment.deleteMany({
+      where: { messageId: messageFounded.id },
+    });
+
     const newMessage = await db.classroomMessage.update({
       where: { id: messageFounded.id },
       data: {
         body: "Mensaje borrado",
         status: "DELETED",
       },
-      select: {
-        id: true,
-        body: true,
-        created_at: true,
-        owner: { select: { name: true, email: true, image: true, id: true } },
-        status: true,
-      },
+      select: DEFAULT_SELECT_MESSAGE,
     });
 
     io.emit(`classroom:${classroomFounded.id}:deleted`, newMessage);

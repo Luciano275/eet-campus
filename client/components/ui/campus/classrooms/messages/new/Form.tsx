@@ -7,7 +7,7 @@ import {
 } from "@/lib/actions/classroom-messages";
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomSendMessageAction } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import AttachmentButton from "./Attachment";
 import { useAttachmentContext } from "@/components/providers/attachment-provider";
@@ -51,18 +51,9 @@ export default function NewMessageForm({
 
   const { files, setFiles } = useAttachmentContext();
   const [pending, setPending] = useState(false);
-  const [signedUrls, setSignedUrls] = useState<string[]>([]);
 
   const [localState, setLocalState] =
     useState<ClassroomSendMessageAction>(defaultState);
-
-  // const bindSendMessage = sendMessageAction.bind(
-  //   null,
-  //   userId,
-  //   apiUrl,
-  //   classroomId
-  // );
-  //const [state, action] = useFormState(bindSendMessage, defaultState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -134,9 +125,6 @@ export default function NewMessageForm({
               `${apiUrl}/upload`,
               results.messageId!
             )
-
-            setLocalState(fileResultsAction)
-            setSignedUrls((prev) => [...prev, signedUrl.success?.key!])
           }catch (error) {
             console.error(error);
             setLocalState({
@@ -147,7 +135,7 @@ export default function NewMessageForm({
           }
         });
       }
-
+      
       form.reset();
       setFiles(null);
       
@@ -163,20 +151,18 @@ export default function NewMessageForm({
     }
   };
 
-  // useEffect(() => {
-  //   setLocalState(state);
-
-  //   if (state.success) {
-  //     setTimeout(() => {
-  //       setLocalState(defaultState);
-  //     }, 3000);
-  //   }
-  // }, [state]);
+  useEffect(() => {
+    if (localState.success) {
+      setTimeout(() => {
+        setLocalState(defaultState);
+      }, 3000);
+      return;
+    }
+  }, [localState]);
 
   return (
     <form
       onSubmit={handleSubmit}
-      //action={action}
       className="w-full max-w-[400px] mx-auto flex flex-col gap-3"
     >
       <div className="flex flex-col gap-2">

@@ -174,6 +174,11 @@ export type ClassroomMessagesResponse = {
     id: string;
   };
   status: $Enums.MessageState
+  attachmets: {
+    id: string;
+    url: string;
+    name: string;
+}[];
 };
 
 export type ClassroomHookMessages = {
