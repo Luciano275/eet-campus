@@ -59,21 +59,30 @@ router.post("/", async (req: Request, res: Response) => {
     });
 
     if (files && files.length > 0) {
-      await Promise.all(
-        files.map(async (file) => {
-          await db.classroomAttachment.create({
+      await new Promise((resolve) => resolve(
+        files.forEach(async (file) => {
+          await db.classroomMessage.update({
+            where: { id: message.id },
             data: {
-              name: file.name,
-              url: file.url,
-              messageId: message.id,
-              ownerId: message.owner.id
-            },
-          });
+              attachmets: {
+                create: {
+                  name: file.name,
+                  url: file.url,
+                  ownerId: userId,
+                }
+              }
+            }
+          })
         })
-      );
+      ))
     }
 
-    io.emit(`classroom:${classroomFounded.id}:messages`, message);
+    const messageUpdated = await db.classroomMessage.findUnique({
+      where: { id: message.id },
+      select: DEFAULT_SELECT_MESSAGE,
+    })
+
+    io.emit(`classroom:${classroomFounded.id}:messages`, messageUpdated);
 
     return res.json({
       message: "Message sended!",

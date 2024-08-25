@@ -5,11 +5,26 @@ import { useClassroomModal } from "../providers/classroom-modal-provider";
 import ModalHeader from "../ui/campus/classrooms/ModalHeader";
 import fileStyles from '@/styles/file.module.css'
 import { useAttachmentContext } from "../providers/attachment-provider";
+import { regexToExt } from "@/lib/utils";
+import { getSignedUrlAction, sendFileAction } from "@/lib/actions/classroom-messages";
 
-export default function Attachment() {
+export default function Attachment(
+  {bucketURL}
+  : {
+    bucketURL: string
+  }
+) {
   
+  const defaultState = {
+    message: null,
+    success: null
+  }
+
   const { type, isOpen, setIsOpen, setType } = useClassroomModal();
-  const { setFiles: setFilesContext } = useAttachmentContext()
+  const { files: filesContext ,setFiles: setFilesContext } = useAttachmentContext();
+
+  const [info, setInfo] = useState<{success: null | false; message: null | string}>(defaultState);
+  const [pending, setPending] = useState(false);
 
   const [files, setFiles] = useState<null | FileList>(null);
 
@@ -18,11 +33,67 @@ export default function Attachment() {
 
     const form = e.target as HTMLFormElement;
 
-    setFilesContext(files);
-    setIsOpen(false);
-    setType(null);
-    form.reset();
-    setFiles(null);
+    if (files) {
+      Array.from(files).forEach(async (file, index, self) => {
+        const ext = file.name.match(regexToExt)?.[0] || '';
+
+        setPending(true);
+
+        try {
+
+          const signedUrl = await getSignedUrlAction(ext);
+
+          if (signedUrl.error) {
+            setInfo({
+              message: signedUrl.error,
+              success: false
+            })
+            return;
+          }
+
+          const rq = await fetch(signedUrl.success?.url!, {
+            method: 'PUT',
+            body: file,
+            headers: {
+              'Content-Type': file.type,
+            }
+          })
+
+          if (!rq.ok) {
+            setInfo({
+              message: rq.statusText,
+              success: false
+            });
+            return;
+          }
+
+          setFilesContext([
+            ...filesContext,
+            {
+              name: file.name,
+              url: `${bucketURL}/${signedUrl.success?.key!}`,
+            }
+          ])
+
+          if (index === self.length-1) {
+            form.reset();
+            setIsOpen(false);
+            setInfo(defaultState);
+            setFiles(null);
+            setType(null);
+          }
+
+        }catch (e) {
+          console.error(e);
+          setInfo({
+            message: 'Algo salio mal',
+            success: false
+          })
+        }finally {
+          setPending(false);
+        }
+      })
+    }
   }
 
   useEffect(() => {
@@ -63,11 +134,12 @@ export default function Attachment() {
             ) }
           </div>
           <div className="flex gap-2 justify-end">
-            <button className="btn btn-primary btn-md">Subir</button>
+            <button disabled={pending} className="btn btn-primary btn-md">Subir</button>
             { files && files.length > 0 && (
               <button type="button" onClick={() => setFiles(null)} className="btn btn-error btn-outline btn-md">Cancelar</button>
             ) }
           </div>
+          { info.success && <div className={`text-center text-${info.success? 'green' :'red'}-500`}>{info.message}</div>}
         </form>
       </>
     );

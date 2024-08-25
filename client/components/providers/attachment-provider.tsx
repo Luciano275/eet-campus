@@ -3,12 +3,15 @@
 import { useContext, createContext, useState } from 'react';
 
 interface IAttachmentContext {
-  files: FileList | null;
-  setFiles: (files: FileList | null) => void;
+  files: {
+    name: string;
+    url: string;
+  }[];
+  setFiles: (files: { name: string; url: string }[]) => void;
 }
 
 const AttachmentContext = createContext<IAttachmentContext>({
-  files: null,
+  files: [],
   setFiles: () => {}
 })
 
@@ -20,10 +23,10 @@ export default function AttachmentProvider(
     children: React.ReactNode;
   }
 ) {
-  const [files, setFiles] = useState<IAttachmentContext['files']>(null);
+  const [files, setFilesLocal] = useState<IAttachmentContext['files']>([]);
 
   return (
-    <AttachmentContext.Provider value={{ files, setFiles }}>
+    <AttachmentContext.Provider value={{ files, setFiles: (file) => setFilesLocal(file) }}>
       {children}
     </AttachmentContext.Provider>
   );

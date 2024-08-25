@@ -50,6 +50,7 @@ const ALL_LINKS: CampusLinkType = [
 ]
 
 export const regexToExtWithSlash = /\/([^.]+)$/;
+export const regexToExt = /\.\w+$/;
 export const generateLinks = (rol: number) => ALL_LINKS.filter(link => link.type >= rol)
 export const getRol = (rol: number) => ROLES[rol]
 export const getGender = (gender: number) => GENDER[gender]

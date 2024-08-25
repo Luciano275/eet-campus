@@ -7,7 +7,7 @@ import FormJoin from "../../../modals/Join";
 import DeleteMessage from "@/components/modals/DeleteMessage";
 import Attachment from "@/components/modals/Attachment";
 
-export default function ClassroomModal({ id }: { id: string }) {
+export default function ClassroomModal({ id, bucketURL }: { id: string; bucketURL: string }) {
   const { isOpen, setIsOpen, setType } = useClassroomModal();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function ClassroomModal({ id }: { id: string }) {
       <div className="bg-base-300 w-full max-w-[400px] h-fit max-h-[400px] overflow-x-hidden overflow-y-auto p-4 rounded-lg">
         <FormJoin userId={id} />
         <DeleteMessage />
-        <Attachment />
+        <Attachment bucketURL={bucketURL} />
       </div>
     </div>
   );

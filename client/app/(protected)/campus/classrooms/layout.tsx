@@ -16,7 +16,7 @@ export default async function ClassroomLayout (
   return (
     <ClassroomModalProvider>
       <AttachmentProvider>
-        <ClassroomModal id={id} />
+        <ClassroomModal bucketURL={process.env.AWS_BUCKET_URL!} id={id} />
         <Container>
           {children}
         </Container>

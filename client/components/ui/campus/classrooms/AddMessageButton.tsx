@@ -1,18 +1,15 @@
-import Link from "next/link";
 import NewMessageForm from "./messages/new/Form";
 
 export default function AddMessageButton({
   classroomId,
   image,
   apiUrl,
-  userId,
-  bucketURL
+  userId
 }: {
   classroomId: string;
   userId: string;
   apiUrl: string;
   image: string;
-  bucketURL: string;
 }) {
   return (
     <header className="py-4 border-b border-base-content">
@@ -35,7 +32,6 @@ export default function AddMessageButton({
             apiUrl={apiUrl}
             userId={userId}
             classroomId={classroomId}
-            bucketURL={bucketURL}
           />
         </div>
       </div>

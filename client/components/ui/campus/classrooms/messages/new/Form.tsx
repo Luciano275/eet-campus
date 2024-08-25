@@ -14,6 +14,7 @@ import { useAttachmentContext } from "@/components/providers/attachment-provider
 import { IoIosDocument } from "react-icons/io";
 import { isImage, regexToExtWithSlash } from "@/lib/utils";
 import { ClassroomMessageSchema } from "@/lib/schemas/classroom-messages.schema";
+import { FaX } from "react-icons/fa6";
 
 const SubmitButton = ({ pending }: { pending: boolean }) => {
   return (
@@ -35,13 +36,11 @@ const SubmitButton = ({ pending }: { pending: boolean }) => {
 export default function NewMessageForm({
   userId,
   classroomId,
-  apiUrl,
-  bucketURL
+  apiUrl
 }: {
   userId: string;
   classroomId: string;
   apiUrl: string;
-  bucketURL: string;
 }) {
   const defaultState = {
     message: null,
@@ -82,62 +81,14 @@ export default function NewMessageForm({
         userId,
         apiUrl,
         classroomId,
-        parsedData.data.message
+        parsedData.data.message,
+        files
       );
 
       setLocalState(results)
-
-      if (files) {
-        Array.from(files).forEach(async (file) => {
-          let ext = file.name.match(/\.\w+$/)![0] || "";
-          const signedUrl = await getSignedUrlAction(ext);
-  
-          if (signedUrl.error) {
-            setLocalState({
-              message: signedUrl.error,
-              success: false,
-            });
-            return;
-          }
-  
-          try {
-            const rq = await fetch(signedUrl.success?.url!, {
-              method: 'PUT',
-              body: file,
-              headers: {
-                'Content-Type': file.type,
-              }
-            })
-  
-            if (!rq.ok) {
-              setLocalState({
-                message: 'Error al subir el archivo',
-                success: false
-              })
-              return;
-            }
-
-            const fileResultsAction = await sendFileAction(
-              file.name,
-              `${bucketURL}/${signedUrl.success?.key!}`,
-              classroomId,
-              userId,
-              `${apiUrl}/upload`,
-              results.messageId!
-            )
-          }catch (error) {
-            console.error(error);
-            setLocalState({
-              message: 'Error en la petición',
-              success: false
-            });
-            return;
-          }
-        });
-      }
       
       form.reset();
-      setFiles(null);
+      setFiles([]);
       
     }catch (e) {
       console.error(e);
@@ -160,6 +111,12 @@ export default function NewMessageForm({
     }
   }, [localState]);
 
+  const handleDeleteFile = (file: { name: string; url: string }) => {
+    let tmp = [...files];
+    tmp = tmp.filter((f) => f.name !== file.name && f.url !== file.url);
+    setFiles(tmp);
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -178,7 +135,49 @@ export default function NewMessageForm({
       </div>
 
       <div className="flex gap-3 flex-wrap">
-        {files &&
+
+        {files && (
+          files.map((file, index) => (
+            isImage(
+              file.name.match(/\.\w+$/)?.[0] || ''
+            ) ? (
+              <div
+                key={Math.random() * 1000}
+                className="avatar p-2 border border-base-300 rounded-xl relative"
+              >
+                <div className="w-[100px] rounded-xl overflow-hidden">
+                  <img src={file.url} alt="Preview image" />
+                </div>
+              
+                <span onClick={() => handleDeleteFile(file)} className="absolute right-2 top-2 hover:text-blue-500 cursor-pointer">
+                  <FaX size={20} />
+                </span>
+              </div>
+            ) : (
+              <div
+                key={Math.random() * 1000}
+                className="flex flex-col justify-center items-center border border-base-300 p-2 rounded-xl w-[150px] max-w-[150px] relative"
+              >
+                <span>
+                  <IoIosDocument size={50} />
+                </span>
+                <div className="tooltip max-w-full" data-tip={file.name}>
+                  <div className="overflow-hidden">
+                    <span className="text-sm max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                      {file.name}
+                    </span>
+                  </div>
+                </div>
+
+                <span onClick={() => handleDeleteFile(file)} className="absolute right-2 top-2 hover:text-blue-500 cursor-pointer">
+                  <FaX size={20} />
+                </span>
+              </div>
+            )
+          ))
+        )}
+
+        {/* {files &&
           Array.from(files).map((file, index) =>
             isImage(file.type.match(regexToExtWithSlash)?.[1] || "") ? (
               <div
@@ -206,7 +205,8 @@ export default function NewMessageForm({
                 </div>
               </div>
             )
-          )}
+          )} */}
+
       </div>
 
       <SubmitButton pending={pending} />

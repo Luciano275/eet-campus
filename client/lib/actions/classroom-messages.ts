@@ -20,7 +20,8 @@ export async function sendMessageAction(
   apiUrl: string,
   classroomId: string,
   //prevState: ClassroomSendMessageAction,
-  message: string
+  message: string,
+  files: { name: string; url: string; }[]
 ): Promise<ClassroomSendMessageAction> {
 
   const url = queryString.stringifyUrl({
@@ -37,7 +38,8 @@ export async function sendMessageAction(
       credentials: 'include',
       body: JSON.stringify({
         content: message,
-        userId
+        userId,
+        files
       }),
       headers: {
         'Content-Type': 'application/json'
