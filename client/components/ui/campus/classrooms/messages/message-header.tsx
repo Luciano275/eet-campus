@@ -1,10 +1,10 @@
 import DeleteMessage from "./delete-message";
-import TimeAgo from "react-timeago";
-//@ts-ignore
-import spanishStrings from "react-timeago/lib/language-strings/es";
-//@ts-ignore
-import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
+import TimeAgo from "javascript-time-ago";
+import ReactTimeAgo from 'react-time-ago'
+import esAR from 'javascript-time-ago/locale/es-AR'
 import { ClassroomMessagesResponse } from "@/types";
+
+TimeAgo.addDefaultLocale(esAR);
 
 export default function MessageHeader (
   {theme, msg, userId, apiUrl, classroomId, rol}
@@ -17,6 +17,9 @@ export default function MessageHeader (
     rol: number;
   }
 ) {
+
+  const date = new Date(msg.created_at);
+ 
   return (
     <>
       <p
@@ -24,9 +27,9 @@ export default function MessageHeader (
           theme === "dark" ? "text-neutral-500" : "text-neutral-400"
         }`}
       >
-        <TimeAgo
-          formatter={buildFormatter(spanishStrings)}
-          date={new Date(msg.created_at)}
+        <ReactTimeAgo
+          date={date}
+          locale="es-AR"
         />
       </p>
       <h2 className="text-xl text-base-content justify-between flex gap-2 items-center">
