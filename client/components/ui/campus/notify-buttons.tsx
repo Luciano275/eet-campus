@@ -34,17 +34,22 @@ export const OpenNotifyButton = (
 
     if (error) setAlert(error.message, false, true);
 
-    return (
-      <button
-        onClick={toggle}
-        className={`flex text-xl sm:text-2xl px-2 transition-colors ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-blue-500`}
-      >
-        <IoIosNotifications />
-        { !error && data ? (
-          <div className="badge badge-error badge-sm">
-            {totalNotifications(data)}
-          </div>
-        ) : <></> }
-      </button>
-    );
+    if (data) {
+
+      const notificationLength = totalNotifications(data)
+
+      return (
+        <button
+          onClick={toggle}
+          className={`flex text-xl sm:text-2xl px-2 transition-colors ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-blue-500`}
+        >
+          <IoIosNotifications />
+          { !error && notificationLength > 0 ? (
+            <div className="badge badge-error badge-sm">
+              {notificationLength}
+            </div>
+          ) : <></> }
+        </button>
+      );
+    }
 }
