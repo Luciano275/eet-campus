@@ -96,6 +96,7 @@ model User {
   classroomsOwner      Classroom[]
   classroomMessages    ClassroomMessage[]
   classroomAttachments ClassroomAttachment[]
+  notifications        Notification[]
 
   @@map("users")
 }
@@ -122,8 +123,9 @@ model Classroom {
   owner  User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  members  ClassroomMember[]
-  messages ClassroomMessage[]
+  members       ClassroomMember[]
+  messages      ClassroomMessage[]
+  notifications Notification[]
 }
 
 model ClassroomMember {
@@ -159,4 +161,16 @@ model ClassroomAttachment {
 
   message ClassroomMessage @relation(fields: [messageId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   owner   User             @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  userId     String
+  body       String
+  created_at DateTime @default(now())
+
+  classroomId String?
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  classroom Classroom? @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
