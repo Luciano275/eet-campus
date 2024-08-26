@@ -245,3 +245,43 @@ export async function findAllClassroomsTeachers(student?: boolean, studentId?: s
     throw new Error('Failed to get all classrooms teachers');
   }
 }
+
+export async function findMembersId(
+  classroomId: string,
+  userId: string
+) {
+  try {
+
+    const classroom = await db.classroom.findUnique({
+      where: { id: classroomId },
+      select: { ownerId: true }
+    })
+
+    if (!classroom) {
+      throw new Error('Classroom not found');
+    }
+
+    // all id members
+    const membersId = await db.classroomMember.findMany({
+      where: { 
+        AND: [
+          { classroomId },
+          { userId: {
+            not: userId
+          } }
+        ]
+      },
+      select: { userId: true }
+    })
+
+    return classroom?.ownerId !== userId ? [
+      ...membersId,
+      {
+        userId: classroom.ownerId
+      }
+    ] : membersId;
+
+  }catch (e) {
+    throw new Error('Failed to find members id')
+  }
+}

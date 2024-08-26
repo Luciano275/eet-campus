@@ -1,5 +1,7 @@
 import { ClassroomHookNotifications } from "@/types"
 import Link from "next/link"
+import Markdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 export default function PageNotification(
   {page}
@@ -16,11 +18,21 @@ export default function PageNotification(
               href={`/campus/classrooms/${notify.classroom.id}`}
               className="text-sm"
             >
-              <span className="text-base-content">{notify.body}</span>
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+              >
+                {notify.body}
+              </Markdown>
             </Link>
           ) : (
             <p className="text-sm">
-              <span className="text-base-content">{notify.body}</span>
+              <span className="text-base-content">
+                <Markdown
+                  remarkPlugins={[remarkGfm]}
+                >
+                  {notify.body}
+                </Markdown>
+              </span>
             </p>
           )
         }

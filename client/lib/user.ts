@@ -46,3 +46,17 @@ export async function getProviderUser(id: string) {
         throw new Error('Failed to get provider user by id');
     }
 }
+
+export async function getUserById(id: string) {
+    try {
+        const user = await db.user.findUnique({
+            where: { id },
+            include: { courses: { select: { course: true } } }
+        })
+
+        return user;
+    }catch (e) {
+        console.error(e);
+        throw new Error('Failed to get user by id');
+    }
+}

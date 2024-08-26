@@ -10,6 +10,7 @@ interface SubmitType {
   setFiles: IAttachmentContext["setFiles"];
   userId: string;
   apiUrl: string;
+  notificationUrl: string;
   classroomId: string;
   files: FilesTypeAttachment[];
 }
@@ -24,6 +25,7 @@ export const handleSubmit = async (
     files,
     setFiles,
     userId,
+    notificationUrl
   }: SubmitType
 ) => {
 
@@ -49,6 +51,7 @@ export const handleSubmit = async (
     const results = await sendMessageAction(
       userId,
       apiUrl,
+      notificationUrl,
       classroomId,
       parsedData.data.message,
       files

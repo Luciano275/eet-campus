@@ -29,11 +29,13 @@ const SubmitButton = ({ pending }: { pending: boolean }) => {
 export default function NewMessageForm({
   userId,
   classroomId,
-  apiUrl
+  apiUrl,
+  notificationUrl
 }: {
   userId: string;
   classroomId: string;
   apiUrl: string;
+  notificationUrl: string;
 }) {
   const defaultState = {
     message: null,
@@ -55,6 +57,7 @@ export default function NewMessageForm({
       classroomId,
       files,
       userId,
+      notificationUrl,
       setFiles,
       setLocalState,
       setPending,

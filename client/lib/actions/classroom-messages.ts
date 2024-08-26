@@ -3,8 +3,10 @@
 import { ClassroomSendMessageAction, FilesTypeAttachment, ResponseSignedURL } from "@/types";
 import queryString from "query-string";
 import { v7 } from 'uuid'
-import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { findClassroomById, findMembersId } from "../classroom";
+import { getUserById } from "../user";
 
 const s3 = new S3Client({
   region: process.env.AWS_BUCKET_REGION!,
@@ -17,6 +19,7 @@ const s3 = new S3Client({
 export async function sendMessageAction(
   userId: string,
   apiUrl: string,
+  notificationUrl: string,
   classroomId: string,
   message: string,
   files: FilesTypeAttachment[]
@@ -24,6 +27,13 @@ export async function sendMessageAction(
 
   const url = queryString.stringifyUrl({
     url: apiUrl,
+    query: {
+      classroomId
+    }
+  })
+
+  const sendNotificationUrl = queryString.stringifyUrl({
+    url: notificationUrl,
     query: {
       classroomId
     }
@@ -51,16 +61,55 @@ export async function sendMessageAction(
       }
     }
 
+    const userTransmitter = await getUserById(userId);
+    const classroom = await findClassroomById(classroomId);
+
+    if (!userTransmitter) {
+      return {
+        message: 'Usuario no encontrado',
+        success: false
+      }
+    }
+
+    if (!classroom) {
+      return {
+        message: 'Aula no encontrada',
+        success: false
+      }
+    }
+
+    const membersId = await findMembersId(classroomId, userId);
+
+    if (membersId.length > 0) {
+      membersId.map(async ({ userId: memberId }) => {
+        const rq = await fetch(sendNotificationUrl, {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify({
+            body: `**${userTransmitter.name}** ha enviado un mensaje en el aula **${classroom.name}**`,
+            userId: memberId
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        if (!rq.ok) {
+          console.error((await rq.json()).message || rq.statusText)
+        }
+      })
+    }
+
     return {
       message: 'Mensaje enviado',
       success: true,
-      messageId: ((await rq.json()).content.id) as string
+      //messageId: ((await rq.json()).content.id) as string
     }
 
   }catch (e) {
     console.error(e);
     return {
-      message: 'Algo salio mal',
+      message: (e as any).message || 'Algo salio mal',
       success: false
     }
   }

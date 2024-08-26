@@ -4,12 +4,14 @@ export default function AddMessageButton({
   classroomId,
   image,
   apiUrl,
-  userId
+  userId,
+  notificationUrl
 }: {
   classroomId: string;
   userId: string;
   apiUrl: string;
   image: string;
+  notificationUrl: string;
 }) {
   return (
     <header className="py-4 border-b border-base-content">
@@ -30,6 +32,7 @@ export default function AddMessageButton({
         <div className="collapse-content">
           <NewMessageForm
             apiUrl={apiUrl}
+            notificationUrl={notificationUrl}
             userId={userId}
             classroomId={classroomId}
           />
