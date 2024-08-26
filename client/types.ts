@@ -208,3 +208,23 @@ export type FilesTypeAttachment = {
   name: string;
   url: string;
 }
+
+export type ClassroomNotificationType = {
+  id: string;
+  body: string;
+  classroom: {
+    name: string;
+    id: string;
+  };
+  created_at: Date;
+  user: {
+    name: string;
+    image: string;
+    id: string;
+  }
+}
+
+export type ClassroomHookNotifications = {
+  notifications: ClassroomNotificationType[];
+  nextCursor: number | null;
+}

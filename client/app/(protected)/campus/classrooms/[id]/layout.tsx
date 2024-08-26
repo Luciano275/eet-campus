@@ -46,18 +46,14 @@ export default async function ClassroomLayout (
   }
 
   return (
-    <ClassroomQueryProvider>
-      <ClassroomSocketProvider
-        socketUrl={process.env.CLASSROOM_SOCKET_URL!}
-      >
-        <CampusHeader title={classroom.name} />
-        <section className="flex gap-4">
-          <ClassroomMenu classroomId={classroom.id} />
-          <main className="grow md:pb-0">
-            {children}
-          </main>
-        </section>
-      </ClassroomSocketProvider>
-    </ClassroomQueryProvider>
+    <>
+      <CampusHeader title={classroom.name} />
+      <section className="flex gap-4">
+        <ClassroomMenu classroomId={classroom.id} />
+        <main className="grow md:pb-0">
+          {children}
+        </main>
+      </section>
+    </>
   )
 }
