@@ -1,10 +1,10 @@
-import { ClassroomHookMessages } from "@/types"
+import { ClassroomHookMessages, ClassroomHookNotifications } from "@/types"
 import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query"
 
 function MoreMessagesButton (
   { fetchNextPage }
   : {
-    fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookMessages, unknown>, Error>>
+    fetchNextPage: ((options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookMessages, unknown>, Error>>) | ((options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookNotifications, unknown>, Error>>);
   }
 ) {
 
@@ -31,7 +31,7 @@ export default function MoreMessages(
   : {
     hasNextPage: boolean;
     isFetchingNextPage: boolean;
-    fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookMessages, unknown>, Error>>;
+    fetchNextPage: ((options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookMessages, unknown>, Error>>) | ((options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<ClassroomHookNotifications, unknown>, Error>>);
   }
 ) {
   return (

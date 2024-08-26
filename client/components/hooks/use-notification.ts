@@ -52,7 +52,7 @@ export const useNotification = (
     initialPageParam: 1,
     queryFn: getNotifications,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
-    refetchInterval: 2000
+    refetchInterval: isConnected ? false : 2000
   })
 
   return {

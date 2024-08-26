@@ -1,6 +1,7 @@
 import { useNotification } from "@/components/hooks/use-notification";
 import { Fragment } from "react";
 import PageNotification from "./page-notification";
+import MoreMessages from "./classrooms/messages/more-message";
 
 export default function NotificationsContent (
   {apiUrl, userId}
@@ -40,6 +41,12 @@ export default function NotificationsContent (
           <PageNotification page={page} />
         </Fragment>
       ))}
+
+      <MoreMessages
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </div>
   )
 }

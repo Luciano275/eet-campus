@@ -1,4 +1,5 @@
-import { CampusLinkType, GenderOptions } from "@/types"
+import { CampusLinkType, ClassroomHookNotifications, GenderOptions } from "@/types"
+import { InfiniteData } from "@tanstack/react-query";
 import { CgProfile } from "react-icons/cg";
 import { FaFacebookMessenger, FaHome } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
@@ -54,3 +55,8 @@ export const generateLinks = (rol: number) => ALL_LINKS.filter(link => link.type
 export const getRol = (rol: number) => ROLES[rol]
 export const getGender = (gender: number) => GENDER[gender]
 export const isImage = (ext: string) => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext);
+export const totalNotifications = (data: InfiniteData<ClassroomHookNotifications, unknown>) => {
+  return data.pages.reduce((count, page) => {
+    return count + page.notifications.length;
+  }, 0)
+}

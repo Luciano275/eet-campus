@@ -1,7 +1,8 @@
 import { ClassroomHookNotifications } from "@/types"
-import Link from "next/link"
 import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import ContainerNotification from "./container-notification"
+import DeleteNotification from "./delete-notification"
 
 export default function PageNotification(
   {page}
@@ -11,31 +12,20 @@ export default function PageNotification(
 ) {
   return (
     page.notifications.map((notify, index) => (
-      <div key={`page:${index}:${notify.id}`} className="p-2 border-b border-base-200 transition-colors hover:bg-base-200 rounded-lg">
-        {
-          notify.classroom ? (
-            <Link
-              href={`/campus/classrooms/${notify.classroom.id}`}
-              className="text-sm"
-            >
+      <div key={`page:${index}:${notify.id}`} className="pb-2 border-b border-base-100">
+        <div className="p-2 transition-colors bg-base-200 hover:bg-base-300 rounded-lg">
+          <ContainerNotification notify={notify}>
+            <div className="grow">
               <Markdown
                 remarkPlugins={[remarkGfm]}
               >
                 {notify.body}
               </Markdown>
-            </Link>
-          ) : (
-            <p className="text-sm">
-              <span className="text-base-content">
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                >
-                  {notify.body}
-                </Markdown>
-              </span>
-            </p>
-          )
-        }
+            </div>
+            
+            <DeleteNotification id={notify.id} />
+          </ContainerNotification>
+        </div>
       </div>
     ))
   )
