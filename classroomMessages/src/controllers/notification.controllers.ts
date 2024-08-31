@@ -85,7 +85,7 @@ export class NotificationController {
         select: DEFAULT_SELECT_NOTIFICATION
       })
 
-      io.emit(`notification:new`, notification);
+      io.emit(`notification:${userId}:new`, notification);
 
       return res.json({
         message: 'Notification sended!',

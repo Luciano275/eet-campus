@@ -228,3 +228,8 @@ export type ClassroomHookNotifications = {
   notifications: ClassroomNotificationType[];
   nextCursor: number | null;
 }
+
+export type ReactQueryClassroomNotifications = {
+  pages?: ClassroomHookNotifications[];
+  pageParams?: Number[]
+}

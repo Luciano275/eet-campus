@@ -1,7 +1,7 @@
-import { InfiniteData, QueryObserverResult, RefetchOptions, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useClassroomSocket } from "../providers/classroom-socket-provider";
 import { useEffect } from "react";
-import { ClassroomHookMessages, ClassroomMessagesResponse, ReactQueryClassroomMessages } from "@/types";
+import { ClassroomMessagesResponse, ReactQueryClassroomMessages } from "@/types";
 
 export const useClassroomChatSocket = (
   { queryKey, addKey, deletedKey }

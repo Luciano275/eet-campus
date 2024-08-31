@@ -2,6 +2,7 @@ import { useNotification } from "@/components/hooks/use-notification";
 import { Fragment } from "react";
 import PageNotification from "./page-notification";
 import MoreMessages from "./classrooms/messages/more-message";
+import { useNotificationSocket } from "@/components/hooks/use-notification-socket";
 
 export default function NotificationsContent (
   {apiUrl, userId}
@@ -24,6 +25,12 @@ export default function NotificationsContent (
     apiUrl,
     queryKey,
     userId
+  })
+
+  useNotificationSocket({
+    addKey: `notification:${userId}:new`,
+    deletedKey: `notification:${userId}:deleted`,
+    queryKey
   })
 
   if (isLoading) {
