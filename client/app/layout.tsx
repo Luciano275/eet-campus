@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
@@ -8,7 +8,16 @@ import { SessionProvider } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { Suspense } from "react";
 
-const roboto = Roboto({ weight: ['100', '400', '700'], subsets: ['latin'] });
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +36,7 @@ export default function RootLayout({
     <ChangeThemeProvider>
       <ChangeThemeHTML>
         <SessionProvider>
-          <body className={roboto.className}>
+          <body className={geistSans.className}>
             <Suspense>
               <MainLayout>
                 <Loading />
