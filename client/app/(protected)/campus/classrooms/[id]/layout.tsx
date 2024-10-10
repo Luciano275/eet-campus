@@ -1,6 +1,4 @@
 import { auth } from "@/auth";
-import ClassroomQueryProvider from "@/components/providers/classroom-query-provider";
-import ClassroomSocketProvider from "@/components/providers/classroom-socket-provider";
 import ClassroomMenu from "@/components/ui/campus/classrooms/ClassroomMenu";
 import CampusHeader from "@/components/ui/campus/Header";
 import { belongClassroom, findClassroomById } from "@/lib/classroom";
@@ -32,6 +30,7 @@ export default async function ClassroomLayout (
 
   const session = await auth();
   const userId = session?.user.id!;
+  const rol = session?.user.rol;
 
   const classroom = await findClassroomById(id);
 
@@ -39,10 +38,12 @@ export default async function ClassroomLayout (
     notFound();
   }
 
-  const classroomBelong = await belongClassroom(userId, classroom.id);
+  if (rol !== 1) {
+    const classroomBelong = await belongClassroom(userId, classroom.id);
 
-  if (classroom?.ownerId !== userId && !classroomBelong) {
-    notFound();
+    if (classroom?.ownerId !== userId && !classroomBelong) {
+      notFound();
+    }
   }
 
   return (
