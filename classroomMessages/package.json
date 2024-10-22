@@ -12,7 +12,7 @@
   "author": "Luciano Luna",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^5.20.0",
+    "@prisma/client": "^5.21.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
@@ -23,7 +23,7 @@
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.4.0",
-    "prisma": "^5.20.0",
+    "prisma": "^5.21.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
   }
