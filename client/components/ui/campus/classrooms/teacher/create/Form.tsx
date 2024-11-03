@@ -1,7 +1,7 @@
 "use client";
 
 import { createClassroomAction } from "@/lib/actions/classroom";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import ErrorForm from "./ErrorForm";
 import { FaCheck } from "react-icons/fa";
 import { BiCopy } from "react-icons/bi";
@@ -55,7 +55,7 @@ export default function CreateClassroomForm(
     edit ? { type: 'update', classroomId: props.classroom.id } : { type: 'create' }
   );
 
-  const [state, formAction] = useFormState(bindCreateClassroomAction, {
+  const [state, formAction] = useActionState(bindCreateClassroomAction, {
     message: null,
     success: null,
     errors: {},

@@ -3,11 +3,15 @@ import { notFound } from "next/navigation";
 import SocketIndicator from "./indicator";
 
 export default async function ClassroomPage(
-  { params: { id } }
-  : {
-    params: { id: string }
+  props: {
+    params: Promise<{ id: string }>
   }
 ) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
 
   const classroom = await findClassroomById(id);
 

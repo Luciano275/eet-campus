@@ -1,7 +1,7 @@
 'use client'
 
 import { joinToClassroomAction } from "@/lib/actions/classroom";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import ErrorMessageForm from "../ui/campus/classrooms/error-message";
 import { useEffect } from "react";
 import { useClassroomModal } from "@/components/providers/classroom-modal-provider";
@@ -29,7 +29,7 @@ export default function FormJoin (
   const { isOpen, type } = useClassroomModal();
 
   const bindJoinToClassroomAction = joinToClassroomAction.bind(null, userId);
-  const [state, action] = useFormState(bindJoinToClassroomAction, {
+  const [state, action] = useActionState(bindJoinToClassroomAction, {
     message: null,
     success: null,
     errors: {}

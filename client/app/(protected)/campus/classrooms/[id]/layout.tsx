@@ -6,11 +6,16 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const generateMetadata = async (
-  {params: { id }}
-  : {
-    params: { id: string }
+  props: {
+    params: Promise<{ id: string }>
   }
 ): Promise<Metadata> => {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const classroom = await findClassroomById(id);
 
   return {
@@ -18,15 +23,23 @@ export const generateMetadata = async (
   }
 }
 
-export default async function ClassroomLayout (
-  {children, params: {id}}
-  : {
+export default async function ClassroomLayout(
+  props: {
     children: React.ReactNode;
-    params: {
+    params: Promise<{
       id: string;
-    }
+    }>
   }
 ) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
+  const {
+    children
+  } = props;
 
   const session = await auth();
   const userId = session?.user.id!;

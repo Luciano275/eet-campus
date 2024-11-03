@@ -2,14 +2,18 @@ import { auth } from "@/auth";
 import AddMessageButton from "@/components/ui/campus/classrooms/AddMessageButton";
 import ClassroomChatMessages from "@/components/ui/campus/classrooms/messages/chat-messages";
 
-export default async function ClassroomMessagesPage (
-  {params: { id }}
-  : {
-    params: {
+export default async function ClassroomMessagesPage(
+  props: {
+    params: Promise<{
       id: string;
-    }
+    }>
   }
 ) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
 
   const session = await auth();
   const userId = session?.user.id!;

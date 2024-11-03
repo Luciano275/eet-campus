@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 }
 
 export default async function ClassroomsPage(
-  {searchParams}
-  : {
-    searchParams: {
+  props: {
+    searchParams: Promise<{
       name?: string;
-    }
+    }>
   }
 ) {
+  const searchParams = await props.searchParams;
 
   const rol = (await auth())?.user.rol!;
 

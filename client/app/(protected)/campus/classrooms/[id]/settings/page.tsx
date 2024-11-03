@@ -5,13 +5,19 @@ import { CoursesInputSkeleton } from "@/components/ui/skeletons/classroom-skelet
 import { findClassroomById } from "@/lib/classroom";
 import { Suspense } from "react";
 
-export default async function SettingsPage({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default async function SettingsPage(
+  props: {
+    params: Promise<{
+      id: string;
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const session = await auth();
   const rol = session?.user.rol!;
 
