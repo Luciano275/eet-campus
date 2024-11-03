@@ -11,9 +11,9 @@ export default async function CoursesSelect(
   return (
     <>
       <label htmlFor="classroomCourse">Curso</label>
-      <select name="classroomCourse" className="select select-bordered" aria-labelledby="classroomCourseError">
+      <select name="classroomCourse" className="select select-bordered" aria-labelledby="classroomCourseError" defaultValue={defaultCourse}>
         {courses.map(({ course, cycle, division, id }, index) => (
-          <option key={`${index}:${id}`} value={id} selected={defaultCourse === id}>
+          <option key={`${index}:${id}`} value={id}>
             {course}º {division}º {cycle}
           </option>
         ))}

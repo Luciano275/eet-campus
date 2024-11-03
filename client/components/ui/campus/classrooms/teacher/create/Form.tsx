@@ -1,18 +1,15 @@
 "use client";
 
 import { createClassroomAction } from "@/lib/actions/classroom";
-import { useFormStatus } from "react-dom";
 import ErrorForm from "./ErrorForm";
 import { FaCheck } from "react-icons/fa";
 import { BiCopy } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import ErrorMessageForm from "../../error-message";
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomType } from "@/types";
 
-const SubmitButton = ({ edit }: { edit?: boolean }) => {
-  const { pending } = useFormStatus();
-
+const SubmitButton = ({ edit, pending }: { edit?: boolean; pending: boolean; }) => {
   return (
     <button
       aria-disabled={pending}
@@ -55,7 +52,7 @@ export default function CreateClassroomForm(
     edit ? { type: 'update', classroomId: props.classroom.id } : { type: 'create' }
   );
 
-  const [state, formAction] = useActionState(bindCreateClassroomAction, {
+  const [state, formAction, isPending] = useActionState(bindCreateClassroomAction, {
     message: null,
     success: null,
     errors: {},
@@ -134,7 +131,7 @@ export default function CreateClassroomForm(
         />
       </div>
 
-      <SubmitButton edit={edit} />
+      <SubmitButton edit={edit} pending={isPending} />
 
       <ErrorMessageForm type="create" state={state}>
         {state.success && state.classroomCode ? (

@@ -1,16 +1,17 @@
 'use client'
 
 import { joinToClassroomAction } from "@/lib/actions/classroom";
-import { useFormStatus } from "react-dom";
 import ErrorMessageForm from "../ui/campus/classrooms/error-message";
-import { useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { useClassroomModal } from "@/components/providers/classroom-modal-provider";
 import ModalHeader from "../ui/campus/classrooms/ModalHeader";
 
-const SubmitButton = () => {
-
-  const { pending } = useFormStatus();
-
+const SubmitButton = (
+  {pending}
+  : {
+    pending: boolean
+  }
+) => {
   return (
     <button aria-disabled={pending} disabled={pending} className={`btn btn-primary btn-md text-white ${pending && 'bg-opacity-50 cursor-default'} transition-opacity flex relative`}>
       { pending && <span className="loading loading-spinner loading-md absolute left-1"></span> }
@@ -29,7 +30,7 @@ export default function FormJoin (
   const { isOpen, type } = useClassroomModal();
 
   const bindJoinToClassroomAction = joinToClassroomAction.bind(null, userId);
-  const [state, action] = useActionState(bindJoinToClassroomAction, {
+  const [state, action, isPending] = useActionState(bindJoinToClassroomAction, {
     message: null,
     success: null,
     errors: {}
@@ -59,7 +60,7 @@ export default function FormJoin (
             />
           </div>
     
-          <SubmitButton />
+          <SubmitButton pending={isPending} />
     
           <ErrorMessageForm state={state} type="join" />
         </form>
