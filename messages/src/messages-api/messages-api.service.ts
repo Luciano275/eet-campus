@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { GetMessageQueryDto } from './dtos/query.dto';
+import { CreateMessageQueryDto, GetMessageQueryDto } from './dtos/query.dto';
+import { CreateMessageDto } from './dtos/create-message.dto';
 
 @Injectable()
 export class MessagesApiService {
@@ -84,5 +85,63 @@ export class MessagesApiService {
         take: this.TOTAL_MESSAGES
       })
     )
+  }
+
+  async createMessage(
+    message: CreateMessageDto,
+    { classroomId }: CreateMessageQueryDto
+  ) {
+    const classroomFounded = await this.db.classroom.findUnique({
+      where: { id: classroomId },
+      include: { members: true }
+    })
+
+    if (!classroomFounded) {
+      throw new ForbiddenException();
+    }
+
+    const isBelong = classroomFounded.members.some((user) => user.userId === message.userId) || classroomFounded.ownerId === message.userId;
+
+    if (!isBelong) {
+      return new ForbiddenException();
+    }
+
+    const newMessage = await this.db.classroomMessage.create({
+      data: {
+        body: message.content,
+        status: 'ACTIVE',
+        classroomId,
+        ownerId: message.userId
+      },
+      select: this.DEFAULT_SELECT_MESSAGE
+    })
+
+    if (message.files && message.files.length > 0) {
+      await Promise.all(
+        message.files.map(async (file) => {
+          await this.db.classroomMessage.update({
+            where: { id: newMessage.id },
+            data: {
+              attachmets: {
+                create: {
+                  name: file.name,
+                  url: file.url,
+                  ownerId: message.userId
+                }
+              }
+            }
+          })
+        })
+      )
+    }
+
+    const messageUpdated = await this.db.classroomMessage.findUnique({
+      where: { id: newMessage.id },
+      select: this.DEFAULT_SELECT_MESSAGE
+    })
+
+    //TODO: emit socket io event
+
+    return messageUpdated;
   }
 }

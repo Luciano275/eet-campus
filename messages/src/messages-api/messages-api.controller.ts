@@ -36,6 +36,28 @@ export class MessagesApiController {
     @Body() createMessageDto: CreateMessageDto,
     @Query() query: CreateMessageQueryDto
   ) {
-    
+    try {
+
+      const message = await this.messagesApiService.createMessage(
+        createMessageDto,
+        query
+      )
+
+      return {
+        response: 'Message sended!',
+        message
+      }
+
+    }catch (error) {
+      if (error instanceof PrismaClientValidationError) {
+        throw new BadRequestException(error.message);
+      }
+
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException();
+    }
   }
 }

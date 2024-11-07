@@ -20,7 +20,7 @@ export class AppGuard implements CanActivate {
         headers: req.headers
       }).pipe(
         catchError((err: AxiosError) => {
-          throw new InternalServerErrorException(err.message)
+          throw new InternalServerErrorException('Failed to fetch')
         })
       )
     )
