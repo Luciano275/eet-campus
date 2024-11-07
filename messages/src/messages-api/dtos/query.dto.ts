@@ -1,3 +1,4 @@
+import { PickType } from '@nestjs/mapped-types';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class GetMessageQueryDto {
@@ -13,3 +14,5 @@ export class GetMessageQueryDto {
   @IsOptional()
   cursor?: string | undefined;
 }
+
+export class CreateMessageQueryDto extends PickType(GetMessageQueryDto, ['classroomId'] as const){}

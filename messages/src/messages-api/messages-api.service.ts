@@ -1,7 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GetMessageQueryDto } from './dtos/query.dto';
-import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class MessagesApiService {

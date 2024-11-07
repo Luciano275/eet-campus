@@ -1,7 +1,8 @@
-import { BadRequestException, Controller, ForbiddenException, Get, InternalServerErrorException, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, ForbiddenException, Get, InternalServerErrorException, Post, Query, UseGuards } from '@nestjs/common';
 import { MessagesApiService } from './messages-api.service';
-import { GetMessageQueryDto } from './dtos/query.dto';
+import { CreateMessageQueryDto, GetMessageQueryDto } from './dtos/query.dto';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
+import { CreateMessageDto } from './dtos/create-message.dto';
 
 @Controller('messages')
 export class MessagesApiController {
@@ -28,5 +29,13 @@ export class MessagesApiController {
 
       throw new InternalServerErrorException();
     }
+  }
+
+  @Post()
+  async sendMessage(
+    @Body() createMessageDto: CreateMessageDto,
+    @Query() query: CreateMessageQueryDto
+  ) {
+    
   }
 }
