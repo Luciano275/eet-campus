@@ -23,8 +23,8 @@ export const Information = (
     return (
       <div className="flex flex-col gap-1 mb-5">
         {Array.from({length: keys.length}).map((_, index) => (
-          <p key={`${index}:key:span`} className={`grid grid-cols-2 ${ProfileStyles['information-grid']}`}>
-            <span className={`font-bold`}>{keys[index]}</span>
+          <div key={`${index}:key:span`} className={`grid grid-cols-2 ${ProfileStyles['information-grid']}`}>
+            <p><span className={`font-bold`}>{keys[index]}</span></p>
             {
               !edit || ( only && !only.includes(keys[index]) ) ? (
                 <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
@@ -37,7 +37,7 @@ export const Information = (
                 />
               )
             }
-          </p>
+          </div>
         ))}
       </div>
     )
