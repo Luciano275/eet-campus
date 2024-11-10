@@ -1,7 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateMessageQueryDto, GetMessageQueryDto } from './dtos/query.dto';
 import { CreateMessageDto } from './dtos/create-message.dto';
+import { DeleteMessageDto } from './dtos/delete-message.dto';
 
 @Injectable()
 export class MessagesApiService {
@@ -20,44 +21,26 @@ export class MessagesApiService {
   constructor(
     private readonly db: PrismaService
   ) {}
-
-  async findMessages(
-    { classroomId, cursor, userId }: GetMessageQueryDto
-  ) {
-    const userFounded = await this.db.user.findUnique({
-      where: {id: userId}
-    })
-
-    if (!userFounded) {
-      throw new ForbiddenException();
-    }
-
-    const classroomFounded = await this.db.classroom.findUnique({
+  
+  private async findClassroomById(classroomId: string) {
+    const classrooms = await this.db.classroom.findUnique({
       where: { id: classroomId },
       include: { members: true }
     })
 
-    if (!classroomFounded) {
-      throw new ForbiddenException();
-    }
+    if (!classroomId) throw new NotFoundException()
 
-    const isBelong = classroomFounded.members.some(({ userId: memberId }) => memberId === userId) || classroomFounded.ownerId === userId;
+    return classrooms;
+  }
 
-    if (!isBelong) {
-      return new ForbiddenException();
-    }
+  private async findUserById(userId: string) {
+    const users = await this.db.user.findUnique({
+      where: {id: userId}
+    })
 
-    const messages = await this.findMessagesByCursor(
-      classroomId,
-      cursor
-    )
+    if (!users) throw new ForbiddenException();
 
-    const nextCursor = messages.length === this.TOTAL_MESSAGES ? messages[messages.length-1].id : null;
-
-    return {
-      messages,
-      nextCursor
-    }
+    return users;
   }
 
   private async findMessagesByCursor(
@@ -87,14 +70,48 @@ export class MessagesApiService {
     )
   }
 
+  private async findMessage(messageId: string, userId: string) {
+    const message = await this.db.classroomMessage.findUnique({
+      where: {
+        id: messageId,
+        ownerId: userId
+      }
+    })
+
+    if (!message) throw new NotFoundException();
+
+    return message;
+  }
+
+  async findMessages(
+    { classroomId, cursor, userId }: GetMessageQueryDto
+  ) {
+    const userFounded = await this.findUserById(userId);
+    const classroomFounded = await this.findClassroomById(classroomId);
+    const isBelong = classroomFounded.members.some(({ userId: memberId }) => memberId === userId) || classroomFounded.ownerId === userId;
+
+    if (!isBelong) {
+      return new ForbiddenException();
+    }
+
+    const messages = await this.findMessagesByCursor(
+      classroomId,
+      cursor
+    )
+
+    const nextCursor = messages.length === this.TOTAL_MESSAGES ? messages[messages.length-1].id : null;
+
+    return {
+      messages,
+      nextCursor
+    }
+  }
+
   async createMessage(
     message: CreateMessageDto,
     { classroomId }: CreateMessageQueryDto
   ) {
-    const classroomFounded = await this.db.classroom.findUnique({
-      where: { id: classroomId },
-      include: { members: true }
-    })
+    const classroomFounded = await this.findClassroomById(classroomId)
 
     if (!classroomFounded) {
       throw new ForbiddenException();
@@ -143,5 +160,33 @@ export class MessagesApiService {
     //TODO: emit socket io event
 
     return messageUpdated;
+  }
+
+  async deleteMessage(
+    messageId,
+    { classroomId, userId }: DeleteMessageDto
+  ) {
+    const userFounded = await this.findUserById(userId);
+    const classroomFounded = await this.findClassroomById(classroomId);
+    const messageFounded = await this.findMessage(messageId, userId);
+
+    await this.db.classroomAttachment.deleteMany({
+      where: {messageId: messageFounded.id}
+    })
+
+    const newMessage = await this.db.classroomMessage.update({
+      where: {
+        id: messageFounded.id
+      },
+      data: {
+        body: "Mensaje borrado",
+        status: 'DELETED'
+      },
+      select: this.DEFAULT_SELECT_MESSAGE
+    })
+
+    //TODO: Emit socket io event
+
+    return newMessage;
   }
 }
