@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { AppGuard } from './app.guard';
 import { HttpService } from '@nestjs/axios'
 import * as cookieParser from 'cookie-parser';
+import { SocketIoAdapter } from './messages/socket-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,6 +18,8 @@ async function bootstrap() {
   app.use(cookieParser(
     configService.get<string>('app.cookies.secret')
   ))
+
+  app.useWebSocketAdapter(new SocketIoAdapter(app, configService));
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,

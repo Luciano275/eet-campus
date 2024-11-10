@@ -57,7 +57,7 @@ export const useClassroomChatMessages = (
     fetchStatus
   } = useInfiniteQuery({
     queryKey: [queryKey],
-    initialPageParam: 1,
+    initialPageParam: undefined,
     queryFn: getMessages,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
     refetchInterval: isConnected ? false : 500

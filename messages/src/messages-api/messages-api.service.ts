@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateMessageQueryDto, GetMessageQueryDto } from './dtos/query.dto';
 import { CreateMessageDto } from './dtos/create-message.dto';
 import { DeleteMessageDto } from './dtos/delete-message.dto';
+import { MessagesGateway } from 'src/messages/messages.gateway';
 
 @Injectable()
 export class MessagesApiService {
@@ -19,7 +20,8 @@ export class MessagesApiService {
   private TOTAL_MESSAGES = 10;
 
   constructor(
-    private readonly db: PrismaService
+    private readonly db: PrismaService,
+    private readonly gateway: MessagesGateway
   ) {}
   
   private async findClassroomById(classroomId: string) {
@@ -64,7 +66,7 @@ export class MessagesApiService {
       await this.db.classroomMessage.findMany({
         select: this.DEFAULT_SELECT_MESSAGE,
         where: { classroomId },
-        orderBy: { created_at: 'asc' },
+        orderBy: { created_at: 'desc' },
         take: this.TOTAL_MESSAGES
       })
     )
@@ -158,6 +160,9 @@ export class MessagesApiService {
     })
 
     //TODO: emit socket io event
+    this.gateway.emitMessageEvent(
+      `classroom:${classroomFounded.id}:messages`, messageUpdated
+    )
 
     return messageUpdated;
   }
@@ -186,6 +191,10 @@ export class MessagesApiService {
     })
 
     //TODO: Emit socket io event
+    this.gateway.emitMessageEvent(
+      `classroom:${classroomFounded.id}:deleted`,
+      newMessage
+    )
 
     return newMessage;
   }

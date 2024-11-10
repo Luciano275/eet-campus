@@ -27,10 +27,10 @@ export default async function CampusLayout({
                 <main className="flex relative overflow-hidden min-h-screen max-h-screen">
                   <MenuBar />
                   <Section className="relative">{children}</Section>
-                  <Notify
+                  {/* <Notify
                     apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/notifications`}
                     userId={userId}
-                  />
+                  /> */}
                 </main>
               </EditModeProvider>
             </OpenNotifyProvider>
