@@ -19,7 +19,7 @@ export default function ErrorMessageForm(
   return (
     state.message && (
       <div className={`flex flex-col gap-2`}>
-        <p className={`flex items-center gap-2 text-lg ${state.success ? 'text-success' : 'text-error'}`}>
+        <div className={`flex items-center gap-2 text-lg ${state.success ? 'text-success' : 'text-error'}`}>
           <span>
             {state.success ? (
               <FaCheck size={20} />
@@ -34,7 +34,7 @@ export default function ErrorMessageForm(
               {state.message}
             </Markdown>
           </span>
-        </p>
+        </div>
         {children}
       </div>
     )
