@@ -11,7 +11,7 @@ export default function Section({
     <section
       className={`min-h-screen overflow-x-hidden overflow-y-auto grow p-4 flex flex-col ${className && className}`}
     >
-      <div className="grow">{children}</div>
+      <div className="grow flex flex-col">{children}</div>
       <Footer />
     </section>
   );
