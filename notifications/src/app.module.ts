@@ -3,6 +3,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { NotificationsApiModule } from './notifications-api/notifications-api.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -12,7 +13,10 @@ import configuration from './config/configuration';
       load: [configuration]
     }),
     NotificationsModule,
-    NotificationsApiModule
+    NotificationsApiModule,
+    HttpModule.register({
+      withCredentials: true
+    })
   ],
   controllers: [],
   providers: [],

@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { HttpService } from '@nestjs/axios'
 import { Request } from "express";
 import { catchError, firstValueFrom } from 'rxjs'
@@ -29,6 +29,12 @@ export class AppGuard implements CanActivate {
       throw new UnauthorizedException()
     }
 
+    const { userId }: { userId?: string } = req.query;
+
+    if (userId && data.user.id !== userId) {
+      throw new ForbiddenException()
+    }
+      
     return true;
   }
 }
