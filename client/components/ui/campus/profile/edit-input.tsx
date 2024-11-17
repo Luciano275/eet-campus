@@ -84,9 +84,10 @@ export default function EditInput({
         }
         className="p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500"
         aria-describedby={`${inputNames[index]}-error`}
+        defaultValue={labels[index]}
       >
         { GENDER_OPTIONS.map(({value, label}) => (
-          <option key={`option:${value}`} value={value} selected={labels[index] === label}>
+          <option key={`option:${value}`} value={value}>
             {label}
           </option>
         )) }
