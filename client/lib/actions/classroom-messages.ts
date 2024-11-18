@@ -68,41 +68,42 @@ export async function sendMessageAction(
     const userTransmitter = await getUserById(userId);
     const classroom = await findClassroomById(classroomId);
 
-    // if (!userTransmitter) {
-    //   return {
-    //     message: 'Usuario no encontrado',
-    //     success: false
-    //   }
-    // }
+    if (!userTransmitter) {
+      return {
+        message: 'Usuario no encontrado',
+        success: false
+      }
+    }
 
-    // if (!classroom) {
-    //   return {
-    //     message: 'Aula no encontrada',
-    //     success: false
-    //   }
-    // }
+    if (!classroom) {
+      return {
+        message: 'Aula no encontrada',
+        success: false
+      }
+    }
 
-    // const membersId = await findMembersId(classroomId, userId);
+    const membersId = await findMembersId(classroomId, userId);
 
-    // if (membersId.length > 0) {
-    //   membersId.map(async ({ userId: memberId }) => {
-    //     const rq = await fetch(sendNotificationUrl, {
-    //       method: 'POST',
-    //       credentials: 'include',
-    //       body: JSON.stringify({
-    //         body: `**${userTransmitter.name}** ha enviado un mensaje en el aula **${classroom.name}**`,
-    //         userId: memberId
-    //       }),
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //     })
+    if (membersId.length > 0) {
+      membersId.map(async ({ userId: memberId }) => {
+        const rq = await fetch(sendNotificationUrl, {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify({
+            body: `**${userTransmitter.name}** ha enviado un mensaje en el aula **${classroom.name}**`,
+            userId: memberId
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookieStore.toString()
+          }
+        })
 
-    //     if (!rq.ok) {
-    //       console.error((await rq.json()).message || rq.statusText)
-    //     }
-    //   })
-    // }
+        if (!rq.ok) {
+          console.error((await rq.json()).message || rq.statusText)
+        }
+      })
+    }
 
     return {
       message: 'Mensaje enviado',

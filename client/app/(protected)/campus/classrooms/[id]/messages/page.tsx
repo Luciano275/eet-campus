@@ -26,7 +26,7 @@ export default async function ClassroomMessagesPage(
         image={image}
         userId={userId}
         apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/messages`}
-        notificationUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/notifications`}
+        notificationUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
       />
 
       <div className="py-4 flex-1">
