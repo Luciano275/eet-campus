@@ -10,7 +10,7 @@
   .menubar-responsive {
     position: fixed;
     min-height: 100vh;
-    z-index: 999;
+    z-index: 9999;
     transition: left 300ms ease;
     left: -100%;
     width: 320px;
