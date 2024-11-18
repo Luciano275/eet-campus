@@ -20,22 +20,24 @@ export default async function CampusLayout({
   return (
     <ClassroomQueryProvider>
       <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_URL!}>
-        <AlertProvider>
-          <ToggleMenuProvider>
-            <OpenNotifyProvider>
-              <EditModeProvider>
-                <main className="flex relative overflow-hidden min-h-screen max-h-screen">
-                  <MenuBar />
-                  <Section className="relative">{children}</Section>
-                  {/* <Notify
-                    apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/notifications`}
-                    userId={userId}
-                  /> */}
-                </main>
-              </EditModeProvider>
-            </OpenNotifyProvider>
-          </ToggleMenuProvider>
-        </AlertProvider>
+        <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
+          <AlertProvider>
+            <ToggleMenuProvider>
+              <OpenNotifyProvider>
+                <EditModeProvider>
+                  <main className="flex relative overflow-hidden min-h-screen max-h-screen">
+                    <MenuBar />
+                    <Section className="relative">{children}</Section>
+                    <Notify
+                      apiUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
+                      userId={userId}
+                    />
+                  </main>
+                </EditModeProvider>
+              </OpenNotifyProvider>
+            </ToggleMenuProvider>
+          </AlertProvider>
+        </ClassroomSocketProvider>
       </ClassroomSocketProvider>
     </ClassroomQueryProvider>
   );

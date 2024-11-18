@@ -49,7 +49,7 @@ export const useNotification = (
     error
   } = useInfiniteQuery({
     queryKey: [queryKey],
-    initialPageParam: 1,
+    initialPageParam: undefined,
     queryFn: getNotifications,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
     refetchInterval: isConnected ? false : 2000

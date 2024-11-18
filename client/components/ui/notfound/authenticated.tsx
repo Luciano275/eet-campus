@@ -6,6 +6,7 @@ import CampusHeader from "../campus/Header";
 import { auth } from "@/auth";
 import ClassroomQueryProvider from "@/components/providers/classroom-query-provider";
 import { ToggleMenuProvider } from "@/components/providers/toggle-menu-provider";
+import ClassroomSocketProvider from "@/components/providers/classroom-socket-provider";
 
 export default async function AuthenticatedPage() {
 
@@ -14,27 +15,29 @@ export default async function AuthenticatedPage() {
 
     return (
         <ClassroomQueryProvider>
-            <ToggleMenuProvider>
-                <OpenNotifyProvider>
-                    <main className="flex relative overflow-hidden min-h-screen max-h-screen">
-                        <MenuBar />
-                        <Section>
-                            <CampusHeader title="Página no encontrada" />
-                            <div className="grow flex justify-center items-center">
-                                <img
-                                    src="/assets/notfound.svg"
-                                    alt="Not Found Logo"
-                                    className="w-full max-w-[500px]"
-                                />
-                            </div>
-                        </Section>
-                        {/* <Notify 
-                            apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/notifications`}
-                            userId={userId}
-                        /> */}
-                    </main>
-                </OpenNotifyProvider>
-            </ToggleMenuProvider>
+            <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
+                <ToggleMenuProvider>
+                    <OpenNotifyProvider>
+                        <main className="flex relative overflow-hidden min-h-screen max-h-screen">
+                            <MenuBar />
+                            <Section>
+                                <CampusHeader title="Página no encontrada" />
+                                <div className="grow flex justify-center items-center">
+                                    <img
+                                        src="/assets/notfound.svg"
+                                        alt="Not Found Logo"
+                                        className="w-full max-w-[500px]"
+                                    />
+                                </div>
+                            </Section>
+                            <Notify 
+                                apiUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
+                                userId={userId}
+                            />
+                        </main>
+                    </OpenNotifyProvider>
+                </ToggleMenuProvider>
+            </ClassroomSocketProvider>
         </ClassroomQueryProvider>
     )
 }
