@@ -27,7 +27,9 @@ export const Information = (
             <p><span className={`font-bold`}>{keys[index]}</span></p>
             {
               !edit || ( only && !only.includes(keys[index]) ) ? (
-                <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
+                <p className='overflow-hidden text-ellipsis' title={`${labels[index]}`}>
+                  <span className={`${toRight && 'text-end'}`}>{labels[index]}</span>
+                </p>
               ) : (
                 <EditInput
                   inputNames={names!}
