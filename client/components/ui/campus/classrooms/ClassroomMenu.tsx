@@ -12,12 +12,46 @@ type LinkType = {
   href: string;
   label: string;
   icon: IconType;
+  onlyOwner?: boolean;
 };
+
+const LinkComponent = (
+  {href, icon: Icon, label, pathname, mobile}
+  : {
+    href: string;
+    icon: IconType;
+    label: string;
+    pathname: string;
+    mobile?: boolean;
+  }
+) => {
+
+  if (mobile) {
+    return (
+      <Link href={href} className={`${href === pathname && "active"}`}>
+        <Icon size={24} />
+      </Link>
+    )
+  }
+
+  return (
+    <li>
+      <Link href={href} className={`${href === pathname && "active"}`}>
+        <span>
+          <Icon size={18} />
+        </span>
+        <span>{label}</span>
+      </Link>
+    </li>
+  )
+}
 
 export default function ClassroomMenu({
   classroomId,
+  isStudent
 }: {
   classroomId: string;
+  isStudent: boolean;
 }) {
   const BASE_PATH = `/campus/classrooms/${classroomId}`;
 
@@ -31,7 +65,7 @@ export default function ClassroomMenu({
       label: "Calificaciones",
       icon: FaChalkboardUser,
     },
-    { href: `${BASE_PATH}/settings`, label: "Ajustes", icon: IoIosSettings },
+    { href: `${BASE_PATH}/settings`, label: "Ajustes", icon: IoIosSettings, onlyOwner: true },
   ];
 
   const pathname = usePathname();
@@ -39,24 +73,23 @@ export default function ClassroomMenu({
   return (
     <>
       <ul className="hidden md:menu menu-horizontal justify-start gap-2 bg-base-300 rounded-xl min-w-[250px] 2xl:min-w-[300px]">
-        {LINKS.map(({ href, label, icon: Icon }, index) => (
-          <li key={`${index}:${href}`}>
-            <Link href={href} className={`${href === pathname && "active"}`}>
-              <span>
-                <Icon size={18} />
-              </span>
-              <span>{label}</span>
-            </Link>
-          </li>
+        {LINKS.map(({ onlyOwner, ...rest }, index) => (
+          !onlyOwner ? (
+            <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+          ) : onlyOwner && !isStudent ? (
+            <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+          ) : <></>
         ))}
       </ul>
       <ul className="btm-nav md:hidden bg-base-300" style={{
         zIndex: 999
       }}>
-        {LINKS.map(({ href, icon: Icon }, index) => (
-          <Link href={href} key={`${index}:${href}`} className={`${href === pathname && "active"}`}>
-            <Icon size={24} />
-          </Link>
+        {LINKS.map(({ onlyOwner, ...rest }, index) => (
+          !onlyOwner ? (
+            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
+          ) : onlyOwner && !isStudent ? (
+            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
+          ) : <></>
         ))}
       </ul>
     </>

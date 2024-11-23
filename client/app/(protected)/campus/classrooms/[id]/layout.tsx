@@ -63,7 +63,7 @@ export default async function ClassroomLayout(
     <>
       <CampusHeader title={classroom.name} />
       <section className="flex gap-4">
-        <ClassroomMenu classroomId={classroom.id} />
+        <ClassroomMenu isStudent={(rol !== 1 && rol !== 2)} classroomId={classroom.id} />
         <main className="grow md:pb-0">
           {children}
         </main>
