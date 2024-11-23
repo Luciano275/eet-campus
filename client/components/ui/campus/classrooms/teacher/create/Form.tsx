@@ -8,6 +8,7 @@ import { useActionState, useEffect, useState } from "react";
 import ErrorMessageForm from "../../error-message";
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomType } from "@/types";
+import CopyCode from "./Copy";
 
 const SubmitButton = ({ edit, pending }: { edit?: boolean; pending: boolean; }) => {
   return (
@@ -44,8 +45,6 @@ export default function CreateClassroomForm(
 ) {
   const { children, edit, ownerId } = props;
 
-  const [isCopied, setIsCopied] = useState(false);
-
   const bindCreateClassroomAction = createClassroomAction.bind(
     null,
     ownerId,
@@ -58,12 +57,6 @@ export default function CreateClassroomForm(
     errors: {},
   });
 
-  useEffect(() => {
-    if (isCopied) {
-      setTimeout(() => setIsCopied(false), 2000);
-    }
-  }, [isCopied]);
-
   return (
     <form
       action={formAction}
@@ -71,6 +64,9 @@ export default function CreateClassroomForm(
         !edit && "w-full max-w-[400px]"
       } mx-auto flex flex-col gap-4`}
     >
+      <div className="flex flex-col gap-2">
+        <CopyCode classroomCode={edit ? props.classroom.classroomCode : ""} />
+      </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="classroomName">Nombre del aula</label>
         <input
@@ -135,39 +131,7 @@ export default function CreateClassroomForm(
 
       <ErrorMessageForm type="create" state={state}>
         {state.success && state.classroomCode ? (
-          <div className="flex p-2 bg-base-200 rounded overflow-hidden items-center">
-            <p className="grow">
-              Código: <b>{state.classroomCode}</b>
-            </p>
-
-            <button
-              type="button"
-              className="hover:text-blue-400 relative flex items-center justify-center w-8 h-8"
-            >
-              <span
-                className={`absolute transition-opacity`}
-                style={{
-                  opacity: isCopied ? 1 : 0,
-                  zIndex: isCopied ? 5 : -5,
-                }}
-              >
-                <FaCheck size={20} />
-              </span>
-              <span
-                onClick={() => {
-                  navigator.clipboard.writeText(state.classroomCode!);
-                  setIsCopied(true);
-                }}
-                className={`absolute transition-opacity`}
-                style={{
-                  opacity: isCopied ? 0 : 1,
-                  zIndex: isCopied ? -5 : 5,
-                }}
-              >
-                <BiCopy size={20} />
-              </span>
-            </button>
-          </div>
+          <CopyCode classroomCode={state.classroomCode} />
         ) : (
           <></>
         )}
