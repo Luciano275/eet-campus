@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useClassroomSocket } from "../providers/classroom-socket-provider";
 import { useEffect } from "react";
 import { ClassroomNotificationType, ReactQueryClassroomNotifications } from "@/types";
+import { useNotificationsSocket } from "../providers/notifications-socket-provider";
 
 export const useNotificationSocket = (
   { addKey, deletedKey, queryKey }
@@ -12,7 +12,7 @@ export const useNotificationSocket = (
   }
 ) => {
 
-  const { socket } = useClassroomSocket();
+  const { socket } = useNotificationsSocket();
   const queryClient = useQueryClient();
 
   useEffect(() => {

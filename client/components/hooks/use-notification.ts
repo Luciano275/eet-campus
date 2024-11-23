@@ -1,7 +1,7 @@
 import queryString from "query-string";
-import { useClassroomSocket } from "../providers/classroom-socket-provider";
 import { ClassroomHookNotifications } from "@/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useNotificationsSocket } from "../providers/notifications-socket-provider";
 
 export const useNotification = (
   { apiUrl, queryKey, userId }
@@ -12,7 +12,7 @@ export const useNotification = (
   }
 ) => {
 
-  const { isConnected } = useClassroomSocket();
+  const { isConnected } = useNotificationsSocket();
 
   const getNotifications = async ({pageParam = undefined}: {pageParam?: number}) => {
     const url = queryString.stringifyUrl({

@@ -3,6 +3,7 @@ import AlertProvider from "@/components/providers/alert-provider";
 import ClassroomQueryProvider from "@/components/providers/classroom-query-provider";
 import ClassroomSocketProvider from "@/components/providers/classroom-socket-provider";
 import { EditModeProvider } from "@/components/providers/edit-mode-provider";
+import NotificationsProvider from "@/components/providers/notifications-socket-provider";
 import OpenNotifyProvider from "@/components/providers/open-notify-provider";
 import { ToggleMenuProvider } from "@/components/providers/toggle-menu-provider";
 import MenuBar from "@/components/ui/campus/Menubar";
@@ -20,7 +21,7 @@ export default async function CampusLayout({
   return (
     <ClassroomQueryProvider>
       <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_URL!}>
-        <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
+        <NotificationsProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
           <AlertProvider>
             <ToggleMenuProvider>
               <OpenNotifyProvider>
@@ -37,7 +38,7 @@ export default async function CampusLayout({
               </OpenNotifyProvider>
             </ToggleMenuProvider>
           </AlertProvider>
-        </ClassroomSocketProvider>
+        </NotificationsProvider>
       </ClassroomSocketProvider>
     </ClassroomQueryProvider>
   );
