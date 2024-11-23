@@ -1,14 +1,11 @@
 "use client";
 
 import { createClassroomAction } from "@/lib/actions/classroom";
-import ErrorForm from "./ErrorForm";
-import { FaCheck } from "react-icons/fa";
-import { BiCopy } from "react-icons/bi";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState } from "react";
 import ErrorMessageForm from "../../error-message";
-import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomType } from "@/types";
 import CopyCode from "./Copy";
+import Input from "./Input";
 
 const SubmitButton = ({ edit, pending }: { edit?: boolean; pending: boolean; }) => {
   return (
@@ -67,65 +64,28 @@ export default function CreateClassroomForm(
       <div className="flex flex-col gap-2">
         <CopyCode classroomCode={edit ? props.classroom.classroomCode : ""} />
       </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="classroomName">Nombre del aula</label>
-        <input
-          type="text"
-          name="classroomName"
-          className="input input-bordered w-full"
-          aria-labelledby="classroomNameError"
-          defaultValue={edit ? props.classroom.name : ""}
-        />
+      
+      {!edit ? (
+        <>
+          <Input type="text" name="classroomName" state={state} label="Nombre del aula" edit={false} />
+          <Input type="text" textarea name="classroomDescription" state={state} label="Descripción(opcional)" edit={false} />
+        </>
+      ) : (
+        <>
+          <Input type="text" name="classroomName" state={state} label="Nombre del aula" edit classroom={props.classroom} field="name" />
+          <Input type="text" textarea name="classroomDescription" state={state} label="Descripción(opcional)" edit classroom={props.classroom} field="description" />
+        </>
+      )}
 
-        <ErrorForm
-          state={state}
-          field="classroomName"
-          id="classroomNameError"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label htmlFor="classroomDescription">Descripción(opcional)</label>
-        <textarea
-          name="classroomDescription"
-          className={`textarea textarea-bordered w-full max-h-[300px] overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
-          aria-labelledby="classroomDescriptionError"
-          defaultValue={edit ? props.classroom.description || "" : ""}
-        />
-
-        <ErrorForm
-          state={state}
-          field="classroomDescription"
-          id="classroomDescriptionError"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
+      <Input type="text" state={state} edit={false} label="" name="classroomCourse">
         {children}
+      </Input>
 
-        <ErrorForm
-          state={state}
-          field="classroomCourse"
-          id="classroomCourseError"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="classroomColor">Color:</label>
-        <input
-          type="color"
-          name="classroomColor"
-          className="input input-bordered w-full"
-          aria-labelledby="classroomColorError"
-          defaultValue={edit ? props.classroom.classroomColor || "" : ""}
-        />
-
-        <ErrorForm
-          state={state}
-          field="classroomColor"
-          id="classroomColorError"
-        />
-      </div>
+      { !edit ? (
+        <Input type="color" name="classroomColor" edit={false} label="Color:" state={state} />
+      ) : (
+        <Input type="color" name="classroomColor" label="Color:" state={state} edit classroom={props.classroom} field="classroomColor" />
+      ) }
 
       <SubmitButton edit={edit} pending={isPending} />
 
