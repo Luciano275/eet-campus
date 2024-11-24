@@ -1,0 +1,13 @@
+---
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+
+---
+
+<section class={`px-4 md:w-3/4 md:mx-auto pt-28 pb-8 animate-blurred-fade-in ${className && className}`}>
+  <slot />
+</section>

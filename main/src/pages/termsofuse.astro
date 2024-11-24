@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { TermsOfUse, CookieAlert } from '@components/terms'
 import { marked } from 'marked'
+import Section from "@components/Section.astro";
 
 const { terms } = TermsOfUse
 const { content } = CookieAlert;
@@ -11,7 +12,7 @@ const { content } = CookieAlert;
   title="Términos de Uso"
   description="Estos son los Términos de Uso que el usuario se compromete a cumplir en el uso del Campus Virtual."
 >
-  <section class="px-4 md:w-3/4 md:mx-auto pt-24 pb-8 animate-blurred-fade-in">
+  <Section>
     <h1 class="text-3xl font-semibold py-4 border-b mb-4">Términos de Uso del Software</h1>
 
     <div class="flex flex-col gap-8 mb-8">
@@ -27,5 +28,5 @@ const { content } = CookieAlert;
       <h2 class="text-3xl font-semibold py-4 border-b mb-4">Aviso de Cookies</h2>
       { <p set:html={marked.parse(content)}></p> }
     </article>
-  </section>
+  </Section>
 </Layout>
