@@ -1,98 +1,18 @@
 ---
-import { Image } from "astro:assets";
-import Layout from "../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Introduction from "@components/blog/Introduction.astro";
+import Equipment from "@components/blog/Equipment.astro";
 ---
 
 <Layout
   title="Escuela de Educación Técnica Nº 3117 Maestro Daniel Óscar Reyes"
   description="En un mundo cada vez más interconectado y dependiente de la tecnología, la educación no puede quedarse atrás. Por ello, presentamos con orgullo nuestro proyecto de Campus Virtual, una plataforma innovadora diseñada para transformar la experiencia educativa en nuestro colegio. Este proyecto, desarrollado por un equipo dedicado de seis estudiantes apasionados por la tecnología y la educación, tiene como objetivo principal brindar una solución integral para el aprendizaje y la interacción escolar en un entorno digital."
 >
-  <section>
-    <article id="bg-gradient" class="min-h-screen relative flex flex-col px-2">
-      <div
-        class="absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-75"
-      >
-      </div>
-      <div class="relative z-20 grow flex flex-col justify-center items-center">
-        <Image
-          src={"/logo.png"}
-          alt="Logo"
-          width={150}
-          height={150}
-          id="logo-image"
-          loading={"eager"}
-        />
-        <h1 class="text-white font-bold text-2xl xl:text-3xl 2xl:text-4xl py-4">
-          Daniel Óscar Reyes
-        </h1>
-        <a
-          href="/register"
-          class="register-button bg-blue-500 md:bg-transparent border border-blue-500 p-3 rounded-xl text-white"
-          >Inscribirse</a
-        >
-      </div>
-    </article>
-    <article
-      class="px-4 py-8 w-full md:w-3/4 md:mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8"
-    >
-      <div>
-        <h1
-          class="text-2xl md:text-3xl lg:text-4xl font-bold py-4 border-b mb-4"
-        >
-          Campus Virtual E.E.T 3117
-        </h1>
-        <h2 class="text-lg md:text-xl lg:text-2xl">Nuestra escuela</h2>
-        <p class="text-justify py-2">
-          La <b
-            >Escuela de Educación Técnica (EET) 3117 "Maestro Daniel Oscar
-            Reyes"</b
-          > está ubicada en el Barrio San Remo de <b>Salta.</b> El 22 de marzo de
-          2004, la escuela fue nombrada en honor al maestro argentino Daniel Oscar
-          Reyes, quien desapareció en un accidente. Reyes fue un pionero en telecomunicaciones
-          y relaciones interinstitucionales a través de la Red Telar, y un promotor
-          de llevar tecnologías a los estudiantes de escuelas públicas.
-        </p>
-      </div>
-      <Image
-        src={'/school-min.jpg'}
-        alt={"School"}
-        width={700}
-        height={500}
-        class="rounded-xl mx-auto"
-        loading={"lazy"}
-      />
-    </article>
+  <Header />
+
+  <section class="flex flex-col gap-6 pb-4">
+    <Introduction />
+    <Equipment />
   </section>
 </Layout>
-
-<style>
-  section #bg-gradient {
-    background: rgb(255, 224, 224);
-    background: radial-gradient(
-      at top right,
-      rgba(219, 224, 255, 1) 0%,
-      rgba(176, 176, 255, 1) 35%,
-      rgba(255, 201, 201, 1) 67%,
-      rgba(255, 162, 162, 1) 100%
-    );
-    background-attachment: fixed;
-  }
-  
-  .register-button:hover {
-    background: #3b82f6;
-  }
-
-  @media (width >= 1280px) and (height >= 700px) {
-    #logo-image {
-      width: 180px;
-      height: auto;
-    }
-  }
-
-  @media(width >= 1600px) and (height >= 900px) {
-    #logo-image {
-      width: 225px;
-      height: auto;
-    }
-  }
-</style>
