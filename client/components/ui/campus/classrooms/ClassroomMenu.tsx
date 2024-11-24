@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 import { IconType } from "react-icons";
 import { BsMessenger } from "react-icons/bs";
 import { FaHome, FaUsers } from "react-icons/fa";
@@ -78,7 +79,7 @@ export default function ClassroomMenu({
             <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
           ) : onlyOwner && !isStudent ? (
             <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
-          ) : <></>
+          ) : <Fragment key={`${index}:omit`} />
         ))}
       </ul>
       <ul className="btm-nav md:hidden bg-base-300" style={{
@@ -89,7 +90,7 @@ export default function ClassroomMenu({
             <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
           ) : onlyOwner && !isStudent ? (
             <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
-          ) : <></>
+          ) : <Fragment key={`${index}:omit`} />
         ))}
       </ul>
     </>
