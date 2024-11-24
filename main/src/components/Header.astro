@@ -1,5 +1,6 @@
 ---
 import Image from "astro/components/Image.astro"
+import SigninButton from "./signin-button.astro"
 ---
 
 <header id="bg-gradient" class="min-h-screen relative flex flex-col px-2">
@@ -19,11 +20,15 @@ import Image from "astro/components/Image.astro"
     <h1 class="text-white font-bold text-2xl xl:text-3xl 2xl:text-4xl py-4">
       Daniel Óscar Reyes
     </h1>
-    <a
-      href="/register"
-      class="register-button bg-blue-500 md:bg-transparent border border-blue-500 p-3 rounded-xl text-white"
-      >Inscribirse</a
-    >
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href="/register"
+        class="register-button bg-blue-500 md:bg-transparent border border-blue-500 p-3 rounded-xl text-white"
+        >Inscribirse</a
+      >
+      
+      <SigninButton onlyMobile />
+    </div>
   </div>
 </header>
 

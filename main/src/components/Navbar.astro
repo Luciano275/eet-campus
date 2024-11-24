@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import NavbarLinks from "./navbar-links.astro";
 import ThemeButton from "./ThemeButton.astro";
-import { CAMPUS_PAGE } from "../campus-page";
 
 const pathname = Astro.url.pathname;
 ---
@@ -21,14 +20,11 @@ const pathname = Astro.url.pathname;
         loading={'eager'}
       />
     </a>
-    <NavbarLinks />
   </div>
+  <NavbarLinks />
   <div class="flex items-center gap-4">
     <ThemeButton />
-    <a
-      href={CAMPUS_PAGE}
-      class="btn btn-primary text-white hidden md:inline-flex">Acceder</a
-    >
+
     <button
       id="btn-nav"
       class="text-white relative flex md:hidden items-center justify-center w-9"

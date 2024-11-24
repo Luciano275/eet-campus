@@ -1,5 +1,6 @@
 ---
 import Dropdown from './Dropdown.astro';
+import SigninButton from './signin-button.astro';
 
 type LinksType =
   | {
@@ -48,7 +49,7 @@ const pathname = Astro.url.pathname;
 const { mobile } = Astro.props;
 ---
 
-<div class={mobile ? 'flex md:hidden flex-col' : "hidden md:flex justify-center gap-x-3 items-center"}>
+<div class={mobile ? 'flex md:hidden flex-col' : "hidden md:flex justify-center gap-x-6 items-center"}>
   {
     LINKS.map((link) =>
       link.type === "normal" ? (
@@ -68,4 +69,6 @@ const { mobile } = Astro.props;
       )
     )
   }
+
+  <SigninButton />
 </div>
