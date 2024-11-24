@@ -1,0 +1,13 @@
+---
+const { id } = Astro.params;
+
+const blogs = await Astro.glob("../../blogs/*.mdx");
+const blog = blogs.find(({frontmatter: { id: blogId }}) => blogId === id);
+
+if (!blog) {
+  Astro.response.status = 404;
+}
+
+---
+
+{blog && <blog.Content />}

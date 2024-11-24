@@ -3,8 +3,9 @@ import Layout from "@layouts/Layout.astro";
 import Section from "@components/Section.astro";
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale/es'
+import CreateBlog from "@components/CreateBlog.astro";
 
-const blogs = await Astro.glob('./blog/*.mdx');
+const blogs = await Astro.glob('../blogs/*.mdx');
 
 const order = blogs.sort((a, b) => {
   //@ts-ignore
@@ -16,20 +17,23 @@ const order = blogs.sort((a, b) => {
   title="Nuestro Blog"
   description="Bienvenido a nuestro blog! Aqui encontraras todo lo relacionado con noticias sobre el colegio..."
 >
-  <Section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {order.map((blog) => {
-      const filename = blog.url?.split('/');
-      return (
-        <article class="blog min-h-[400px] border border-base-300 p-4 rounded-xl bg-base-100 flex flex-col gap-4">
-          <p class="text-sm opacity-60">{format(new Date(blog.frontmatter.date), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
-          <h2 class="text-2xl font-semibold pb-4 border-b">{blog.frontmatter.title}</h2>
-          <p class="text-justify grow">
-            {blog.frontmatter.description}
-          </p>
-          { filename && <a href={`/blog/${filename[filename?.length-1].split('.')[0]}`} class="bg-blue-500 text-center py-2 px-4 rounded-lg text-white hover:bg-blue-600">Leer mas</a> }
-        </article>
-      )
-    })}
+  <Section className="flex flex-col gap-4">
+    
+    <CreateBlog />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {order.map((blog) => (
+          <article class="blog min-h-[400px] border border-base-300 p-4 rounded-xl bg-base-100 flex flex-col gap-4">
+            <p class="text-sm opacity-60">{format(new Date(blog.frontmatter.date), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
+            <h2 class="text-2xl font-semibold pb-4 border-b">{blog.frontmatter.title}</h2>
+            <p class="text-justify grow">
+              {blog.frontmatter.description}
+            </p>
+            <a href={`/blog/${blog.frontmatter.id}`} class="bg-blue-500 text-center py-2 px-4 rounded-lg text-white hover:bg-blue-600">Leer mas</a>
+          </article>
+        )
+      )}
+    </div>
   </Section>
 </Layout>
 
