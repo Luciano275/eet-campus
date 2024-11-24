@@ -1,36 +1,130 @@
 ---
-import { Image } from "astro:assets";
-import Article from '@components/Article.astro'
+import Article from "@components/Article.astro";
+
+const CAROUSEL_ITEMS = [
+  { alt: "Banner", src: "/banner.jpg" },
+  { alt: "Adentro", src: "/adentro1.png" },
+  { alt: "Patio-1", src: "/patio1.png" },
+  { alt: "Taller-1", src: "/taller1.jpg" },
+];
 ---
 
-<Article
-  className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-  id="introduction"
->
+<Article className="grid grid-cols-1 lg:grid-cols-2 gap-8" id="introduction">
   <div>
-    <h1
-      class="text-2xl md:text-3xl lg:text-4xl font-bold py-4 border-b mb-4"
-    >
+    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold py-4 border-b mb-4">
       Campus Virtual E.E.T 3117
     </h1>
     <h2 class="text-lg md:text-xl lg:text-2xl">Nuestra escuela</h2>
     <p class="text-justify py-2">
       La <b
-        >Escuela de Educación Técnica (EET) 3117 "Maestro Daniel Oscar
-        Reyes"</b
-      > está ubicada en el Barrio San Remo de <b>Salta.</b> El 22 de marzo de
-      2004, la escuela fue nombrada en honor al maestro argentino Daniel Oscar
-      Reyes, quien desapareció en un accidente. Reyes fue un pionero en telecomunicaciones
-      y relaciones interinstitucionales a través de la Red Telar, y un promotor
-      de llevar tecnologías a los estudiantes de escuelas públicas.
+        >Escuela de Educación Técnica (EET) 3117 "Maestro Daniel Oscar Reyes"</b
+      > está ubicada en el Barrio San Remo de <b>Salta.</b> El 22 de marzo de 2004,
+      la escuela fue nombrada en honor al maestro argentino Daniel Oscar Reyes, quien
+      desapareció en un accidente. Reyes fue un pionero en telecomunicaciones y relaciones
+      interinstitucionales a través de la Red Telar, y un promotor de llevar tecnologías
+      a los estudiantes de escuelas públicas.
     </p>
   </div>
-  <Image
-    src={'/school-min.jpg'}
-    alt={"School"}
-    width={700}
-    height={500}
-    class="rounded-xl mx-auto"
-    loading={"lazy"}
-  />
+
+  <div id="default-carousel" class="relative w-full" data-carousel="slide">
+    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+      {
+        CAROUSEL_ITEMS.map((item) => (
+          <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <img
+              src={item.src}
+              alt={item.alt}
+              class="rounded-xl object-center absolute block w-full min-h-[500px] object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse"
+    >
+      <button
+        type="button"
+        class="w-3 h-3 rounded-full"
+        aria-current="true"
+        aria-label="Slide 1"
+        data-carousel-slide-to="0"></button>
+      <button
+        type="button"
+        class="w-3 h-3 rounded-full"
+        aria-current="false"
+        aria-label="Slide 2"
+        data-carousel-slide-to="1"></button>
+      <button
+        type="button"
+        class="w-3 h-3 rounded-full"
+        aria-current="false"
+        aria-label="Slide 3"
+        data-carousel-slide-to="2"></button>
+      <button
+        type="button"
+        class="w-3 h-3 rounded-full"
+        aria-current="false"
+        aria-label="Slide 4"
+        data-carousel-slide-to="3"></button>
+      <button
+        type="button"
+        class="w-3 h-3 rounded-full"
+        aria-current="false"
+        aria-label="Slide 5"
+        data-carousel-slide-to="4"></button>
+    </div>
+
+    <button
+      type="button"
+      class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      data-carousel-prev
+    >
+      <span
+        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+      >
+        <svg
+          class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 1 1 5l4 4"></path>
+        </svg>
+        <span class="sr-only">Previous</span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      data-carousel-next
+    >
+      <span
+        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+      >
+        <svg
+          class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 9 4-4-4-4"></path>
+        </svg>
+        <span class="sr-only">Next</span>
+      </span>
+    </button>
+  </div>
 </Article>

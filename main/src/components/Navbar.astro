@@ -78,13 +78,21 @@ const pathname = Astro.url.pathname;
 
   const mobileNav = document.querySelector("#mobile-nav");
 
+  const verifyScroll = (scroll: number) => {
+    if (scroll > 0) {
+      document.querySelector("#desktop-nav")?.classList.add("bgNavbar");
+    } else {
+      document.querySelector("#desktop-nav")?.classList.remove("bgNavbar");
+    }
+  }
+
   if (pathname === "/") {
+    const nowScroll = window.scrollY;
+
+    verifyScroll(nowScroll);
+
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 0) {
-        document.querySelector("#desktop-nav")?.classList.add("bgNavbar");
-      } else {
-        document.querySelector("#desktop-nav")?.classList.remove("bgNavbar");
-      }
+      verifyScroll(window.scrollY)
     });
   }
 
