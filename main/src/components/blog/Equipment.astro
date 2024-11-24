@@ -1,14 +1,10 @@
 ---
-import { Image } from 'astro:assets'
-import directorImg from '@assets/director.jpg'
-import vicedirectorImg from '@assets/vicedirector.jpg';
-import vicedirectoraImg from '@assets/vicedirectora.jpg';
 import Article from '@components/Article.astro'
 
 const members = [
-  { alt: "Director", fullname: "Elio Omar Brito", img: directorImg, link: '' },
-  { alt: "Vicedirectora", fullname: "Gabriela Garnica", img: vicedirectoraImg, link: '' },
-  { alt: "Vicedirector", fullname: "Luis Haro", img: vicedirectorImg, link: '' },
+  { alt: "Director", fullname: "Elio Omar Brito", img: '/equipment/director.webp', link: '' },
+  { alt: "Vicedirectora", fullname: "Gabriela Garnica", img: '/equipment/vicedirectora.webp', link: '' },
+  { alt: "Vicedirector", fullname: "Luis Haro", img: '/equipment/vicedirector.webp', link: '' },
 ]
 
 ---
@@ -19,7 +15,7 @@ const members = [
     { members.map((member) => (
       <div class="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 article transition-transform hover:scale-105">
         <a href={member.link}>
-          <Image
+          <img
             src={member.img}
             alt={member.alt}
             class={"w-full max-w-[300px] min-w-[300px] min-h-[400px] max-h-[400px] object-cover object-top aspect-video"}
