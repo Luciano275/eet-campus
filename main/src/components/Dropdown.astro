@@ -12,7 +12,7 @@ const { mobile, label } = Astro.props;
 { mobile ? (
 <details class={`dropdown`}>
   <summary
-    class={`m-1 flex gap-2 ${mobile && 'text-center py-1'} text-white hover:text-blue-400`}
+    class={`m-1 flex text-lg gap-2 ${mobile && 'text-center py-1'} text-white hover:text-blue-400`}
   >
     {label}
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
