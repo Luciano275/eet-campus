@@ -32,7 +32,8 @@ const members = [
 
 <script>
   const articles = document.querySelectorAll('.article');
-  document.getElementById("changeTheme")?.addEventListener("click", () => {
+
+  const verifyTheme = () => {
     const theme = document.querySelector('html')?.getAttribute('data-theme');
 
     if (theme === 'light') {
@@ -46,5 +47,11 @@ const members = [
         article.classList.add('bg-base-100')
       })
     }
+  }
+
+  verifyTheme();
+
+  document.getElementById("changeTheme")?.addEventListener("click", () => {
+    verifyTheme();
   })
 </script>

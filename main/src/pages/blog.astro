@@ -39,7 +39,8 @@ const order = blogs.sort((a, b) => {
 
 <script>
   const blogs = document.querySelectorAll('.blog');
-  document.getElementById("changeTheme")?.addEventListener("click", () => {
+
+  const verifyTheme = () => {
     const theme = document.querySelector('html')?.getAttribute('data-theme');
 
     if (theme === 'light') {
@@ -53,5 +54,11 @@ const order = blogs.sort((a, b) => {
         blog.classList.add('bg-base-100')
       })
     }
+  }
+
+  verifyTheme();
+
+  document.getElementById("changeTheme")?.addEventListener("click", () => {
+    verifyTheme();
   })
 </script>
