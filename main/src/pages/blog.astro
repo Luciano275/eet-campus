@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Section from "@components/Section.astro";
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale/es'
-import CreateBlog from "@components/CreateBlog.astro";
+import CreateBlog from '@components/blog/create-blog'
 
 const blogs = await Astro.glob('../blogs/*.mdx');
 
@@ -21,7 +21,7 @@ const order = blogs.sort((a, b) => {
 
     <h1 class="pb-4 text-3xl font-bold border-b border-base-300 mb-4">Nuestras últimas noticias</h1>
     
-    <CreateBlog />
+    <CreateBlog headers={Astro.request.headers} server:defer />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {order.map((blog) => (
