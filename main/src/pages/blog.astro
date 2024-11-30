@@ -1,16 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Section from "@components/Section.astro";
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale/es'
 import CreateBlog from '@components/blog/create-blog'
-
-const blogs = await Astro.glob('../blogs/*.mdx');
-
-const order = blogs.sort((a, b) => {
-  //@ts-ignore
-  return (new Date(b.frontmatter.date)) - (new Date(a.frontmatter.date))
-})
+import Blogs from "@components/blog/blogs.astro";
 ---
 
 <Layout
@@ -23,44 +15,6 @@ const order = blogs.sort((a, b) => {
     
     <CreateBlog headers={Astro.request.headers} server:defer />
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {order.map((blog) => (
-          <article class="blog min-h-[400px] border border-base-300 p-4 rounded-xl bg-base-100 flex flex-col gap-4">
-            <p class="text-sm opacity-60">{format(new Date(blog.frontmatter.date), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
-            <h2 class="text-2xl font-semibold pb-4 border-b">{blog.frontmatter.title}</h2>
-            <p class="text-justify grow">
-              {blog.frontmatter.description}
-            </p>
-            <a href={`/blog/${blog.frontmatter.id}`} class="bg-blue-500 text-center py-2 px-4 rounded-lg text-white hover:bg-blue-600">Leer más</a>
-          </article>
-        )
-      )}
-    </div>
+    <Blogs />
   </Section>
 </Layout>
-
-<script>
-  const blogs = document.querySelectorAll('.blog');
-
-  const verifyTheme = () => {
-    const theme = document.querySelector('html')?.getAttribute('data-theme');
-
-    if (theme === 'light') {
-      blogs.forEach((blog) => {
-        blog.classList.add('bg-base-300')
-        blog.classList.remove('bg-base-100')
-      })
-    }else {
-      blogs.forEach((blog) => {
-        blog.classList.remove('bg-base-300')
-        blog.classList.add('bg-base-100')
-      })
-    }
-  }
-
-  verifyTheme();
-
-  document.getElementById("changeTheme")?.addEventListener("click", () => {
-    verifyTheme();
-  })
-</script>

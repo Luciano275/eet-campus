@@ -1,7 +1,10 @@
 ---
+import Section from "@components/Section.astro";
+import Layout from "@layouts/Layout.astro";
+
 const { id } = Astro.params;
 
-const blogs = await Astro.glob("../../blogs/*.mdx");
+const blogs = await Astro.glob("../../blogs/*.md");
 const blog = blogs.find(({frontmatter: { id: blogId }}) => blogId === id);
 
 if (!blog) {
@@ -10,4 +13,13 @@ if (!blog) {
 
 ---
 
-{blog && <blog.Content />}
+{blog && (
+  <Layout
+    title={blog.frontmatter.title}
+    description={blog.frontmatter.description}
+  >
+    <Section className="prose max-w-none">
+      <blog.Content />
+    </Section>
+  </Layout>
+)}
