@@ -174,3 +174,11 @@ model Notification {
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   classroom Classroom? @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
+
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  filename    String
+  createdAt   DateTime @default(now())
+}
