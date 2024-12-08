@@ -181,4 +181,6 @@ model Blog {
   description String
   filename    String
   createdAt   DateTime @default(now())
+
+  @@unique([id, filename])
 }

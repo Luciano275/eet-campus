@@ -1,25 +1,14 @@
 ---
-import Section from "@components/Section.astro";
-import Layout from "@layouts/Layout.astro";
+import Blog from '@components/blog/Blog'
+import Layout from '@layouts/Layout.astro'
+import Section from '@components/Section.astro'
 
-const { id } = Astro.params;
-
-const blogs = await Astro.glob("../../blogs/*.md");
-const blog = blogs.find(({frontmatter: { id: blogId }}) => blogId === id);
-
-if (!blog) {
-  Astro.response.status = 404;
-}
+const { id } = Astro.params
 
 ---
 
-{blog && (
-  <Layout
-    title={blog.frontmatter.title}
-    description={blog.frontmatter.description}
-  >
-    <Section className="prose max-w-none">
-      <blog.Content />
-    </Section>
-  </Layout>
-)}
+<Layout title='Nuestros Blogs' description='asd'>
+  <Section className='prose max-w-none'>
+    <Blog id={id} server:defer />
+  </Section>
+</Layout>
