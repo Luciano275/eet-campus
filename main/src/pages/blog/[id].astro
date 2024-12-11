@@ -9,6 +9,6 @@ const { id } = Astro.params
 
 <Layout title='Nuestros Blogs' description='asd'>
   <Section className='prose max-w-none'>
-    <Blog id={id} client:load />
+    <Blog id={id} server:defer />
   </Section>
 </Layout>

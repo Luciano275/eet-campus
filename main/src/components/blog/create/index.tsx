@@ -16,7 +16,7 @@ export default function CreateBlog() {
           </ul>
       </div>
       <div id="default-tab-content">
-          <div className="hidden p-4 rounded-lg bg-base-200" id="form" role="tabpanel" aria-labelledby="form-tab">
+          <div className="hidden p-4 rounded-lg" id="form" role="tabpanel" aria-labelledby="form-tab">
               
             <CreateBlogForm />
 

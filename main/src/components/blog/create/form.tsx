@@ -1,48 +1,9 @@
 import { useCreateBlogContext } from "@components/providers/create-blog-provider";
-import { useActionState, useEffect, type ChangeEventHandler } from "react";
-import inputCss from '@css/input.module.css';
+import { useActionState, useEffect } from "react";
 import { createBlogAction } from "src/actions/blog";
 import type { CreateBlogActionState } from "src/types";
-
-const Input = ({
-  label,
-  htmlFor,
-  type,
-  placeholder,
-  onChange
-}: {
-  label: string;
-  htmlFor: string;
-  type: "text" | "textarea";
-  placeholder: string;
-  onChange?: ChangeEventHandler
-}) => {
-  return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={htmlFor} className="text-xl font-semibold">
-        {label}
-      </label>
-      {type === "text" ? (
-        <input
-          type="text"
-          name={htmlFor}
-          id={htmlFor}
-          placeholder={placeholder}
-          className={`p-2 rounded-lg text-lg border border-base-200 outline-none bg-base-100 text-base-content max-w-full h-auto ${inputCss['input-field-sizing']}`}
-          onChange={onChange}
-        />
-      ) : (
-        <textarea
-          name={htmlFor}
-          id={htmlFor}
-          placeholder={placeholder}
-          className={`p-2 rounded-lg text-lg border border-base-200 outline-none bg-base-100 min-h-[500px] h-fit resize-y ${inputCss['input-field-sizing']}`}
-          onChange={onChange}
-        ></textarea>
-      )}
-    </div>
-  );
-};
+import { Input } from "./input";
+import Message from "./message";
 
 export default function CreateBlogForm() {
   const { content, setContent } = useCreateBlogContext();
@@ -64,12 +25,16 @@ export default function CreateBlogForm() {
         htmlFor="title"
         label="Título"
         placeholder="Escribe el título del blog"
+        state={state}
+        field="title"
       />
       <Input
         type="text"
         htmlFor="description"
         label="Descripción"
         placeholder="Escribe una breve descripción del blog"
+        state={state}
+        field="description"
       />
       <Input
         type="textarea"
@@ -77,11 +42,12 @@ export default function CreateBlogForm() {
         label="Contenido"
         placeholder="Escribe todo el contenido del blog en formato Markdown"
         onChange={(e: any) => setContent(e.target.value)}
+        state={state}
+        field="content"
       />
       <button type="submit" className={`${isPending ? 'bg-base-300' : 'bg-blue-600 hover:bg-blue-700'} text-lg p-2 rounded-lg text-white`}>Guardar</button>
-      { state && state.message && (
-        <p>{state.message}</p>
-      ) }
+
+      <Message state={state} />
     </form>
   );
 }
