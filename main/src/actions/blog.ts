@@ -2,7 +2,6 @@ import { CreateBlogSchema } from "src/schemas/blog.schema";
 import type { CreateBlogActionState } from "src/types";
 
 export async function createBlogAction(prevState: CreateBlogActionState | undefined, formData: FormData): Promise<CreateBlogActionState> {
-  //TODO: Validate using zod
   const dataParsed = CreateBlogSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (!dataParsed.success) {

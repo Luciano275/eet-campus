@@ -2,7 +2,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3 } from "@lib/s3";
 import type { APIRoute } from "astro";
 import { createReadStream } from "node:fs";
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile, rm } from 'node:fs/promises'
 import path from 'node:path'
 import { db } from "src/database";
 import { v7 } from "uuid";
@@ -59,6 +59,8 @@ export const POST: APIRoute = async ({ request }) => {
         filename,
       }
     })
+
+    await rm(fullpath, { recursive: true })
   }catch (e) {
     console.error(e);
     return new Response(JSON.stringify({
