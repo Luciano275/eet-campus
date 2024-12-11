@@ -9,6 +9,7 @@ export default function Blog(
   }
 ) {
   if (!id) {
+    // TODO: Mostrar not found
     return <></>
   }
 

@@ -1,22 +1,6 @@
-import { Suspense, use } from "react";
+import { use } from "react";
 import type { BlogObject } from "src/types";
 import Markdown from "./Markdown";
-
-function RenderBlog(
-  {blogContentPromise}
-  : {
-    blogContentPromise: Promise<Response>
-  }
-) {
-  const blogContent = use(blogContentPromise);
-  const blogContentText = blogContent.text();
-
-  const content = use(blogContentText);
-
-  return (
-    <Markdown markdownContent={content} />
-  )
-}
 
 export default function BlogContent(
   { blogPromise }
@@ -31,10 +15,11 @@ export default function BlogContent(
   }
 
   const blogContentPromise = fetch(blog.url);
+  const blogContent = use(blogContentPromise);
+  const blogContentText = blogContent.text();
+  const content = use(blogContentText);
 
   return (
-    <Suspense fallback={<p>Obteniendo blog...</p>}>
-      <RenderBlog blogContentPromise={blogContentPromise} />
-    </Suspense>
+    <Markdown markdownContent={content} />
   )
 }
