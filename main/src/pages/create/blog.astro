@@ -2,17 +2,13 @@
 import Layout from "@layouts/Layout.astro";
 import Section from "@components/Section.astro";
 import CreateBlog from '@components/blog/create'
+import { auth } from "@lib/user";
 
 const headers = Astro.request.headers;
 
-const rq = await fetch(`${import.meta.env.FRONT_URL}/api/auth/session`, {
-  credentials: "include",
-  headers,
-});
+const session = await auth(headers);
 
-const rs = await rq.json();
-
-if (!(rs && (rs.user.rol === 1 || rs.user.rol === 2))) {
+if (!(session && (session.user.rol === 1 || session.user.rol === 2))) {
   Astro.response.status = 404;
 }
 

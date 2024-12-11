@@ -3,14 +3,22 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale/es'
 
 import { findAllBlogs } from '@lib/blogs'
+import DeleteBlogButton from './delete-button';
+import { auth } from '@lib/user';
 
 const blogs = await findAllBlogs();
+
+const session = await auth(Astro.request.headers)
 ---
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   {blogs.map((blog) => (
       <article class="transition-colors min-h-[400px] border border-base-300 p-4 rounded-xl bg-base-100 hover:bg-base-200 flex flex-col gap-4">
-        <p class="text-sm opacity-60">{format(new Date(blog.createdAt), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
+        <div class="flex justify-between flex-wrap-reverse items-center">
+          <p class="text-sm opacity-60">{format(new Date(blog.createdAt), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
+          
+          { (session && (session.user.rol === 1 || session.user.rol === 2)) && <DeleteBlogButton blogId={blog.id} /> }
+        </div>
         <h2 class="text-2xl font-semibold pb-4 border-b">{blog.title}</h2>
         <p class="text-justify grow">
           {blog.description}
