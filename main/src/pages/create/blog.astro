@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Section from "@components/Section.astro";
+import CreateBlog from '@components/blog/create'
 
 const headers = Astro.request.headers;
 
@@ -22,6 +23,6 @@ if (!(rs && (rs.user.rol === 1 || rs.user.rol === 2))) {
   description="Crea tu blog para informar a las demas personas!"
 >
   <Section>
-    asd
+     <CreateBlog client:load />
   </Section>
 </Layout>
