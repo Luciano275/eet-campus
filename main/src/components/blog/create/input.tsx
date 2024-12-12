@@ -31,7 +31,7 @@ export const Input = ({
           name={htmlFor}
           id={htmlFor}
           placeholder={placeholder}
-          className={`p-2 rounded-lg text-lg border border-base-200 outline-none bg-base-200 text-base-content max-w-full h-auto ${inputCss['input-field-sizing']}`}
+          className={`input input-bordered w-full ${inputCss['input-field-sizing']}`}
           onChange={onChange}
           aria-describedby={`${htmlFor}-error`}
         />
@@ -40,7 +40,7 @@ export const Input = ({
           name={htmlFor}
           id={htmlFor}
           placeholder={placeholder}
-          className={`p-2 rounded-lg text-lg border border-base-200 outline-none bg-base-200 min-h-[500px] h-fit resize-y ${inputCss['input-field-sizing']}`}
+          className={`textarea textarea-bordered ${inputCss['input-field-sizing']}`}
           onChange={onChange}
           aria-describedby={`${htmlFor}-error`}
         ></textarea>
