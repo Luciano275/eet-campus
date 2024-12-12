@@ -1,6 +1,7 @@
 import { use } from "react";
 import type { BlogObject } from "src/types";
 import Markdown from "./Markdown";
+import NotFoundContent from "@components/notfound/content";
 
 export default function BlogContent(
   { blogPromise }
@@ -11,7 +12,7 @@ export default function BlogContent(
   const blog = use(blogPromise);
 
   if (!blog) {
-    return;
+    return <NotFoundContent />
   }
 
   const blogContentPromise = fetch(blog.url);
@@ -20,6 +21,8 @@ export default function BlogContent(
   const content = use(blogContentText);
 
   return (
-    <Markdown markdownContent={content} />
+    <div className="prose max-w-none">
+      <Markdown markdownContent={content} />
+    </div>
   )
 }

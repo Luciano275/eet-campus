@@ -1,6 +1,7 @@
 import { findBlog } from "@lib/blogs";
 import { Suspense } from "react";
 import BlogContent from "./blog-content";
+import NotFoundContent from "@components/notfound/content";
 
 export default function Blog(
   {id}
@@ -9,8 +10,7 @@ export default function Blog(
   }
 ) {
   if (!id) {
-    // TODO: Mostrar not found
-    return <></>
+    return <NotFoundContent />
   }
 
   const blogPromise = findBlog(id);

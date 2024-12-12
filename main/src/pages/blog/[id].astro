@@ -7,8 +7,8 @@ const { id } = Astro.params
 
 ---
 
-<Layout title='Nuestros Blogs' description='asd'>
-  <Section className='prose max-w-none'>
+<Layout title='Nuestros Blogs - Escuela de Educación Técnica Nº 3117 Maestro Daniel Óscar Reyes' description='Bienvenido a nuestro blog! Aqui encontraras todo lo relacionado con noticias sobre el colegio...'>
+  <Section>
     <Blog id={id} server:defer />
   </Section>
 </Layout>
