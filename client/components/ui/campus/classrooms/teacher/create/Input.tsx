@@ -32,7 +32,7 @@ export default function Input (
     <div className="flex flex-col gap-2">
       {props.children ? props.children : (
         <>
-          <label htmlFor={name}>{label}</label>
+          <label htmlFor={name} className="font-bold">{label}</label>
           {!props.textarea ? (
             <input
               type={type}

@@ -58,12 +58,14 @@ export default function CreateClassroomForm(
     <form
       action={formAction}
       className={`mt-4 ${
-        !edit && "w-full max-w-[400px]"
+        !edit && "w-full max-w-[600px]"
       } mx-auto flex flex-col gap-4`}
     >
-      <div className="flex flex-col gap-2">
-        <CopyCode classroomCode={edit ? props.classroom.classroomCode : ""} />
-      </div>
+      { edit  && (
+        <div className="flex flex-col gap-2">
+          <CopyCode classroomCode={edit ? props.classroom.classroomCode : ""} />
+        </div>
+      ) }
       
       {!edit ? (
         <>

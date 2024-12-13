@@ -10,7 +10,7 @@ export default async function CoursesSelect(
 
   return (
     <>
-      <label htmlFor="classroomCourse">Curso</label>
+      <label htmlFor="classroomCourse" className="font-bold">Curso</label>
       <select name="classroomCourse" className="select select-bordered" aria-labelledby="classroomCourseError" defaultValue={defaultCourse}>
         {courses.map(({ course, cycle, division, id }, index) => (
           <option key={`${index}:${id}`} value={id}>
