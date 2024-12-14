@@ -27,15 +27,17 @@ export default function Search() {
   }, DEBOUNCE_DELAY);
 
   return (
-    <label className="input input-bordered flex items-center gap-2">
+    <label className="flex relative items-center">
       <input
         type="text"
-        className="grow"
+        className="grow input input-bordered pl-12"
         placeholder="Buscar aulas"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={defaultSearch || ''}
       />
-      <FaSearch />
+      <span className="absolute left-4">
+        <FaSearch />
+      </span>
     </label>
   )
 }
