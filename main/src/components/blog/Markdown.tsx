@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw';
 
 export default function Markdown(
   {markdownContent}
@@ -7,7 +8,7 @@ export default function Markdown(
   }
 ) {
   return (
-    <ReactMarkdown>
+    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
       {markdownContent}
     </ReactMarkdown>
   )
