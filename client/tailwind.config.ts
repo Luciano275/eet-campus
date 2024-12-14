@@ -2,12 +2,14 @@ import type { Config } from "tailwindcss";
 import daisyui from "daisyui";
 //@ts-ignore
 import miduAnimations from "@midudev/tailwind-animations";
+import flowbite from 'flowbite-react/tailwind';
 
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -18,6 +20,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [daisyui, miduAnimations],
+  plugins: [daisyui, miduAnimations, flowbite.plugin()],
 };
 export default config;
