@@ -52,6 +52,8 @@ export async function createClassroomAction(
     };
   }
 
+  //TODO: Convertir la descripcion de un archivo y enviarlo a AWS S3. Luego, guardar el nombre en la base de datos.
+
   if (mode.type === "create") {
     let classroomCode = "";
 

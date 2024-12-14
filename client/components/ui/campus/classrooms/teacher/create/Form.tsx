@@ -6,8 +6,16 @@ import ErrorMessageForm from "../../error-message";
 import { ClassroomType } from "@/types";
 import CopyCode from "./Copy";
 import Input from "./Input";
+import { useClassroomDescription } from "@/components/providers/classroom-description-provider";
+import { Tooltip } from "flowbite-react";
 
-const SubmitButton = ({ edit, pending }: { edit?: boolean; pending: boolean; }) => {
+const SubmitButton = ({
+  edit,
+  pending,
+}: {
+  edit?: boolean;
+  pending: boolean;
+}) => {
   return (
     <button
       aria-disabled={pending}
@@ -42,17 +50,24 @@ export default function CreateClassroomForm(
 ) {
   const { children, edit, ownerId } = props;
 
+  const { setContent } = useClassroomDescription();
+
   const bindCreateClassroomAction = createClassroomAction.bind(
     null,
     ownerId,
-    edit ? { type: 'update', classroomId: props.classroom.id } : { type: 'create' }
+    edit
+      ? { type: "update", classroomId: props.classroom.id }
+      : { type: "create" }
   );
 
-  const [state, formAction, isPending] = useActionState(bindCreateClassroomAction, {
-    message: null,
-    success: null,
-    errors: {},
-  });
+  const [state, formAction, isPending] = useActionState(
+    bindCreateClassroomAction,
+    {
+      message: null,
+      success: null,
+      errors: {},
+    }
+  );
 
   return (
     <form
@@ -61,33 +76,87 @@ export default function CreateClassroomForm(
         !edit && "w-full max-w-[600px]"
       } mx-auto flex flex-col gap-4`}
     >
-      { edit  && (
+      {edit && (
         <div className="flex flex-col gap-2">
           <CopyCode classroomCode={edit ? props.classroom.classroomCode : ""} />
         </div>
-      ) }
-      
+      )}
+
       {!edit ? (
         <>
-          <Input type="text" name="classroomName" state={state} label="Nombre del aula" edit={false} />
-          <Input type="text" textarea name="classroomDescription" state={state} label="Descripción(opcional)" edit={false} />
+          <Input
+            type="text"
+            name="classroomName"
+            state={state}
+            label="Nombre del aula"
+            edit={false}
+          />
+          <Input
+            type="text"
+            textarea
+            name="classroomDescription"
+            state={state}
+            label="Descripción(opcional)"
+            edit={false}
+            onChange={(e: any) => setContent(e.target.value)}
+            placeholder="# Aquí puedes hacer una presentación del aula"
+          />
         </>
       ) : (
         <>
-          <Input type="text" name="classroomName" state={state} label="Nombre del aula" edit classroom={props.classroom} field="name" />
-          <Input type="text" textarea name="classroomDescription" state={state} label="Descripción(opcional)" edit classroom={props.classroom} field="description" />
+          <Input
+            type="text"
+            name="classroomName"
+            state={state}
+            label="Nombre del aula"
+            edit
+            classroom={props.classroom}
+            field="name"
+          />
+          <Input
+            type="text"
+            textarea
+            name="classroomDescription"
+            state={state}
+            label="Descripción(opcional)"
+            edit
+            classroom={props.classroom}
+            field="description"
+            onChange={(e: any) => setContent(e.target.value)}
+            placeholder="# Aquí puedes hacer una presentación del aula"
+          />
         </>
       )}
 
-      <Input type="text" state={state} edit={false} label="" name="classroomCourse">
+      <Input
+        type="text"
+        state={state}
+        edit={false}
+        label=""
+        name="classroomCourse"
+      >
         {children}
       </Input>
 
-      { !edit ? (
-        <Input type="color" name="classroomColor" edit={false} label="Color:" state={state} />
+      {!edit ? (
+        <Input
+          type="color"
+          name="classroomColor"
+          edit={false}
+          label="Color:"
+          state={state}
+        />
       ) : (
-        <Input type="color" name="classroomColor" label="Color:" state={state} edit classroom={props.classroom} field="classroomColor" />
-      ) }
+        <Input
+          type="color"
+          name="classroomColor"
+          label="Color:"
+          state={state}
+          edit
+          classroom={props.classroom}
+          field="classroomColor"
+        />
+      )}
 
       <SubmitButton edit={edit} pending={isPending} />
 

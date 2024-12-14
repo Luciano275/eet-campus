@@ -1,6 +1,9 @@
 import { auth } from "@/auth";
 import CoursesSelect from "@/components/ui/campus/classrooms/teacher/Courses";
 import CreateClassroomForm from "@/components/ui/campus/classrooms/teacher/create/Form";
+import DescriptionPreview from "@/components/ui/campus/classrooms/teacher/create/Preview";
+import TabItem from "@/components/ui/campus/classrooms/teacher/create/TabItem";
+import CreateClassroomTabs from "@/components/ui/campus/classrooms/teacher/create/Tabs";
 import { CoursesInputSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import { findClassroomById } from "@/lib/classroom";
 import { Suspense } from "react";
@@ -29,13 +32,23 @@ export default async function SettingsPage(
         <h2 className="text-2xl">Ajustes del aula</h2>
       </header>
 
-      {(rol === 1 || rol === 2) && (
-        <CreateClassroomForm edit={true} classroom={classroom!} ownerId={classroom?.ownerId!}>
-          <Suspense fallback={<CoursesInputSkeleton />}>
-            <CoursesSelect defaultCourse={classroom?.courseId!} />
-          </Suspense>
-        </CreateClassroomForm>
-      )}
+      <CreateClassroomTabs>
+        <TabItem title="Configuración" active>
+          {
+            (rol === 1 || rol === 2) && (
+              <CreateClassroomForm edit={true} classroom={classroom!} ownerId={classroom?.ownerId!}>
+                <Suspense fallback={<CoursesInputSkeleton />}>
+                  <CoursesSelect defaultCourse={classroom?.courseId!} />
+                </Suspense>
+              </CreateClassroomForm>
+            )
+          }
+        </TabItem>
+
+        <TabItem title="Vista previa">
+          <DescriptionPreview />
+        </TabItem>
+      </CreateClassroomTabs>
     </>
   );
 }

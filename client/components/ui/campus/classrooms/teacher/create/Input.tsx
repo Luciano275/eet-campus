@@ -11,7 +11,9 @@ export default function Input (
     label: string;
     edit: false | undefined;
     textarea?: boolean;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    onChange?: (e: React.ChangeEvent) => void;
+    placeholder?: string;
   } | {
     edit: true;
     type: React.HTMLInputTypeAttribute,
@@ -21,12 +23,14 @@ export default function Input (
     classroom: ClassroomType;
     field: keyof ClassroomType;
     textarea?: boolean;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    onChange?: (e: React.ChangeEvent) => void;
+    placeholder?: string;
   }
 ) {
 
 
-  const { type, name, label, state, edit } = props;
+  const { type, name, label, state, edit, placeholder } = props;
 
   return (
     <div className="flex flex-col gap-2">
@@ -40,13 +44,17 @@ export default function Input (
               className="input input-bordered w-full"
               aria-labelledby={`${name}Error`}
               defaultValue={edit ? props.classroom[props.field]?.toString() || "" : ""}
+              onChange={props.onChange}
+              placeholder={placeholder}
             />
           ) : (
             <textarea
               name={name}
-              className={`textarea textarea-bordered w-full max-h-[300px] overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
+              className={`textarea textarea-bordered w-full max-h-screen overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
               aria-labelledby={`${name}Error`}
               defaultValue={edit ? props.classroom[props.field]?.toString() || "" : ""}
+              onChange={props.onChange}
+              placeholder={placeholder}
             />
           )}
         </>
