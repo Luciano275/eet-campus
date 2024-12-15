@@ -17,6 +17,11 @@ export default function BlogContent(
 
   const blogContentPromise = fetch(blog.url);
   const blogContent = use(blogContentPromise);
+
+  if (!blogContent.ok) {
+    throw new Error(`Error al obtener el blog. Posible desincronización de tiempo entre cliente y servidor.`);
+  }
+
   const blogContentText = blogContent.text();
   const content = use(blogContentText);
 

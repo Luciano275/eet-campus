@@ -49,6 +49,7 @@ export async function findBlog(key: string): Promise<BlogObject | null> {
       url
     }
   }catch (e) {
+    console.error(e);
     throw new Error('Failed to find blog')
   }
 }
