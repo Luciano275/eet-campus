@@ -118,9 +118,18 @@ export async function createClassroomAction(
 
   try {
 
+    const object = classroomDescription ? await createClassroomDescription(classroomDescription, mode.classroomId) : null;
+
+    if (object && !object.success) {
+      return {
+        success: false,
+        message: "Fallo al actualizar el aula",
+      }
+    }
+
     await updateClassroomById(mode.classroomId, {
       name,
-      description: classroomDescription,
+      description: object ? object.key : null,
       classroomColor,
       courseId
     })

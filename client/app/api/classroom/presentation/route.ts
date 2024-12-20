@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     }), {status: 201})
 
   }catch (e) {
-    console.error(e);
+    console.log(e);
     return new Response(JSON.stringify({
       error: (e as any).message || 'Error creating description post'
     }), {status: 500})

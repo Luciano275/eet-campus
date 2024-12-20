@@ -37,16 +37,14 @@ export async function createClassroomDescription(content: string, classroomId: s
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
+        classroomId,
         content,
-        classroomId
       }),
       headers: {
         'Content-Type': 'application/json',
         'Cookie': cookieStore.toString()
       },
     })
-
-    console.log(rq);
 
     if (!rq.ok) {
       return {
