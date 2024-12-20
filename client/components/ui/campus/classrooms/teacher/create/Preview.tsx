@@ -7,7 +7,12 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-export default function DescriptionPreview() {
+export default function DescriptionPreview(
+  {customContent}
+  : {
+    customContent?: string;
+  }
+) {
 
   const { content } = useClassroomDescription();
 
@@ -32,7 +37,7 @@ export default function DescriptionPreview() {
           },
         }}  
       >
-        {content}
+        {content || customContent}
       </ReactMarkdown>
     </div>
   )

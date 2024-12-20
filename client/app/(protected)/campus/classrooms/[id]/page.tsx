@@ -1,6 +1,7 @@
 import { findClassroomById } from "@/lib/classroom"
 import { notFound } from "next/navigation";
 import SocketIndicator from "./indicator";
+import ClassroomDescription from "@/components/ui/campus/classrooms/Description";
 
 export default async function ClassroomPage(
   props: {
@@ -22,8 +23,10 @@ export default async function ClassroomPage(
   return (
     <div className="p-4 border border-base-300 rounded-xl mx-auto flex flex-col gap-3">
       <SocketIndicator />
-      <h2 className="text-2xl font-bold">Acerca de esta aula</h2>
-      <p className="whitespace-pre-wrap">{classroom.description || 'No se agregó una descripción'}</p>
+      <h2 className="text-2xl font-semibold">Acerca de esta aula</h2>
+      {/* <p className="whitespace-pre-wrap">{classroom.description || 'No se agregó una descripción'}</p> */}
+      
+      { !classroom.description ? <p>No se agregó una descripción</p> : <ClassroomDescription filename={classroom.description} /> }
     </div>
   )
 }

@@ -2,20 +2,13 @@
 
 import { ClassroomSendMessageAction, FilesTypeAttachment, ResponseSignedURL } from "@/types";
 import { v7 } from 'uuid'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { findClassroomById, findMembersId } from "../classroom";
 import { getUserById } from "../user";
 import queryString from "query-string";
 import { cookies } from 'next/headers'
-
-const s3 = new S3Client({
-  region: process.env.AWS_BUCKET_REGION!,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.AWS_SECRET_KEY!,
-  }
-})
+import { s3 } from "../s3";
 
 export async function sendMessageAction(
   userId: string,
