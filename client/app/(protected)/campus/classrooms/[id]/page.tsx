@@ -2,6 +2,8 @@ import { findClassroomById } from "@/lib/classroom"
 import { notFound } from "next/navigation";
 import SocketIndicator from "./indicator";
 import ClassroomDescription from "@/components/ui/campus/classrooms/Description";
+import { Suspense } from "react";
+import { ClassroomDescriptionSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 
 export default async function ClassroomPage(
   props: {
@@ -26,7 +28,11 @@ export default async function ClassroomPage(
       <h2 className="text-2xl font-semibold">Acerca de esta aula</h2>
       {/* <p className="whitespace-pre-wrap">{classroom.description || 'No se agregó una descripción'}</p> */}
       
-      { !classroom.description ? <p>No se agregó una descripción</p> : <ClassroomDescription filename={classroom.description} /> }
+      { !classroom.description ? <p>No se agregó una descripción</p> : (
+        <Suspense key={`classroom-id:${id}`} fallback={<ClassroomDescriptionSkeleton />}>
+          <ClassroomDescription filename={classroom.description} />
+        </Suspense>
+      ) }
     </div>
   )
 }
