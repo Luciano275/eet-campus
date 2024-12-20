@@ -5,6 +5,8 @@ import CreateClassroomForm from "@/components/ui/campus/classrooms/teacher/creat
 import CreateClassroomTabs from "@/components/ui/campus/classrooms/teacher/create/Tabs";
 import { CoursesInputSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import { findClassroomById } from "@/lib/classroom";
+import { fetchClassroomDescription } from "@/lib/classroom/description";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export default async function SettingsPage(
@@ -24,6 +26,18 @@ export default async function SettingsPage(
   const rol = session?.user.rol!;
 
   const classroom = await findClassroomById(id);
+  
+  if (!classroom) {
+    notFound();
+  }
+
+  const url = classroom.description && await fetch(await fetchClassroomDescription(classroom.description));
+
+  if (url && !url.ok) {
+    throw new Error('Error fetching classroom description');
+  }
+
+  const content = url ? await url.text() : ''
 
   return (
     <ClassroomDescriptionProvider>
@@ -34,7 +48,7 @@ export default async function SettingsPage(
       <CreateClassroomTabs>
         {
           (rol === 1 || rol === 2) && (
-            <CreateClassroomForm edit={true} classroom={classroom!} ownerId={classroom?.ownerId!}>
+            <CreateClassroomForm edit={true} classroom={classroom} ownerId={classroom.ownerId!} description={content}>
               <Suspense fallback={<CoursesInputSkeleton />}>
                 <CoursesSelect defaultCourse={classroom?.courseId!} />
               </Suspense>

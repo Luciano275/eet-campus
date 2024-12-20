@@ -26,6 +26,7 @@ export default function Input (
     children?: React.ReactNode;
     onChange?: (e: React.ChangeEvent) => void;
     placeholder?: string;
+    defaultValue?: string;
   }
 ) {
 
@@ -43,7 +44,7 @@ export default function Input (
               name={name}
               className="input input-bordered w-full"
               aria-labelledby={`${name}Error`}
-              defaultValue={edit ? props.classroom[props.field]?.toString() || "" : ""}
+              defaultValue={edit ? (props.defaultValue ? props.defaultValue : props.classroom[props.field]?.toString() || "") : ""}
               onChange={props.onChange}
               placeholder={placeholder}
             />
@@ -52,7 +53,7 @@ export default function Input (
               name={name}
               className={`textarea textarea-bordered w-full max-h-screen overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
               aria-labelledby={`${name}Error`}
-              defaultValue={edit ? props.classroom[props.field]?.toString() || "" : ""}
+              defaultValue={edit ? (props.defaultValue ? props.defaultValue : props.classroom[props.field]?.toString() || "") : ""}
               onChange={props.onChange}
               placeholder={placeholder}
             />

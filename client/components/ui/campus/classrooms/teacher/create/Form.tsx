@@ -7,7 +7,6 @@ import { ClassroomType } from "@/types";
 import CopyCode from "./Copy";
 import Input from "./Input";
 import { useClassroomDescription } from "@/components/providers/classroom-description-provider";
-import { Tooltip } from "flowbite-react";
 
 const SubmitButton = ({
   edit,
@@ -46,6 +45,7 @@ export default function CreateClassroomForm(
         edit: true;
         ownerId: string;
         classroom: ClassroomType;
+        description: string;
       }
 ) {
   const { children, edit, ownerId } = props;
@@ -124,6 +124,7 @@ export default function CreateClassroomForm(
             field="description"
             onChange={(e: any) => setContent(e.target.value)}
             placeholder="# Aquí puedes hacer una presentación del aula"
+            defaultValue={props.description}
           />
         </>
       )}
