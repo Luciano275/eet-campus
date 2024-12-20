@@ -1,7 +1,7 @@
 "use client";
 
 import { createClassroomAction } from "@/lib/actions/classroom";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import ErrorMessageForm from "../../error-message";
 import { ClassroomType } from "@/types";
 import CopyCode from "./Copy";
@@ -68,6 +68,12 @@ export default function CreateClassroomForm(
       errors: {},
     }
   );
+
+  useEffect(() => {
+    if (props.edit && props.description) {
+      setContent(props.description);
+    }
+  }, [props.edit])
 
   return (
     <form
