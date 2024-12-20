@@ -66,7 +66,8 @@ export async function POST(request: Request) {
     await rm(fullpath, { recursive: true });
 
     return new Response(JSON.stringify({
-      message: 'Post created successfully'
+      message: 'Post created successfully',
+      key: filename
     }), {status: 201})
 
   }catch (e) {

@@ -14,7 +14,7 @@ export async function createClassroom({
   name: string;
   classroomCode: string;
   classroomColor: string;
-  classroomDescription: string | null;
+  classroomDescription?: string | null;
 }) {
   try {
     const results = await db.classroom.create({
@@ -24,7 +24,7 @@ export async function createClassroom({
         classroomCode,
         courseId,
         classroomColor,
-        description: classroomDescription
+        description: classroomDescription || null
       },
     });
 

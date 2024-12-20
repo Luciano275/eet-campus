@@ -14,6 +14,7 @@ import {
   updateClassroomById,
 } from "../classroom";
 import { revalidatePath } from "next/cache";
+import { createClassroomDescription } from "../classroom/description";
 
 export async function createClassroomAction(
   ownerId: string,
@@ -66,16 +67,31 @@ export async function createClassroomAction(
         generateClassroomCode();
       } else {
         try {
-          await createClassroom({
+          const result = await createClassroom({
             courseId,
             name,
             ownerId,
             classroomCode,
             classroomColor,
-            classroomDescription,
           });
 
-          
+          if (classroomDescription){
+            const object = await createClassroomDescription(classroomDescription, result.id);
+
+            if (!object.success) {
+              return {
+                success: false,
+                message: "Fallo al crear el aula",
+              }
+            }
+
+            await updateClassroomById(result.id, {
+              name: result.name,
+              classroomColor: result.classroomColor,
+              courseId: result.courseId,
+              description: object.key
+            })
+          }
         } catch (e) {
           console.error(e);
 
@@ -87,7 +103,9 @@ export async function createClassroomAction(
       }
     };
 
-    generateClassroomCode();
+    const data = await generateClassroomCode();
+    
+    if (data) return data;
 
     revalidatePath("/campus/classrooms");
 
