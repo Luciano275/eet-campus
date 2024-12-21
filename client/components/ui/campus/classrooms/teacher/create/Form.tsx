@@ -7,6 +7,9 @@ import { ClassroomType } from "@/types";
 import CopyCode from "./Copy";
 import Input from "./Input";
 import { useClassroomDescription } from "@/components/providers/classroom-description-provider";
+import { useDebouncedCallback } from "use-debounce";
+
+const DEFAULT_DEBOUNCE_DELAY = 1000;
 
 const SubmitButton = ({
   edit,
@@ -75,6 +78,10 @@ export default function CreateClassroomForm(
     }
   }, [props.edit])
 
+  const handleDescription = useDebouncedCallback((value: string) => {
+    setContent(value);
+  }, DEFAULT_DEBOUNCE_DELAY)
+
   return (
     <form
       action={formAction}
@@ -104,7 +111,7 @@ export default function CreateClassroomForm(
             state={state}
             label="Descripción(opcional)"
             edit={false}
-            onChange={(e: any) => setContent(e.target.value)}
+            onChange={(e: any) => handleDescription(e.target.value)}
             placeholder="# Aquí puedes hacer una presentación del aula"
           />
         </>
@@ -128,7 +135,7 @@ export default function CreateClassroomForm(
             edit
             classroom={props.classroom}
             field="description"
-            onChange={(e: any) => setContent(e.target.value)}
+            onChange={(e: any) => handleDescription(e.target.value)}
             placeholder="# Aquí puedes hacer una presentación del aula"
             defaultValue={props.description}
           />
