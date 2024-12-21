@@ -8,6 +8,7 @@ import ClassroomContainer from "./ClassroomContainer";
 import ClassroomTitle from "./ClassroomTitle";
 import ClassroomInformation from "./ClassroomInfo";
 import { FiltersType } from "@/types";
+import { Tooltip } from "flowbite-react";
 
 export default async function Classrooms({
   query,
@@ -30,13 +31,13 @@ export default async function Classrooms({
   return (
     <div className="flex flex-wrap justify-center items-center gap-4 mt-4">
       {classroomsList.map((classroom) => (
-        <ClassroomContainer
-          key={`${classroom.id}:${classroom.name}`}
-        >
-          <ClassroomTitle classroom={classroom} myName={myName} />
-          
-          <ClassroomInformation classroom={classroom} rol={rol} />
-        </ClassroomContainer>
+        <Tooltip content={classroom.name} key={`${classroom.id}:${classroom.name}`}>
+          <ClassroomContainer>
+            <ClassroomTitle classroom={classroom} myName={myName} />
+            
+            <ClassroomInformation classroom={classroom} rol={rol} />
+          </ClassroomContainer>
+        </Tooltip>
       ))}
     </div>
   );
