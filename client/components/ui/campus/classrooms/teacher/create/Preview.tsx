@@ -6,6 +6,8 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkDirective from 'remark-directive';
 
 export default function DescriptionPreview(
   {customContent}
@@ -19,8 +21,8 @@ export default function DescriptionPreview(
   return (
     <div className="prose max-w-full mt-4">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm, remarkDirective]}
+        rehypePlugins={[rehypeRaw, rehypeSanitize]}
         components={{
           code({ node, inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
