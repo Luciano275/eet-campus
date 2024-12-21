@@ -6,6 +6,7 @@ import EditButton from "./edit-button";
 import AboutMe from "./about-me";
 import ProfileActions from "./actions";
 import { Session } from "next-auth";
+import Image from "next/image";
 
 interface IProps {
   theme: "dark" | "light";
@@ -25,7 +26,7 @@ export const Left = ({ user, rolName, theme }: IProps) => {
           className="w-full object-cover rounded-lg"
           id={ProfileStyles["user-logo"]}
         >
-          <img src={user?.image!} alt={user?.name!} />
+          <Image src={user?.image!} alt={user?.name!} width={250} height={250} />
         </div>
       </div>
 

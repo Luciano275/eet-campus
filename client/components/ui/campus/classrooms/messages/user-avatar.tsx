@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function UserAvatar(
   {url}
   : {
@@ -7,7 +9,7 @@ export default function UserAvatar(
   return (
     <div className="avatar">
       <div className="w-10 lg:w-12 rounded-full overflow-hidden">
-        <img src={url} alt="User" />
+        <Image src={url} alt="User" width={48} height={48} />
       </div>
     </div>
   )

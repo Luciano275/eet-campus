@@ -7,6 +7,7 @@ import { getUserByEmail } from "@/lib/user";
 import MenuBarStyles from '@/styles/menubar.module.css';
 import { FaX } from "react-icons/fa6";
 import MenuBarButton from "./menubar-button";
+import Image from "next/image";
 
 export default async function MenuBar() {
 
@@ -19,9 +20,11 @@ export default async function MenuBar() {
       <NavComponent>
         <div className="avatar flex pt-2 pb-4 gap-2 items-center border-b border-neutral-800 px-4">
           <div className="rounded-full w-9 2xl:w-12">
-            <img
+            <Image
               src={user?.image!}
               alt={user?.name!}
+              width={36}
+              height={36}
             />
           </div>
           <h2 className="text-white flex flex-col grow">
