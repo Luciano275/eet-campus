@@ -21,7 +21,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
-    "astro": "^4.16.13",
+    "astro": "^4.16.18",
     "date-fns": "^4.1.0",
     "flowbite": "^2.5.2",
     "marked": "^13.0.3",
