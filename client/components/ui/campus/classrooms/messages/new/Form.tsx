@@ -2,12 +2,13 @@
 
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomSendMessageAction } from "@/types";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import AttachmentButton from "./Attachment";
 import { useAttachmentContext } from "@/components/providers/attachment-provider";
 import FormAttachments from "./form-attachments";
 import FormMessage from "./form-message";
-import { handleSubmit } from "@/components/handlers/classrooms/messages/submit";
+import { sendMessageAction } from "@/lib/actions/classroom-messages";
+import { emitNotificationAction } from "@/lib/actions/notifications";
 
 const SubmitButton = ({ pending }: { pending: boolean }) => {
   return (
@@ -44,38 +45,42 @@ export default function NewMessageForm({
   };
 
   const { files, setFiles, deleteFile } = useAttachmentContext();
-  const [pending, setPending] = useState(false);
+  const [localState, setLocalState] = useState<ClassroomSendMessageAction>(defaultState);
 
-  const [localState, setLocalState] =
-    useState<ClassroomSendMessageAction>(defaultState);
+  const bindSendMessageAction = sendMessageAction.bind(
+    null,
+    { userId, apiUrl, classroomId, files },
+  )
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    await handleSubmit(e, {
-      apiUrl,
-      classroomId,
-      files,
-      userId,
-      notificationUrl,
-      setFiles,
-      setLocalState,
-      setPending,
-    })
-  };
+  const [state, action, pending] = useActionState(
+    bindSendMessageAction,
+    defaultState
+  );
 
   useEffect(() => {
-    if (localState.success) {
-      setTimeout(() => {
-        setLocalState(defaultState);
-      }, 3000);
-      return;
+    setLocalState(state);
+    if (state.success) {
+      (async () => {
+        const result = await emitNotificationAction({
+          classroomId,
+          notificationUrl,
+          userId
+        })
+
+        if (!result.success) {
+          setLocalState({
+            message: result.message,
+            success: false,
+            errors: {}
+          })
+        }
+      })
     }
-  }, [localState]);
+  }, [state]);
 
   return (
     <form
-      onSubmit={onSubmit}
+      action={action}
       className="w-full max-w-[400px] mx-auto flex flex-col gap-3"
     >
       <div className="flex flex-col gap-2">

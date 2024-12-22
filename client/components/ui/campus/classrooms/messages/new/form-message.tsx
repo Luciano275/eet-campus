@@ -1,5 +1,7 @@
 import { ClassroomSendMessageAction } from "@/types"
+import { useState } from "react";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi"
+import { FaX } from "react-icons/fa6";
 
 export default function FormMessage(
   {localState}
@@ -7,21 +9,32 @@ export default function FormMessage(
     localState: ClassroomSendMessageAction
   }
 ) {
+
+  const [show, setShow] = useState(true);
+
   return (
-    localState.message && (
+    (localState.message && show) && (
       <p
-        className={`text-sm p-4 flex gap-2 items-center rounded-xl ${
-          localState.success ? "bg-emerald-600" : "bg-error"
+        className={`text-sm p-4 rounded-xl flex gap-2 ${
+          localState.success ? "bg-emerald-600 dark:bg-emerald-700" : "bg-error"
         } text-white`}
       >
-        <span>
-          {localState.success ? (
-            <BiCheckCircle size={18} />
-          ) : (
-            <BiErrorCircle size={18} />
-          )}
+        <span className="flex gap-2 items-center grow">
+          <span>
+            {localState.success ? (
+              <BiCheckCircle size={18} />
+            ) : (
+              <BiErrorCircle size={18} />
+            )}
+          </span>
+          <span className="grow">{localState.message}</span>
         </span>
-        <span className="grow">{localState.message}</span>
+        <button
+          className="hover:text-base-200"
+          onClick={() => setShow(false)}
+        >
+          <FaX size={14} />
+        </button>
       </p>
     )
   )

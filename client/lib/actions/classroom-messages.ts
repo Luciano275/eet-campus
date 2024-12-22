@@ -4,32 +4,40 @@ import { ClassroomSendMessageAction, FilesTypeAttachment, ResponseSignedURL } fr
 import { v7 } from 'uuid'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { findClassroomById, findMembersId } from "../classroom";
-import { getUserById } from "../user";
 import queryString from "query-string";
 import { cookies } from 'next/headers'
 import { s3 } from "../s3";
+import { ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
 
-export async function sendMessageAction(
+type BindType = {
   userId: string,
   apiUrl: string,
-  notificationUrl: string,
   classroomId: string,
-  message: string,
   files: FilesTypeAttachment[]
+}
+
+export async function sendMessageAction(
+  { userId, apiUrl, classroomId, files }: BindType,
+  prevState: ClassroomSendMessageAction,
+  formData: FormData,
 ): Promise<ClassroomSendMessageAction> {
+
+  const parsedData = ClassroomMessageSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (!parsedData.success) {
+    return {
+      errors: parsedData.error.flatten().fieldErrors,
+      message: 'Verifica los campos',
+      success: false,
+    }
+  }
+
+  const { message } = parsedData.data;
 
   const cookieStore = await cookies();
 
   const url = queryString.stringifyUrl({
     url: apiUrl,
-    query: {
-      classroomId
-    }
-  })
-
-  const sendNotificationUrl = queryString.stringifyUrl({
-    url: notificationUrl,
     query: {
       classroomId
     }
@@ -56,46 +64,6 @@ export async function sendMessageAction(
         message: (await rq.json()).message || rq.statusText,
         success: false
       }
-    }
-
-    const userTransmitter = await getUserById(userId);
-    const classroom = await findClassroomById(classroomId);
-
-    if (!userTransmitter) {
-      return {
-        message: 'Usuario no encontrado',
-        success: false
-      }
-    }
-
-    if (!classroom) {
-      return {
-        message: 'Aula no encontrada',
-        success: false
-      }
-    }
-
-    const membersId = await findMembersId(classroomId, userId);
-
-    if (membersId.length > 0) {
-      membersId.map(async ({ userId: memberId }) => {
-        const rq = await fetch(sendNotificationUrl, {
-          method: 'POST',
-          credentials: 'include',
-          body: JSON.stringify({
-            body: `**${userTransmitter.name}** ha enviado un mensaje en el aula **${classroom.name}**`,
-            userId: memberId
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': cookieStore.toString()
-          }
-        })
-
-        if (!rq.ok) {
-          console.error((await rq.json()).message || rq.statusText)
-        }
-      })
     }
 
     return {
