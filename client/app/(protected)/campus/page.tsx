@@ -2,7 +2,7 @@ import { auth } from "@/auth"
 import CalendarComponent from "@/components/ui/campus/calendar/Calendar";
 import CampusHeader from "@/components/ui/campus/Header";
 import { fetchMyEvents } from "@/lib/events";
-import { Metadata } from "next"
+import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
