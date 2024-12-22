@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { generateLinks } from "@/lib/utils";
+import { BASE_PATH, generateLinks } from "@/lib/utils";
 import { useToggleMenuContext } from "@/components/providers/toggle-menu-provider";
 import Link from "next/link";
 
@@ -42,7 +42,7 @@ export default function CampusLinks(
               href={href}
               key={`${index}:${label}`}
               className={`flex gap-2 items-center rounded-lg p-2 transition-colors ${
-                pathname === href || active === index
+                pathname === href || (href !== BASE_PATH && pathname.startsWith(href)) || active === index
                   ? 'bg-gray-900 text-white'
                   : "text-neutral-400"
               }`}

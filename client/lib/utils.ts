@@ -10,7 +10,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
 import { SiGoogleclassroom } from "react-icons/si";
 
-const BASE_PATH = '/campus'
+export const BASE_PATH = '/campus'
 
 export const ROLES = [
   'Administrador',

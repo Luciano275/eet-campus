@@ -4,8 +4,6 @@ import NavComponent from "./nav-component";
 import CampusLinks from "./links";
 import { getRol } from "@/lib/utils";
 import { getUserByEmail } from "@/lib/user";
-import MenuBarStyles from '@/styles/menubar.module.css';
-import { FaX } from "react-icons/fa6";
 import MenuBarButton from "./menubar-button";
 import Image from "next/image";
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_PATH } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
@@ -17,19 +18,22 @@ type LinkType = {
 };
 
 const LinkComponent = (
-  {href, icon: Icon, label, pathname, mobile}
+  {href, icon: Icon, label, pathname, mobile, classroomId}
   : {
     href: string;
     icon: IconType;
     label: string;
     pathname: string;
     mobile?: boolean;
+    classroomId: string;
   }
 ) => {
 
+  const omitPath = `${BASE_PATH}/classrooms/${classroomId}`
+
   if (mobile) {
     return (
-      <Link href={href} className={`${href === pathname && "active"}`}>
+      <Link href={href} className={`${(href === pathname || (href !== omitPath && pathname.startsWith(href))) && "active"}`}>
         <Icon size={24} />
       </Link>
     )
@@ -37,7 +41,7 @@ const LinkComponent = (
 
   return (
     <li>
-      <Link href={href} className={`${href === pathname && "active"}`}>
+      <Link href={href} className={`${(href === pathname || (href !== omitPath && pathname.startsWith(href))) && "active"}`}>
         <span>
           <Icon size={18} />
         </span>
@@ -54,19 +58,19 @@ export default function ClassroomMenu({
   classroomId: string;
   isStudent: boolean;
 }) {
-  const BASE_PATH = `/campus/classrooms/${classroomId}`;
+  const BASE_PATH_CLASSROOM = `${BASE_PATH}/classrooms/${classroomId}`;
 
   const LINKS: LinkType[] = [
-    { href: `${BASE_PATH}`, label: "Inicio", icon: FaHome },
-    { href: `${BASE_PATH}/messages`, label: "Mensajes", icon: BsMessenger },
-    { href: `${BASE_PATH}/documents`, label: "Documentos", icon: IoIosDocument },
-    { href: `${BASE_PATH}/members`, label: "Integrantes", icon: FaUsers },
+    { href: `${BASE_PATH_CLASSROOM}`, label: "Inicio", icon: FaHome },
+    { href: `${BASE_PATH_CLASSROOM}/messages`, label: "Mensajes", icon: BsMessenger },
+    { href: `${BASE_PATH_CLASSROOM}/documents`, label: "Documentos", icon: IoIosDocument },
+    { href: `${BASE_PATH_CLASSROOM}/members`, label: "Integrantes", icon: FaUsers },
     {
-      href: `${BASE_PATH}/qualifications`,
+      href: `${BASE_PATH_CLASSROOM}/qualifications`,
       label: "Calificaciones",
       icon: FaChalkboardUser,
     },
-    { href: `${BASE_PATH}/settings`, label: "Ajustes", icon: IoIosSettings, onlyOwner: true },
+    { href: `${BASE_PATH_CLASSROOM}/settings`, label: "Ajustes", icon: IoIosSettings, onlyOwner: true },
   ];
 
   const pathname = usePathname();
@@ -77,9 +81,9 @@ export default function ClassroomMenu({
         <ul className="flex flex-col justify-start gap-2 sticky top-0">
           {LINKS.map(({ onlyOwner, ...rest }, index) => (
             !onlyOwner ? (
-              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} classroomId={classroomId} />
             ) : onlyOwner && !isStudent ? (
-              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} classroomId={classroomId} />
             ) : <Fragment key={`${index}:omit`} />
           ))}
         </ul>
@@ -89,9 +93,9 @@ export default function ClassroomMenu({
       }}>
         {LINKS.map(({ onlyOwner, ...rest }, index) => (
           !onlyOwner ? (
-            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
+            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} classroomId={classroomId} mobile />
           ) : onlyOwner && !isStudent ? (
-            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} mobile />
+            <LinkComponent key={`${index}:${rest.href}:mobile`} {...rest} pathname={pathname} classroomId={classroomId} mobile />
           ) : <Fragment key={`${index}:omit`} />
         ))}
       </ul>
