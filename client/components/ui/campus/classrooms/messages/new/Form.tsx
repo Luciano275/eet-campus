@@ -78,6 +78,13 @@ export default function NewMessageForm({
     }
   }, [state]);
 
+  useEffect(() => {
+    if (localState.success) {
+      setFiles(null);
+      setTimeout(() => setLocalState(defaultState), 3000);
+    }
+  }, [localState]);
+
   return (
     <form
       action={action}
