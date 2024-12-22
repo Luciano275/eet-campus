@@ -1,9 +1,38 @@
 import { useChangeThemeContext } from "@/components/providers/change-theme-provider"
-import { ClassroomHookMessages } from "@/types"
+import { ClassroomHookMessages, ClassroomMessagesResponse } from "@/types"
 import UserAvatar from "./user-avatar";
 import MessageHeader from "./message-header";
 import MessageBody from "./message-body";
 import MessageAttachments from "./mesage-attachments";
+import Link from "next/link";
+import { HR } from "flowbite-react";
+
+const MessageContainer = ({msg, children, classroomId}: {msg: ClassroomMessagesResponse, children: React.ReactNode, classroomId: string;}) => {
+
+  const className = `flex gap-2 items-start p-5 rounded-lg ${msg.isTask && 'hover:bg-base-300'}`;
+
+  return (
+    <>
+      {
+        msg.isTask ? (
+          <Link
+            className={className}
+            href={`/campus/classrooms/${classroomId}/messages/${msg.id}`}
+          >
+            {children}
+          </Link>
+        ) : (
+          <div
+            className={className}
+          >
+            {children}
+          </div>
+        )
+      }
+      <HR />
+    </>
+  )
+}
 
 export default function PageMessages(
   {group, userId, classroomId, apiUrl, rol}
@@ -20,9 +49,10 @@ export default function PageMessages(
 
   return (
     group.messages.map((msg, index) => (
-      <div
+      <MessageContainer
+        msg={msg}
+        classroomId={classroomId}
         key={`message:${msg.id}:${index}`}
-        className="flex gap-2 items-start py-4 border-b border-base-300"
       >
         <UserAvatar url={msg.owner.image} />
 
@@ -40,7 +70,7 @@ export default function PageMessages(
 
           <MessageAttachments msg={msg} />
         </div>
-      </div>
+      </MessageContainer>
     ))
   )
 }

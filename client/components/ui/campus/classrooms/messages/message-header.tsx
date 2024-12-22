@@ -3,8 +3,9 @@ import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from 'react-time-ago'
 import esAR from 'javascript-time-ago/locale/es-AR'
 import { ClassroomMessagesResponse } from "@/types";
+import { Badge } from "flowbite-react";
 
-TimeAgo.addDefaultLocale(esAR);
+// TimeAgo.addDefaultLocale(esAR);
 
 export default function MessageHeader (
   {theme, msg, userId, apiUrl, classroomId, rol}
@@ -22,16 +23,24 @@ export default function MessageHeader (
  
   return (
     <>
-      <p
-        className={`text-sm ${
-          theme === "dark" ? "text-neutral-500" : "text-neutral-400"
-        }`}
-      >
-        <ReactTimeAgo
-          date={date}
-          locale="es-AR"
-        />
-      </p>
+      <div className="flex flex-wrap gap-4 items-center">
+        <p
+          className={`text-sm ${
+            theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+          }`}
+        >
+          <ReactTimeAgo
+            date={date}
+            locale="es-AR"
+          />
+        </p>
+
+        { msg.isTask && (
+          <Badge color="success">
+            Tarea
+          </Badge>
+        ) }
+      </div>
       <h2 className="text-xl text-base-content justify-between flex gap-2 items-center">
         <span>{msg.owner.name}</span>
         {(userId === msg.owner.id || rol === 1) && msg.status !== "DELETED" && (

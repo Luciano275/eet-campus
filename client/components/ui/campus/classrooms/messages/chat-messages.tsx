@@ -49,7 +49,7 @@ export default function ClassroomChatMessages({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col">
       {data?.pages?.map((group, i) => (
         <Fragment key={`classroom:${i}`}>
           <PageMessages

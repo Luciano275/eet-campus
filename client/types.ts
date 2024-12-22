@@ -179,6 +179,8 @@ export type ClassroomMessagesResponse = {
     url: string;
     name: string;
 }[];
+  isTask: boolean;
+  expires_at: Date | null;
 };
 
 export type ClassroomHookMessages = {
