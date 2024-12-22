@@ -147,7 +147,6 @@ model ClassroomMessage {
   created_at  DateTime     @default(now())
   status      MessageState
   isTask      Boolean      @default(false)
-  expires_at  DateTime?
 
   owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
