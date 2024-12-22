@@ -5,7 +5,16 @@ import esAR from 'javascript-time-ago/locale/es-AR'
 import { ClassroomMessagesResponse } from "@/types";
 import { Badge } from "flowbite-react";
 
-// TimeAgo.addDefaultLocale(esAR);
+declare global {
+    var timeAgoLocaleAdded: Boolean | undefined;
+}
+
+if (!globalThis.timeAgoLocaleAdded) {
+  TimeAgo.addDefaultLocale(esAR);
+  globalThis.timeAgoLocaleAdded = true;
+}
+
+TimeAgo.setDefaultLocale('es-AR');
 
 export default function MessageHeader (
   {theme, msg, userId, apiUrl, classroomId, rol}
