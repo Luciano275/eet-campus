@@ -126,6 +126,7 @@ model Classroom {
   members       ClassroomMember[]
   messages      ClassroomMessage[]
   notifications Notification[]
+  events        Event[]
 }
 
 model ClassroomMember {
@@ -152,6 +153,7 @@ model ClassroomMessage {
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   attachmets ClassroomAttachment[]
+  events    Event[]
 }
 
 model ClassroomAttachment {
@@ -185,4 +187,16 @@ model Blog {
   createdAt   DateTime @default(now())
 
   @@unique([id, filename])
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  start       DateTime
+  end         DateTime
+  classroomId   String
+  messageId String
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message  ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

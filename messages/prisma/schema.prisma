@@ -126,6 +126,7 @@ model Classroom {
   members       ClassroomMember[]
   messages      ClassroomMessage[]
   notifications Notification[]
+  events        Event[]
 }
 
 model ClassroomMember {
@@ -145,13 +146,14 @@ model ClassroomMessage {
   body        String
   created_at  DateTime     @default(now())
   status      MessageState
-  isTask Boolean @default(false)
+  isTask      Boolean      @default(false)
   expires_at  DateTime?
 
   owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   attachmets ClassroomAttachment[]
+  events    Event[]
 }
 
 model ClassroomAttachment {
@@ -183,4 +185,18 @@ model Blog {
   description String
   filename    String
   createdAt   DateTime @default(now())
+
+  @@unique([id, filename])
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  start       DateTime
+  end         DateTime
+  classroomId   String
+  messageId String
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message  ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
