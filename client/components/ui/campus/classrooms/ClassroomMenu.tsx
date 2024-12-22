@@ -73,15 +73,17 @@ export default function ClassroomMenu({
 
   return (
     <>
-      <ul className="hidden md:menu menu-horizontal justify-start gap-2 bg-base-300 rounded-xl min-w-[250px] 2xl:min-w-[300px]">
-        {LINKS.map(({ onlyOwner, ...rest }, index) => (
-          !onlyOwner ? (
-            <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
-          ) : onlyOwner && !isStudent ? (
-            <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
-          ) : <Fragment key={`${index}:omit`} />
-        ))}
-      </ul>
+      <div className="hidden md:menu menu-horizontal relative gap-2 bg-neutral-100 dark:bg-base-300 rounded-xl min-w-[250px] w-[250px] 2xl:min-w-[300px] 2xl:w-[300px">
+        <ul className="flex flex-col justify-start gap-2 sticky top-0">
+          {LINKS.map(({ onlyOwner, ...rest }, index) => (
+            !onlyOwner ? (
+              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+            ) : onlyOwner && !isStudent ? (
+              <LinkComponent key={`${index}:${rest.href}`} {...rest} pathname={pathname} />
+            ) : <Fragment key={`${index}:omit`} />
+          ))}
+        </ul>
+      </div>
       <ul className="btm-nav md:hidden bg-base-300" style={{
         zIndex: 999
       }}>
