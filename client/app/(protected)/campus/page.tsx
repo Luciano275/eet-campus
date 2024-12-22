@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import CalendarComponent from "@/components/ui/campus/Calendar";
+import CalendarComponent from "@/components/ui/campus/calendar/Calendar";
 import CampusHeader from "@/components/ui/campus/Header";
 import { fetchMyEvents } from "@/lib/events";
 import { Metadata } from "next"

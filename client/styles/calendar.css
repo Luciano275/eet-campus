@@ -29,6 +29,9 @@
             background: #09f;
         }
     }
+    .rbc-event-content a{
+        display: block;
+    }
     .rbc-agenda-table thead tr th {
         padding: 20px 10px !important;
     }

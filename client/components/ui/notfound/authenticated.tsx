@@ -6,7 +6,7 @@ import CampusHeader from "../campus/Header";
 import { auth } from "@/auth";
 import ClassroomQueryProvider from "@/components/providers/classroom-query-provider";
 import { ToggleMenuProvider } from "@/components/providers/toggle-menu-provider";
-import ClassroomSocketProvider from "@/components/providers/classroom-socket-provider";
+import NotificationsProvider from "@/components/providers/notifications-socket-provider";
 
 export default async function AuthenticatedPage() {
 
@@ -15,7 +15,7 @@ export default async function AuthenticatedPage() {
 
     return (
         <ClassroomQueryProvider>
-            <ClassroomSocketProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
+            <NotificationsProvider socketUrl={process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL!}>
                 <ToggleMenuProvider>
                     <OpenNotifyProvider>
                         <main className="flex relative overflow-hidden min-h-screen max-h-screen">
@@ -37,7 +37,7 @@ export default async function AuthenticatedPage() {
                         </main>
                     </OpenNotifyProvider>
                 </ToggleMenuProvider>
-            </ClassroomSocketProvider>
+            </NotificationsProvider>
         </ClassroomQueryProvider>
     )
 }

@@ -6,6 +6,7 @@ import { es } from 'date-fns/locale'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import '@/styles/calendar.css'
 import { Event } from '@prisma/client';
+import { EventComponent } from './Event';
 
 export default function CalendarComponent(
   {events}
@@ -52,6 +53,9 @@ export default function CalendarComponent(
           }}
           style={{
             height: 600,
+          }}
+          components={{
+            event: EventComponent
           }}
         />
       </div>

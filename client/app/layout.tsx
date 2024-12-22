@@ -7,6 +7,7 @@ import MainLayout from "@/components/ui/layouts/main-layout";
 import { SessionProvider } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { Suspense } from "react";
+import { auth } from "@/auth";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,18 +28,20 @@ export const metadata: Metadata = {
   description: "En un mundo cada vez más interconectado y dependiente de la tecnología, la educación no puede quedarse atrás. Por ello, presentamos con orgullo nuestro proyecto de Campus Virtual, una plataforma innovadora diseñada para transformar la experiencia educativa en nuestro colegio. Este proyecto, desarrollado por un equipo dedicado de seis estudiantes apasionados por la tecnología y la educación, tiene como objetivo principal brindar una solución integral para el aprendizaje y la interacción escolar en un entorno digital.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <ChangeThemeProvider>
       <ChangeThemeHTML>
         <SessionProvider>
           <body className={geistSans.className}>
             <Suspense>
-              <MainLayout>
+              <MainLayout session={session}>
                 <Loading />
                 {children}
               </MainLayout>
