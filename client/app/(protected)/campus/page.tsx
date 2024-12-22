@@ -1,6 +1,7 @@
 import { auth } from "@/auth"
 import CalendarComponent from "@/components/ui/campus/Calendar";
 import CampusHeader from "@/components/ui/campus/Header";
+import { fetchMyEvents } from "@/lib/events";
 import { Metadata } from "next"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,10 +13,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CampusPage() {
+
+    const session = await auth();
+    const userId = session?.user?.id!;
+
+    const events = await fetchMyEvents({ userId })
+
     return (
         <>
             <CampusHeader title="Campus virtual" />
-            <CalendarComponent />
+            <CalendarComponent events={events} />
         </>
     )
 }
