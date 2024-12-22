@@ -1,6 +1,7 @@
 'use client'
 
 import { useChangeThemeContext } from "@/components/providers/change-theme-provider";
+import { useThemeMode } from "flowbite-react";
 import { CSSProperties } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 
@@ -12,8 +13,12 @@ export default function ThemeButton(
 ) {
 
     const { changeTheme, theme } = useChangeThemeContext()
+    const { toggleMode } = useThemeMode();
 
-    const alternateTheme = () => changeTheme(theme === 'dark' ? 'light' : 'dark');
+    const alternateTheme = () => {
+        changeTheme(theme === 'dark' ? 'light' : 'dark');
+        toggleMode();
+    }
 
     const styles: CSSProperties = {
         transition: 'opacity 0.3s ease',

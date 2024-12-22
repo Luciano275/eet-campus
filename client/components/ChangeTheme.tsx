@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useChangeThemeContext } from "./providers/change-theme-provider";
+import { useThemeMode } from "flowbite-react";
 
 export default function ChangeThemeHTML({
   children,
@@ -10,6 +11,8 @@ export default function ChangeThemeHTML({
 }) {
   const { theme, changeTheme, setMenuBarBg, setPrimaryColor } =
     useChangeThemeContext();
+
+  const { setMode } = useThemeMode();
 
   useEffect(() => {
     let defaultTheme: "dark" | "light" =
@@ -24,7 +27,12 @@ export default function ChangeThemeHTML({
       localStorage.setItem("campus-theme", defaultTheme);
     }
 
+    if (defaultTheme !== 'dark' && defaultTheme !== 'light') {
+      defaultTheme = 'light';
+    }
+
     changeTheme(defaultTheme);
+    setMode(defaultTheme);
   }, []);
 
   useEffect(() => {
