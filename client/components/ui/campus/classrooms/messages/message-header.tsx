@@ -1,4 +1,3 @@
-import DeleteMessage from "./delete-message";
 import { ClassroomMessagesResponse } from "@/types";
 import { Badge } from "flowbite-react";
 import TimeMessage from "./time-message";
@@ -37,14 +36,6 @@ export default function MessageHeader (
       </div>
       <h2 className="text-xl text-base-content justify-between flex gap-2 items-center">
         <span>{msg.owner.name}</span>
-        {(userId === msg.owner.id || rol === 1) && msg.status !== "DELETED" && (
-          <DeleteMessage
-            apiUrl={apiUrl}
-            classroomId={classroomId}
-            messageId={msg.id}
-            userId={msg.owner.id}
-          />
-        )}
       </h2>
     </>
   )

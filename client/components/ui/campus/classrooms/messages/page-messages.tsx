@@ -5,10 +5,12 @@ import MessageBody from "./message-body";
 import MessageAttachments from "./mesage-attachments";
 import Link from "next/link";
 import { HR } from "flowbite-react";
+import DeleteMessage from "./delete-message";
+import { Fragment } from "react";
 
 const MessageContainer = ({msg, children, classroomId}: {msg: ClassroomMessagesResponse, children: React.ReactNode, classroomId: string;}) => {
 
-  const className = `flex gap-2 items-start p-5 rounded-lg ${msg.isTask && 'hover:bg-base-300'}`;
+  const className = `grow flex gap-2 items-start`;
 
   return (
     <>
@@ -28,7 +30,6 @@ const MessageContainer = ({msg, children, classroomId}: {msg: ClassroomMessagesR
           </div>
         )
       }
-      <HR />
     </>
   )
 }
@@ -45,27 +46,40 @@ export default function PageMessages(
 ) {
   return (
     group.messages.map((msg, index) => (
-      <MessageContainer
-        msg={msg}
-        classroomId={classroomId}
-        key={`message:${msg.id}:${index}`}
-      >
-        <UserAvatar url={msg.owner.image} />
-
-        <div className="flex grow flex-col gap-1">
-          <MessageHeader
-            apiUrl={apiUrl}
+      <Fragment key={`message:${msg.id}:${index}`}>
+        <div className={`p-5 flex rounded-lg ${msg.isTask && 'hover:bg-base-300'}`}>
+          <MessageContainer
             msg={msg}
-            userId={userId}
             classroomId={classroomId}
-            rol={rol}
-          />
+          >
+            <UserAvatar url={msg.owner.image} />
 
-          <MessageBody msg={msg} />
+            <div className="flex grow flex-col gap-1">
+              <MessageHeader
+                apiUrl={apiUrl}
+                msg={msg}
+                userId={userId}
+                classroomId={classroomId}
+                rol={rol}
+              />
 
-          <MessageAttachments msg={msg} />
+              <MessageBody msg={msg} />
+
+              <MessageAttachments msg={msg} />
+            </div>
+          </MessageContainer>
+          {(userId === msg.owner.id || rol === 1) && msg.status !== "DELETED" && (
+            <DeleteMessage
+              apiUrl={apiUrl}
+              classroomId={classroomId}
+              messageId={msg.id}
+              userId={msg.owner.id}
+            />
+          )}
         </div>
-      </MessageContainer>
+
+        <HR />
+      </Fragment>
     ))
   )
 }

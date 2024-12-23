@@ -1,7 +1,7 @@
 "use client";
 
 import { useClassroomModal } from "@/components/providers/classroom-modal-provider";
-import { FaTrash } from "react-icons/fa";
+import { IoTrashOutline } from "react-icons/io5";
 
 export default function DeleteMessage({
   userId,
@@ -25,9 +25,9 @@ export default function DeleteMessage({
   return (
     <button
       onClick={handleClick}
-      className="btn btn-sm btn-neutral btn-outline"
+      className="text-red-600 hover:text-red-800"
     >
-      <FaTrash size={14} />
+      <IoTrashOutline size={28} />
     </button>
   );
 }
