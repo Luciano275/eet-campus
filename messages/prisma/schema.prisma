@@ -140,14 +140,13 @@ model ClassroomMember {
 }
 
 model ClassroomMessage {
-  id          String       @id @default(uuid())
+  id          String       @id @default(uuid()) @unique
   ownerId     String
   classroomId String
   body        String
   created_at  DateTime     @default(now())
   status      MessageState
   isTask      Boolean      @default(false)
-  expires_at  DateTime?
 
   owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
@@ -195,7 +194,7 @@ model Event {
   start       DateTime
   end         DateTime
   classroomId   String
-  messageId String
+  messageId String @unique
 
   classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   message  ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)

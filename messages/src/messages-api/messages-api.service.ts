@@ -188,10 +188,13 @@ export class MessagesApiService {
       },
       data: {
         body: "Mensaje borrado",
-        status: 'DELETED'
+        status: 'DELETED',
+        isTask: false
       },
       select: this.DEFAULT_SELECT_MESSAGE
     })
+
+    await this.db.event.delete({where: { messageId: messageFounded.id }})
 
     //TODO: Emit socket io event
     this.gateway.emitMessageEvent(

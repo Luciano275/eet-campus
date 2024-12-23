@@ -3,7 +3,7 @@ import { db } from "../db";
 
 export async function isMessageTask({messageId}: {messageId: string}): Promise<IsTaskResponse> {
   try {
-    const message = await db.classroomMessage.findFirst({
+    const message = await db.classroomMessage.findUnique({
       where: { id: messageId },
       include: {
         owner: { select: { id: true, name: true, email: true, image: true } },
