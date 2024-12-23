@@ -20,7 +20,7 @@ export class NotificationsApiController {
 
       return notifications;
     }catch (e) {
-      console.error(e);
+      console.log(e);
 
       if (e instanceof PrismaClientValidationError) {
         throw new BadRequestException(e.message)
@@ -43,7 +43,7 @@ export class NotificationsApiController {
         notifications
       }
     }catch (e) {
-      console.error(e);
+      console.log(e);
 
       if (e instanceof PrismaClientValidationError) {
         throw new BadRequestException(e.message)
