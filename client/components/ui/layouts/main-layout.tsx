@@ -10,7 +10,7 @@ export default function MainLayout({children, session}: {children: React.ReactNo
 
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const error = searchParams.get('error') as ErrorEnums || undefined;
+    const error = searchParams.get('error') as ErrorEnums | undefined;
 
     return (
         pathname.includes('/campus') || session ? (

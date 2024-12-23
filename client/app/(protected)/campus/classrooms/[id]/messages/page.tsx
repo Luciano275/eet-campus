@@ -27,6 +27,7 @@ export default async function ClassroomMessagesPage(
         userId={userId}
         apiUrl={`${process.env.CLASSROOM_SOCKET_URL}/api/messages`}
         notificationUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
+        rol={session?.user.rol!}
       />
 
       <div className="py-4 flex-1">

@@ -10,16 +10,18 @@ export default function AddMessageButton({
   apiUrl,
   userId,
   notificationUrl,
+  rol
 }: {
   classroomId: string;
   userId: string;
   apiUrl: string;
   image: string;
   notificationUrl: string;
+  rol: number;
 }) {
   return (
-    <header className="py-4 border-b border-base-content">
-      <Accordion collapseAll>
+    <header className="py-4">
+      <Accordion collapseAll className="dark:bg-base-300 dark:border-base-300">
         <Accordion.Panel>
           <Accordion.Title>
             <span className="flex gap-2 items-center">
@@ -40,6 +42,7 @@ export default function AddMessageButton({
               notificationUrl={notificationUrl}
               userId={userId}
               classroomId={classroomId}
+              rol={rol}
             />
           </Accordion.Content>
         </Accordion.Panel>

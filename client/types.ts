@@ -153,7 +153,9 @@ export type ClassroomType = {
 }
 
 export type ClassroomSendMessageErrors = {
-  message?: string[]
+  message?: string[];
+  title?: string[];
+  expiresDate?: string[]
 }
 
 export type ClassroomSendMessageAction = {
@@ -161,6 +163,7 @@ export type ClassroomSendMessageAction = {
   message: string | null;
   success: boolean | null;
   messageId?: string;
+  payload?: FormData;
 }
 
 export type ClassroomMessagesResponse = {

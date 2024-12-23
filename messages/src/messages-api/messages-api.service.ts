@@ -132,7 +132,8 @@ export class MessagesApiService {
         body: message.content,
         status: 'ACTIVE',
         classroomId,
-        ownerId: message.userId
+        ownerId: message.userId,
+        isTask: message.isTask
       },
       select: this.DEFAULT_SELECT_MESSAGE
     })

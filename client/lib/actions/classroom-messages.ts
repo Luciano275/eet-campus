@@ -7,32 +7,63 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import queryString from "query-string";
 import { cookies } from 'next/headers'
 import { s3 } from "../s3";
-import { ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
+import { ClassroomEventSchema, ClassroomMessageSchema } from "../schemas/classroom-messages.schema";
+import { createEvent } from "../events";
+import { SafeParseReturnType } from "zod";
+import { emitNotificationAction } from "./notifications";
 
 type BindType = {
   userId: string,
   apiUrl: string,
   classroomId: string,
-  files: FilesTypeAttachment[]
+  files: FilesTypeAttachment[],
+  notificationUrl: string
 }
 
 export async function sendMessageAction(
-  { userId, apiUrl, classroomId, files }: BindType,
+  { userId, apiUrl, classroomId, files, notificationUrl }: BindType,
   prevState: ClassroomSendMessageAction,
   formData: FormData,
 ): Promise<ClassroomSendMessageAction> {
 
-  const parsedData = ClassroomMessageSchema.safeParse(Object.fromEntries(formData.entries()));
+  const data = Object.fromEntries(formData.entries());
+  const parsedData = ClassroomMessageSchema.safeParse(data);
 
   if (!parsedData.success) {
     return {
       errors: parsedData.error.flatten().fieldErrors,
       message: 'Verifica los campos',
       success: false,
+      payload: formData
     }
   }
 
-  const { message } = parsedData.data;
+  const { message, isTask: isTaskValue } = parsedData.data;
+
+  const isTask = isTaskValue === 'on' ? true : false;
+
+  let parsedEventData: SafeParseReturnType<{
+    title: string;
+    expiresDate: string;
+}, {
+    title: string;
+    expiresDate: string;
+}> | null = null;
+  
+  if (isTask) {
+    parsedEventData = ClassroomEventSchema.safeParse(data);
+
+    if (!parsedEventData.success) {
+      return {
+        errors: parsedEventData.error.flatten().fieldErrors,
+        message: 'Verifica los campos',
+        success: false,
+        payload: formData
+      }
+    }
+  }
+
+  const { title, expiresDate } = parsedEventData?.data || {};
 
   const cookieStore = await cookies();
 
@@ -51,7 +82,8 @@ export async function sendMessageAction(
       body: JSON.stringify({
         content: message,
         userId,
-        files
+        files,
+        isTask
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -64,6 +96,36 @@ export async function sendMessageAction(
         message: (await rq.json()).message || rq.statusText,
         success: false
       }
+    }
+
+    const { id = null } = (await rq.json()).message;
+
+    if (!id) {
+      return {
+        message: 'Mensaje enviado. Pero no se pudo registrar la tarea',
+        success: false,
+        payload: formData
+      }
+    }
+
+    if (isTask) {
+      await createEvent({
+        title: title!,
+        start: new Date(expiresDate!),
+        end: new Date(expiresDate!),
+        classroomId,
+        messageId: id
+      })
+    }
+
+    const notification = await emitNotificationAction({
+      classroomId,
+      notificationUrl,
+      userId
+    })
+
+    if (!notification.success) {
+      console.error(notification.message);
     }
 
     return {

@@ -2,13 +2,16 @@
 
 import dynamicSizeStyles from "@/styles/dynamic-size.module.css";
 import { ClassroomSendMessageAction } from "@/types";
-import { useActionState, useEffect, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import AttachmentButton from "./Attachment";
 import { useAttachmentContext } from "@/components/providers/attachment-provider";
 import FormAttachments from "./form-attachments";
 import FormMessage from "./form-message";
 import { sendMessageAction } from "@/lib/actions/classroom-messages";
-import { emitNotificationAction } from "@/lib/actions/notifications";
+import EventForm from "./Event";
+import { Label, Textarea } from "flowbite-react";
+import ContainerInput from "./container-input";
+import FormError from "./Error";
 
 const SubmitButton = ({ pending }: { pending: boolean }) => {
   return (
@@ -31,12 +34,14 @@ export default function NewMessageForm({
   userId,
   classroomId,
   apiUrl,
-  notificationUrl
+  notificationUrl,
+  rol
 }: {
   userId: string;
   classroomId: string;
   apiUrl: string;
   notificationUrl: string;
+  rol: number;
 }) {
   const defaultState = {
     message: null,
@@ -49,7 +54,7 @@ export default function NewMessageForm({
 
   const bindSendMessageAction = sendMessageAction.bind(
     null,
-    { userId, apiUrl, classroomId, files },
+    { userId, apiUrl, classroomId, files, notificationUrl },
   )
 
   const [state, action, pending] = useActionState(
@@ -59,23 +64,6 @@ export default function NewMessageForm({
 
   useEffect(() => {
     setLocalState(state);
-    if (state.success) {
-      (async () => {
-        const result = await emitNotificationAction({
-          classroomId,
-          notificationUrl,
-          userId
-        })
-
-        if (!result.success) {
-          setLocalState({
-            message: result.message,
-            success: false,
-            errors: {}
-          })
-        }
-      })
-    }
   }, [state]);
 
   useEffect(() => {
@@ -88,19 +76,30 @@ export default function NewMessageForm({
   return (
     <form
       action={action}
-      className="w-full max-w-[400px] mx-auto flex flex-col gap-3"
+      className="w-full max-w-[600px] mx-auto flex flex-col gap-3"
     >
-      <div className="flex flex-col gap-2">
-        <label htmlFor="message">Mensaje</label>
+      <ContainerInput>
+        <Label htmlFor="message">Mensaje</Label>
         <div className="relative flex flex-col justify-center">
-          <textarea
+          <Textarea
             name="message"
-            className={`textarea textarea-bordered w-full max-h-[300px] pr-14 overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
+            className={`py-4 w-full max-h-[300px] pr-14 overflow-y-auto ${dynamicSizeStyles["dynamic-size-content"]}`}
+            aria-describedby="message-error"
+            defaultValue={state.payload?.get('message') as string || ''}
+            placeholder="Escribe el contenido del mensaje aquí"
           />
 
           <AttachmentButton />
         </div>
-      </div>
+
+        <FormError
+          id="message-error"
+          state={state}
+          field="message"
+        />
+      </ContainerInput>
+
+      { rol === 1 || rol === 2 && <EventForm state={state} /> }
 
       <FormAttachments
         files={files}

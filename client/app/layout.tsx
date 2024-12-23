@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { Suspense } from "react";
 import { auth } from "@/auth";
+import { ErrorEnums } from "@/types";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
