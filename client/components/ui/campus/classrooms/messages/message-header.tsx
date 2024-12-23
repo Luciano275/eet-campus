@@ -1,25 +1,11 @@
 import DeleteMessage from "./delete-message";
-import TimeAgo from "javascript-time-ago";
-import ReactTimeAgo from 'react-time-ago'
-import esAR from 'javascript-time-ago/locale/es-AR'
 import { ClassroomMessagesResponse } from "@/types";
 import { Badge } from "flowbite-react";
-
-declare global {
-    var timeAgoLocaleAdded: Boolean | undefined;
-}
-
-if (!globalThis.timeAgoLocaleAdded) {
-  TimeAgo.addDefaultLocale(esAR);
-  globalThis.timeAgoLocaleAdded = true;
-}
-
-TimeAgo.setDefaultLocale('es-AR');
+import TimeMessage from "./time-message";
 
 export default function MessageHeader (
-  {theme, msg, userId, apiUrl, classroomId, rol}
+  { msg, userId, apiUrl, classroomId, rol}
   : {
-    theme: 'dark' | 'light';
     msg: ClassroomMessagesResponse;
     userId: string;
     apiUrl: string;
@@ -27,13 +13,10 @@ export default function MessageHeader (
     rol: number;
   }
 ) {
-
-  const date = new Date(msg.created_at);
- 
   return (
     <>
       <div className="flex flex-wrap gap-4 items-center">
-        <p
+        {/* <p
           className={`text-sm ${
             theme === "dark" ? "text-neutral-500" : "text-neutral-400"
           }`}
@@ -42,7 +25,9 @@ export default function MessageHeader (
             date={date}
             locale="es-AR"
           />
-        </p>
+        </p> */}
+
+        <TimeMessage messageDate={msg.created_at} />
 
         { msg.isTask && (
           <Badge color="success">

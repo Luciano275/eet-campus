@@ -1,16 +1,15 @@
 import { ClassroomMessagesResponse } from "@/types";
 
 export default function MessageBody(
-  {theme, msg}
+  {msg}
   : {
-    theme: 'dark' | 'light';
     msg: ClassroomMessagesResponse;
   }
 ) {
   return (
     <div
       className={`text-sm whitespace-pre-line ${
-        msg.status === "DELETED" && `italic ${theme === "dark"? "text-neutral-600" : "text-neutral-500"}`
+        msg.status === "DELETED" && `italic text-neutral-500 dark:text-neutral-600`
       }`}
     >
       {msg.body}

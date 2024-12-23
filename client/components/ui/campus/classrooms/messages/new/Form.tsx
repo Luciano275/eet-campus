@@ -99,7 +99,7 @@ export default function NewMessageForm({
         />
       </ContainerInput>
 
-      { rol === 1 || rol === 2 && <EventForm state={state} /> }
+      { (rol === 1 || rol === 2) && <EventForm state={state} /> }
 
       <FormAttachments
         files={files}

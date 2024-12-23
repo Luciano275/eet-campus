@@ -1,4 +1,4 @@
-import { $Enums } from "@prisma/client";
+import { $Enums, ClassroomMessage, Event } from "@prisma/client";
 import { IconType } from "react-icons";
 
 export type LinkType = {
@@ -237,4 +237,24 @@ export type ClassroomHookNotifications = {
 export type ReactQueryClassroomNotifications = {
   pages?: ClassroomHookNotifications[];
   pageParams?: Number[]
+}
+
+export type IsTaskResponse = {
+  message: ({
+      owner: {
+          image: string | null;
+          id: string;
+          name: string;
+          email: string;
+      };
+      attachmets: {
+          id: string;
+          name: string;
+          url: string;
+          ownerId: string;
+          messageId: string;
+      }[];
+  } & ClassroomMessage) | null;
+  isTask: boolean;
+  event: null | Event
 }

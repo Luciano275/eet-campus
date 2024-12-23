@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "app/(protected)/campus/classrooms/[id]/messages/[message_id]"  ],
   "exclude": [
     "node_modules"
   ]

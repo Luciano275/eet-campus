@@ -1,4 +1,3 @@
-import { useChangeThemeContext } from "@/components/providers/change-theme-provider"
 import { ClassroomHookMessages, ClassroomMessagesResponse } from "@/types"
 import UserAvatar from "./user-avatar";
 import MessageHeader from "./message-header";
@@ -44,9 +43,6 @@ export default function PageMessages(
     rol: number;
   }
 ) {
-
-  const { theme } = useChangeThemeContext();
-
   return (
     group.messages.map((msg, index) => (
       <MessageContainer
@@ -59,14 +55,13 @@ export default function PageMessages(
         <div className="flex grow flex-col gap-1">
           <MessageHeader
             apiUrl={apiUrl}
-            theme={theme}
             msg={msg}
             userId={userId}
             classroomId={classroomId}
             rol={rol}
           />
 
-          <MessageBody theme={theme} msg={msg} />
+          <MessageBody msg={msg} />
 
           <MessageAttachments msg={msg} />
         </div>
