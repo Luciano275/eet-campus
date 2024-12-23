@@ -23,7 +23,10 @@ function Message() {
 
 export default function MessageSkeleton () {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-10">
+      <Message />
+      <Message />
+      <Message />
       <Message />
       <Message />
       <Message />
