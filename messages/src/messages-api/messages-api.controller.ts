@@ -20,6 +20,7 @@ export class MessagesApiController {
 
       return messages
     }catch (error) {
+      console.log(error);
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(error.message);
       }
@@ -50,6 +51,7 @@ export class MessagesApiController {
       }
 
     }catch (error) {
+      console.log(error);
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(error.message);
       }
@@ -78,6 +80,7 @@ export class MessagesApiController {
         message
       }
     }catch (error) {
+      console.log(error);
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(error.message);
       }

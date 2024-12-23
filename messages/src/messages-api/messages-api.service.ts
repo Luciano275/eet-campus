@@ -15,8 +15,7 @@ export class MessagesApiService {
     owner: { select: { name: true, email: true, image: true, id: true } },
     status: true,
     attachmets: { select: { url: true, id: true, name: true } },
-    isTask: true,
-    expires_at: true
+    isTask: true
   };
 
   private TOTAL_MESSAGES = 10;
