@@ -1,5 +1,6 @@
 ---
 import NavbarProvider from '@components/providers/navbar-provider';
+import Footer from '@components/ui/Footer.astro';
 import Nav from '@components/ui/Nav';
 import { ClientRouter } from 'astro:transitions';
 
@@ -27,6 +28,7 @@ const pathname = Astro.url.pathname;
 		<main class="min-h-screen">
 			<slot />
 		</main>
+		<Footer />
 	</body>
 </html>
 
@@ -38,4 +40,8 @@ const pathname = Astro.url.pathname;
 	.dropdown-hover:hover span {
     rotate: 180deg;
   }
+
+	html {
+		scroll-behavior: smooth;
+	}
 </style>
