@@ -2,9 +2,10 @@ import { useNavbar } from "@components/providers/navbar-provider";
 import NavbarLinks from "./NavbarLinks";
 
 export default function MobileNav(
-  {pathname}
+  {pathname, campusUrl}
   : {
     pathname: string;
+    campusUrl: string;
   }
 ) {
 
@@ -18,7 +19,7 @@ export default function MobileNav(
         left: show ? 0 : '-100%'
       }}
     >
-      <NavbarLinks pathname={pathname} mobile />
+      <NavbarLinks campusUrl={campusUrl} pathname={pathname} mobile />
     </div>
   )
 }

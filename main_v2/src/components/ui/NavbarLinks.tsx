@@ -3,10 +3,11 @@ import Dropdown from "./Dropdown";
 import SignInButton from "./SignInButton";
 
 export default function NavbarLinks(
-  {mobile, pathname}
+  {mobile, pathname, campusUrl}
   : {
     mobile?: boolean;
     pathname: string;
+    campusUrl: string;
   }
 ) {
   return (
@@ -31,7 +32,7 @@ export default function NavbarLinks(
         )
       }
 
-      <SignInButton />
+      <SignInButton campusUrl={campusUrl} />
     </div>
   )
 }

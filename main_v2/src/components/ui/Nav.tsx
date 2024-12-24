@@ -39,7 +39,7 @@ export default function Nav(
         </div>
 
         {/* LINKS */}
-        <NavbarLinks pathname={pathname} />
+        <NavbarLinks campusUrl={campusUrl} pathname={pathname} />
 
         <div className="flex items-center gap-4">
           <ThemeButton />
@@ -47,7 +47,7 @@ export default function Nav(
         </div>
       </nav>
 
-      <MobileNav pathname={pathname} />
+      <MobileNav campusUrl={campusUrl} pathname={pathname} />
     </NavbarProvider>
   )
 }

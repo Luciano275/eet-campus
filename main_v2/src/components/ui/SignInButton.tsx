@@ -1,12 +1,13 @@
 export default function SignInButton(
-  { onlyMobile }
+  { onlyMobile, campusUrl }
   : {
     onlyMobile?: boolean;
+    campusUrl: string;
   }
 ) {
   return (
     <a
-      href={import.meta.env.CAMPUS_PAGE}
+      href={campusUrl}
       className={`btn btn-primary text-white ${onlyMobile ? 'flex md:hidden' : 'hidden md:inline-flex'}`}>Acceder</a
     >
   )
