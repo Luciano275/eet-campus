@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { use, createContext, useState } from "react";
 
 interface INavbarContext {
   show: boolean;
@@ -10,7 +10,7 @@ const NavbarContext = createContext<INavbarContext>({
   setShow: () => {}
 })
 
-export const useNavbar = () => useContext(NavbarContext);
+export const useNavbar = () => use(NavbarContext);
 
 export default function NavbarProvider(
   {children}
