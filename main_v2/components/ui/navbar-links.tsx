@@ -1,6 +1,6 @@
 'use client';
 
-import { LINKS } from "@/lib/links";
+import { LINKS } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Dropdown from "./Dropdown";
 import SignInButton from "../SignInButton";
