@@ -1,0 +1,33 @@
+---
+import Nav from '@components/ui/Nav';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+
+---
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="En un mundo cada vez más interconectado y dependiente de la tecnología, la educación no puede quedarse atrás. Por ello, presentamos con orgullo nuestro proyecto de Campus Virtual, una plataforma innovadora diseñada para transformar la experiencia educativa en nuestro colegio. Este proyecto, desarrollado por un equipo dedicado de seis estudiantes apasionados por la tecnología y la educación, tiene como objetivo principal brindar una solución integral para el aprendizaje y la interacción escolar en un entorno digital.">
+		<link rel="icon" type="image/ico" href="/favicon.ico" />
+		<title>{ title }</title>
+	</head>
+	<body class="dark:bg-neutral-900">
+		<Nav campusUrl={import.meta.env.CAMPUS_URL} pathname={pathname} client:load />
+		<main class="min-h-screen">
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	* {
+		transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
+	}
+</style>
