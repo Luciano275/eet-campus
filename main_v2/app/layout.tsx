@@ -5,6 +5,7 @@ import { ViewTransitions } from "next-view-transitions";
 import Navbar from "@/components/ui/Navbar";
 import ChangeTheme from "@/components/ChangeTheme";
 import NavbarProvider from "@/components/providers/navbar-provider";
+import Footer from "@/components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +44,7 @@ export default function RootLayout({
             {children}
           </main>
           
-          {/* Footer */}
+          <Footer />
         </body>
       </ChangeTheme>
     </ViewTransitions>
