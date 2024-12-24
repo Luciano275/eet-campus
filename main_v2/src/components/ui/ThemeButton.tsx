@@ -1,5 +1,5 @@
 import { useThemeMode } from "flowbite-react";
-import { useEffect, useMemo, type CSSProperties } from "react";
+import { useEffect } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 
 export default function ThemeButton() {

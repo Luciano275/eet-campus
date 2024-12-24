@@ -1,6 +1,7 @@
 import { plugin, content } from 'flowbite-react/tailwind'
 import midudevAnimations from '@midudev/tailwind-animations'
 import daisyUi from 'daisyui'
+import tailwindTypography from '@tailwindcss/typography'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,5 +12,5 @@ export default {
 	theme: {
 		extend: {},
 	},
-	plugins: [midudevAnimations, daisyUi, plugin()],
+	plugins: [midudevAnimations, daisyUi, plugin(), tailwindTypography],
 }
