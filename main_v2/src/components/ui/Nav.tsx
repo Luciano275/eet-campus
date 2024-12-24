@@ -12,7 +12,7 @@ export default function Nav(
     pathname: string;
   }
 ) {
-  const [scroll, setScroll] = useState(0);
+  const [scroll, setScroll] = useState(window.scrollY);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {

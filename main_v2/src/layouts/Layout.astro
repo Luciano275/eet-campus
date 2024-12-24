@@ -23,7 +23,7 @@ const pathname = Astro.url.pathname;
 		<ClientRouter />
 	</head>
 	<body>
-		<Nav campusUrl={import.meta.env.CAMPUS_URL} pathname={pathname} client:load />
+		<Nav campusUrl={import.meta.env.CAMPUS_URL} pathname={pathname} client:only />
 		<main class="min-h-screen">
 			<slot />
 		</main>
@@ -32,7 +32,7 @@ const pathname = Astro.url.pathname;
 
 <style is:global>
 	* {
-		transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
+		transition: background 300ms ease;
 	}
 
 	.dropdown-hover:hover span {
