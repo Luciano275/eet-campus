@@ -1,5 +1,7 @@
 ---
+import NavbarProvider from '@components/providers/navbar-provider';
 import Nav from '@components/ui/Nav';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -17,6 +19,8 @@ const pathname = Astro.url.pathname;
 		<meta name="description" content="En un mundo cada vez más interconectado y dependiente de la tecnología, la educación no puede quedarse atrás. Por ello, presentamos con orgullo nuestro proyecto de Campus Virtual, una plataforma innovadora diseñada para transformar la experiencia educativa en nuestro colegio. Este proyecto, desarrollado por un equipo dedicado de seis estudiantes apasionados por la tecnología y la educación, tiene como objetivo principal brindar una solución integral para el aprendizaje y la interacción escolar en un entorno digital.">
 		<link rel="icon" type="image/ico" href="/favicon.ico" />
 		<title>{ title }</title>
+
+		<ClientRouter />
 	</head>
 	<body>
 		<Nav campusUrl={import.meta.env.CAMPUS_URL} pathname={pathname} client:load />
@@ -30,4 +34,8 @@ const pathname = Astro.url.pathname;
 	* {
 		transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
 	}
+
+	.dropdown-hover:hover span {
+    rotate: 180deg;
+  }
 </style>
