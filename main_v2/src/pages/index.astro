@@ -1,11 +1,17 @@
 ---
 import Wallpaper from '@components/ui/Wallpaper.astro';
 import Layout from '../layouts/Layout.astro';
+import Introduction from '@components/ui/home/Introduction.astro';
+import Equipment from '@components/ui/home/Equipment.astro';
 ---
 
 <Layout
 	title='Escuela de Educación Técnica Nº 3117 Maestro Daniel Óscar Reyes'
 >
 	<Wallpaper />
-	<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe, deserunt minus dignissimos eum recusandae nisi beatae! Architecto expedita excepturi tempore optio ipsa incidunt inventore maxime? Autem sunt expedita adipisci repellat.</p>
+	
+	<section class="flex flex-col gap-6 pb-4">
+    <Introduction />
+    <Equipment />
+  </section>
 </Layout>

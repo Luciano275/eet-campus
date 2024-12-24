@@ -1,0 +1,31 @@
+---
+import Article from './Article.astro'
+
+const members = [
+  { alt: "Director", fullname: "Elio Omar Brito", img: '/equipment/director.webp', link: '' },
+  { alt: "Vicedirectora", fullname: "Gabriela Garnica", img: '/equipment/vicedirectora.webp', link: '' },
+  { alt: "Vicedirector", fullname: "Luis Haro", img: '/equipment/vicedirector.webp', link: '' },
+]
+
+---
+
+<Article id='equipment' className='flex flex-col gap-6'>
+  <h2 class="text-2xl md:text-3xl font-bold text-center border-b border-base-300 pb-4">Equipo directivo</h2>
+  <div class="flex flex-wrap justify-center items-center gap-4">
+    { members.map((member) => (
+      <div class="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 transition-all hover:bg-base-200 hover:scale-105">
+        <a href={member.link}>
+          <img
+            src={member.img}
+            alt={member.alt}
+            class={"w-full max-w-[300px] min-w-[300px] min-h-[400px] max-h-[400px] object-cover object-top aspect-video"}
+          />
+        </a>
+        <div class="px-4 pb-4">
+          <h2 class="text-2xl font-bold text-base-content">{member.fullname}</h2>
+          <h3 class="text-xl">{member.alt}</h3>
+        </div>
+      </div>
+    )) }
+  </div>
+</Article>
