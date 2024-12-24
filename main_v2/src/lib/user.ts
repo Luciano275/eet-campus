@@ -9,7 +9,6 @@ export const auth = async (
     const rq = await fetch(`${campusUrl}/api/auth/session`, {
       method: 'GET',
       credentials: 'include',
-      mode: 'no-cors',
       headers
     })
 

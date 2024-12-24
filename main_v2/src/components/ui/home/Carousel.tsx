@@ -14,6 +14,7 @@ export default function Carousel() {
         {
           CAROUSEL_ITEMS.map((item) => (
             <img
+              key={`carousel-${item.alt}`}
               src={item.src}
               alt={item.alt}
               className="rounded-xl object-center absolute block w-full min-h-[500px] object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 aspect-video"

@@ -3,15 +3,18 @@ import Section from "@components/ui/Section.astro";
 import Layout from "@layouts/Layout.astro";
 import CreateBlog from '@components/ui/blog/create-blog';
 import Blogs from '@components/ui/blog/Blogs'
+import { HR } from "flowbite-react";
 ---
 
 <Layout
   title="Blog - Escuela de Educación Técnica Nº 3117 Maestro Daniel Óscar Reyes"
 >
   <Section>
-    <h1 class="pb-4 text-3xl font-bold border-b border-base-300 mb-4 dark:text-white">Nuestras últimas noticias</h1>
+    <h1 class="text-3xl font-bold dark:text-white">Nuestras últimas noticias</h1>
 
-    <CreateBlog campusUrl={import.meta.env.CAMPUS_URL} headers={Astro.request.headers} client:only />
+    <HR />
+
+    <CreateBlog campusUrl={import.meta.env.CAMPUS_URL} headers={Astro.request.headers} server:defer />
 
     <Blogs campusUrl={import.meta.env.CAMPUS_URL} headers={Astro.request.headers} server:defer />
   </Section>
