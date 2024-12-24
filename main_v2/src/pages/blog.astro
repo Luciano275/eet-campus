@@ -1,11 +1,18 @@
 ---
+import Section from "@components/ui/Section.astro";
 import Layout from "@layouts/Layout.astro";
-
-
+import CreateBlog from '@components/ui/blog/create-blog';
+import Blogs from '@components/ui/blog/Blogs'
 ---
 
 <Layout
   title="Blog - Escuela de Educación Técnica Nº 3117 Maestro Daniel Óscar Reyes"
 >
-  <h1>Blog page</h1>
+  <Section>
+    <h1 class="pb-4 text-3xl font-bold border-b border-base-300 mb-4 dark:text-white">Nuestras últimas noticias</h1>
+
+    <CreateBlog campusUrl={import.meta.env.CAMPUS_URL} headers={Astro.request.headers} client:only />
+
+    <Blogs campusUrl={import.meta.env.CAMPUS_URL} headers={Astro.request.headers} server:defer />
+  </Section>
 </Layout>
