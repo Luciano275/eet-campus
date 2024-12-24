@@ -21,7 +21,7 @@ export default function Nav(
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full flex justify-between py-4 px-4 lg:px-8 items-center ${scroll === 0 ? 'bg-transparent' : 'bg-indigo-950'}`}
+        className={`fixed top-0 left-0 w-full flex justify-between py-4 px-4 lg:px-8 items-center ${scroll === 0 ? 'bg-transparent' : 'bg-blue-950 bg-opacity-60'}`}
         style={{
           zIndex: 9999
         }}
