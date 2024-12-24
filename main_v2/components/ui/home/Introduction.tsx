@@ -1,13 +1,15 @@
 import Article from "@/components/Article";
 import Carousel from "./Carousel";
+import { HR } from "flowbite-react";
 
 export default function Introduction() {
   return (
     <Article className="grid grid-cols-1 lg:grid-cols-2 gap-8" id="introduction">
       <div>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4 border-b mb-4">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4">
           Campus Virtual E.E.T 3117
         </h1>
+        <HR />
         <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">Nuestra escuela</h2>
         <p className="text-justify text-lg py-2">
           La <b

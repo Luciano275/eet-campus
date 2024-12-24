@@ -1,14 +1,16 @@
 import Article from "@/components/Article";
 import { members } from "@/lib/utils";
+import { HR } from "flowbite-react";
 import Image from "next/image";
 
 export default function Equipment () {
   return (
     <Article id='equipment' className='flex flex-col gap-6'>
-      <h2 className="text-2xl md:text-3xl font-bold text-center border-b border-base-300 pb-4">Equipo directivo</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-center">Equipo directivo</h2>
+      <HR />
       <div className="flex flex-wrap justify-center items-center gap-4">
         { members.map((member, index) => (
-          <div key={`member:${index}:${member.alt}`} className="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 transition-all hover:bg-base-200 hover:scale-105">
+          <div key={`member:${index}:${member.alt}`} className="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 dark:bg-base-300 dark:hover:bg-base-100 transition-all hover:bg-base-200 hover:scale-105">
             <a href={member.link}>
               <Image
                 src={member.img}
