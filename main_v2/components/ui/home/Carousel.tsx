@@ -14,8 +14,8 @@ export default function Carousel() {
             src={item.src}
             alt={item.alt}
             className="aspect-video w-full max-w-full object-cover object-center"
-            width={1920}
-            height={1080}
+            width={1280}
+            height={720}
           />
         )) }
       </CarouselReact>

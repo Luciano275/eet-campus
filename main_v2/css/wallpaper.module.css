@@ -8,7 +8,6 @@
     rgba(255, 162, 162, 1) 100%
   ); */
   background-image: url("/wallpaper.webp");
-  background-attachment: fixed;
   background-size: cover;
 }
 
