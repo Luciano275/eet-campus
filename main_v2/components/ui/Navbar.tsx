@@ -7,6 +7,7 @@ import NavbarLinks from './navbar-links';
 import MobileNav from './MobileNav';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { Link } from 'next-view-transitions';
 
 export default function Navbar() {
 
@@ -34,15 +35,15 @@ export default function Navbar() {
         style={{ zIndex: 99999 }}
       >
         <div className="flex gap-5 items-center">
-        <a href="/">
-            <Image
-              src={'/logo.png'}
-              alt="Logo"
-              width={40}
-              height={40}
-              loading='lazy'
-            />
-        </a>
+          <Link href="/">
+              <Image
+                src={'/logo.png'}
+                alt="Logo"
+                width={40}
+                height={40}
+                loading='lazy'
+              />
+          </Link>
         </div>
 
         <NavbarLinks />
