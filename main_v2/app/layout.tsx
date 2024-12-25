@@ -6,6 +6,7 @@ import Navbar from "@/components/ui/Navbar";
 import ChangeTheme from "@/components/ChangeTheme";
 import NavbarProvider from "@/components/providers/navbar-provider";
 import Footer from "@/components/ui/Footer";
+import { Flowbite } from "flowbite-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,22 +32,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <ChangeTheme>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <NavbarProvider>
-            <Navbar />
-          </NavbarProvider>
+    <Flowbite>
+      <ViewTransitions>
+        <html lang="es">
+          <ChangeTheme
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <NavbarProvider>
+              <Navbar />
+            </NavbarProvider>
 
-          <main className="min-h-screen">
-            {children}
-          </main>
-          
-          <Footer />
-        </body>
-      </ChangeTheme>
-    </ViewTransitions>
+            <main className="min-h-screen">
+              {children}
+            </main>
+            
+            <Footer />
+          </ChangeTheme>
+        </html>
+      </ViewTransitions>
+    </Flowbite>
   );
 }

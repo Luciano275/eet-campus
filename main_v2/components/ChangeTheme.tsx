@@ -1,19 +1,25 @@
 'use client';
 
-import { useThemeMode } from 'flowbite-react'
+import { ThemeMode, useThemeMode } from 'flowbite-react'
+import { useEffect, useState } from 'react';
 
 export default function ChangeTheme(
-  {children}
+  {children, className}
   : {
-    children: React.ReactNode
+    children: React.ReactNode;
+    className?: string;
   }
 ) {
-
   const { mode } = useThemeMode();
+  const [theme, setTheme] = useState<ThemeMode>('light');
+
+  useEffect(() => {
+    setTheme(mode);
+  }, [mode])
 
   return (
-    <html lang='es' data-theme={mode}>
+    <body data-theme={theme} className={`${className && className}`}>
       {children}
-    </html>
+    </body>
   )
 }
