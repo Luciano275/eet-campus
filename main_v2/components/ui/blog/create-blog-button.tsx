@@ -16,17 +16,19 @@ export default async function CreateBlogButton() {
     )
   }
 
-  return (
-    <>
-      <Link
-        href={'/blog/create'}
-        className="w-full max-w-fit bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-900 flex gap-2 items-center"
-      >
-        <CgAdd size={20} />
-        <span>Crear un nuevo blog</span>
-      </Link>
-
-      <HR />
-    </>
-  )
+  if (rq.session && (rq.session.user.rol === 1 || rq.session.user.rol === 2)) {
+    return (
+      <>
+        <Link
+          href={'/blog/create'}
+          className="w-full max-w-fit bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-900 flex gap-2 items-center"
+        >
+          <CgAdd size={20} />
+          <span>Crear un nuevo blog</span>
+        </Link>
+  
+        <HR />
+      </>
+    )
+  }
 }
