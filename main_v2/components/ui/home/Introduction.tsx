@@ -6,7 +6,7 @@ export default function Introduction() {
   return (
     <Article className="grid grid-cols-1 lg:grid-cols-2 gap-8" id="introduction">
       <div>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold py-4">
           Campus Virtual E.E.T 3117
         </h1>
         <HR />

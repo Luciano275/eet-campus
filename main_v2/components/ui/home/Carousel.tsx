@@ -13,7 +13,7 @@ export default function Carousel() {
             key={`item:${index}:${item.alt}`}
             src={item.src}
             alt={item.alt}
-            className="aspect-video w-full max-w-full object-cover object-center"
+            className="aspect-video w-full max-w-full object-cover object-center rounded-lg"
             width={1280}
             height={720}
           />
