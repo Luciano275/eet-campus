@@ -15,6 +15,9 @@ export default function Wallpaper() {
           alt="Logo"
           width={200}
           height={200}
+          style={{
+            aspectRatio: '3/4'
+          }}
         />
         <h1 className="text-white font-bold text-3xl xl:text-4xl 2xl:text-5xl py-5">
           Daniel Óscar Reyes

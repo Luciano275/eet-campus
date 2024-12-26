@@ -1,3 +1,5 @@
+import { Blog } from "@prisma/client";
+
 export type User = {
   name: string;
   email: string;
@@ -17,4 +19,8 @@ export type Auth = {
 } | {
   success: true;
   session: UserSession
+}
+
+export interface BlogObject extends Blog {
+  url: string;
 }
