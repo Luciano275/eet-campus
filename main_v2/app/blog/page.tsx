@@ -1,4 +1,5 @@
 import Section from "@/components/Section";
+import BlogSkeleton from "@/components/skeletons/blog-skeleton";
 import Blogs from "@/components/ui/blog/Blogs";
 import CreateBlogButton from "@/components/ui/blog/create-blog-button";
 import { HR } from "flowbite-react";
@@ -21,7 +22,7 @@ export default function BlogPage() {
         <CreateBlogButton />
       </Suspense>
 
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<BlogSkeleton />}>
         <Blogs />
       </Suspense>
     </Section>

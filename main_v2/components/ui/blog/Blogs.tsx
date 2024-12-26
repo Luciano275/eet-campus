@@ -18,7 +18,7 @@ export default async function Blogs() {
               
               {/* { (session && (session.user.rol === 1 || session.user.rol === 2)) && <DeleteBlogButton blogId={blog.id} /> } */}
             </div>
-            <h2 className="text-2xl font-semibold pb-4 border-b">{blog.title}</h2>
+            <h2 className="text-2xl font-semibold border-b dark:border-gray-700 pb-4">{blog.title}</h2>
             <p className="text-justify grow overflow-auto">
               {blog.description}
             </p>
