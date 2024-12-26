@@ -49,7 +49,7 @@ export default function Footer() {
           <a href="/termsofuse" className="link link-hover">
               Términos de uso
           </a>
-          <a href="/termsofuse#cookies" className="link link-hover">
+          <a href="/termsofuse#user-content-cookies" className="link link-hover">
               Aviso de cookies
           </a>
       </nav>

@@ -26,7 +26,7 @@ export default function Footer() {
           Términos de uso
         </a>
         <a
-          href={`${MAIN_PAGE}/termsofuse#cookies`}
+          href={`${MAIN_PAGE}/termsofuse#user-content-cookies`}
           className="hover:underline"
         >
           Aviso de cookies
