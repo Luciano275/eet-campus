@@ -8,7 +8,7 @@ export default function BlogPreview() {
   const { content } = useBlog();
 
   return (
-    <div className="prose max-w-none">
+    <div className="prose max-w-none mt-4">
       <Markdown content={content} />
     </div>
   )
