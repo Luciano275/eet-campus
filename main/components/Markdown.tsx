@@ -14,6 +14,7 @@ export default function Markdown(
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkDirective]}
       rehypePlugins={[rehypeRaw, rehypeSanitize]}
+      skipHtml={false}
     >
       {content}
     </ReactMarkdown>

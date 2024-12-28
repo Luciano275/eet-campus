@@ -6,6 +6,8 @@ import { CreateBlogActionState } from "@/types";
 import { useActionState, useEffect } from "react";
 import { Input } from "./Input";
 import Message from "./Message";
+import { useDebouncedCallback } from "use-debounce";
+// import {} from ''
 
 export default function CreateBlogForm() {
   const { setContent } = useBlog();
@@ -21,6 +23,10 @@ export default function CreateBlogForm() {
       setContent("");
     }
   }, [state]);
+
+  const handleChangeContent = useDebouncedCallback((value: string) => {
+    setContent(value);
+  }, 500)
 
   return (
     <form action={action} className="flex flex-col gap-5">
@@ -45,7 +51,7 @@ export default function CreateBlogForm() {
         htmlFor="content"
         label="Contenido"
         placeholder="Escribe todo el contenido del blog en formato Markdown"
-        onChange={(e: any) => setContent(e.target.value)}
+        onChange={(e: any) => handleChangeContent(e.target.value)}
         state={state}
         field="content"
       />
