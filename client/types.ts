@@ -173,7 +173,7 @@ export type ClassroomMessagesResponse = {
   owner: {
     name: string;
     email: string;
-    image: string;
+    image: string | null;
     id: string;
   };
   status: $Enums.MessageState
@@ -183,7 +183,6 @@ export type ClassroomMessagesResponse = {
     name: string;
 }[];
   isTask: boolean;
-  expires_at: Date | null;
 };
 
 export type ClassroomHookMessages = {
@@ -240,21 +239,7 @@ export type ReactQueryClassroomNotifications = {
 }
 
 export type IsTaskResponse = {
-  message: ({
-      owner: {
-          image: string | null;
-          id: string;
-          name: string;
-          email: string;
-      };
-      attachmets: {
-          id: string;
-          name: string;
-          url: string;
-          ownerId: string;
-          messageId: string;
-      }[];
-  } & ClassroomMessage) | null;
+  message: ClassroomMessagesResponse | null;
   isTask: boolean;
   event: null | Event
 }

@@ -7,32 +7,7 @@ import Link from "next/link";
 import { HR } from "flowbite-react";
 import DeleteMessage from "./delete-message";
 import { Fragment } from "react";
-
-const MessageContainer = ({msg, children, classroomId}: {msg: ClassroomMessagesResponse, children: React.ReactNode, classroomId: string;}) => {
-
-  const className = `grow flex gap-2 items-start`;
-
-  return (
-    <>
-      {
-        msg.isTask ? (
-          <Link
-            className={className}
-            href={`/campus/classrooms/${classroomId}/messages/${msg.id}`}
-          >
-            {children}
-          </Link>
-        ) : (
-          <div
-            className={className}
-          >
-            {children}
-          </div>
-        )
-      }
-    </>
-  )
-}
+import { BASE_PATH } from "@/lib/utils";
 
 export default function PageMessages(
   {group, userId, classroomId, apiUrl, rol}
@@ -47,12 +22,11 @@ export default function PageMessages(
   return (
     group.messages.map((msg, index) => (
       <Fragment key={`message:${msg.id}:${index}`}>
-        <div className={`p-5 flex rounded-lg ${msg.isTask && 'hover:bg-base-300'}`}>
-          <MessageContainer
-            msg={msg}
-            classroomId={classroomId}
+        <div className={`p-5 flex rounded-lg ${msg.isTask && 'hover:bg-base-200'}`}>
+          <div
+            className="grow flex gap-2 items-start"
           >
-            <UserAvatar url={msg.owner.image} />
+            <UserAvatar url={msg.owner.image!} />
 
             <div className="flex grow flex-col gap-1">
               <MessageHeader
@@ -65,9 +39,22 @@ export default function PageMessages(
 
               <MessageBody msg={msg} />
 
-              <MessageAttachments msg={msg} />
+              <div className="flex flex-col">
+                <MessageAttachments msg={msg} />
+                { msg.isTask && (
+                  <>
+                    <HR />
+                    <Link
+                      href={`${BASE_PATH}/classrooms/${classroomId}/messages/${msg.id}`}
+                      className="bg-blue-500 w-full max-w-[150px] text-center py-2 px-4 rounded-lg text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-500"
+                    >
+                      Ver
+                    </Link>
+                  </>
+                ) }
+              </div>
             </div>
-          </MessageContainer>
+          </div>
           {(userId === msg.owner.id || rol === 1) && msg.status !== "DELETED" && (
             <DeleteMessage
               apiUrl={apiUrl}

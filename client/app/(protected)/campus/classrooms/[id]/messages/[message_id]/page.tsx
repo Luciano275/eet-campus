@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import TaskBody from "@/components/ui/campus/classrooms/messages/task/task-body";
 import TaskHeader from "@/components/ui/campus/classrooms/messages/task/task-header";
 import { isMessageTask } from "@/lib/messages";
 import { notFound } from "next/navigation";
@@ -37,6 +38,7 @@ export default async function OpenMessage(
         availableToSend={availableToSend}
       />
       
+      <TaskBody message={message} event={event} />
     </div>
   )
 }
