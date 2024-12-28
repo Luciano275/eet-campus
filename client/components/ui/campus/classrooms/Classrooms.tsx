@@ -29,7 +29,7 @@ export default async function Classrooms({
     : await findClassroomsBelong(id, query);
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4 mt-4">
+    <div className="flex flex-wrap items-center gap-4 mt-4">
       {classroomsList.map((classroom) => (
         <Tooltip content={classroom.name} key={`${classroom.id}:${classroom.name}`}>
           <ClassroomContainer>

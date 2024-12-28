@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import TeacherFilters from "@/components/ui/campus/classrooms/teacher/Filter";
 import StudentFilters from "@/components/ui/campus/classrooms/student/Filter";
 import { FiltersType } from "@/types";
+import { HR } from "flowbite-react";
 
 export default async function TeacherPage(
   {searchParams}
@@ -59,6 +60,8 @@ export default async function TeacherPage(
 
         </div>
       </div>
+      
+      <HR />
 
       <Suspense key={`${classroomName}:${filters.course}:${filters.teacher}`} fallback={<ClassroomSkeleton />}>
         <Classrooms query={classroomName} rol={rol} filters={filters} />

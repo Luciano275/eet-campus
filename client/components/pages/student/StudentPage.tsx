@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { ClassroomSkeleton } from "@/components/ui/skeletons/classroom-skeletons";
 import Classrooms from "@/components/ui/campus/classrooms/Classrooms";
 import StudentFilters from "@/components/ui/campus/classrooms/student/Filter";
+import { HR } from "flowbite-react";
 
 export default async function StudentPage({
   searchParams,
@@ -29,6 +30,8 @@ export default async function StudentPage({
         <Button type={'join'} text="Unirse" />
         <StudentFilters />
       </div>
+
+      <HR />
 
       <Suspense key={`${classroomName}`} fallback={<ClassroomSkeleton />}>
         <Classrooms query={classroomName} rol={rol} />
