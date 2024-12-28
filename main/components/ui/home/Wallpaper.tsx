@@ -1,15 +1,23 @@
 import SignInButton from "@/components/SignInButton";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import wallpaperStyles from "@/css/wallpaper.module.css";
 
 export default function Wallpaper() {
   return (
     <header
-      className={`min-h-screen relative flex flex-col px-2 ${wallpaperStyles["bg-gradient"]}`}
+      className={`min-h-screen relative flex flex-col px-2`}
     >
-      <div className="absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-65 backdrop-blur-md"></div>
-      <div className="relative z-20 grow flex flex-col justify-center items-center">
+      <div className="absolute z-10 top-0 left-0 w-full h-full max-w-full max-h-full overflow-hidden">
+        <Image
+          src="/wallpaper.webp"
+          alt="Wallpaper E.E.T 3117"
+          width={1280}
+          height={720}
+          className="w-full max-w-full h-full max-h-full object-cover"
+        />
+      </div>
+      <div className="absolute z-20 top-0 left-0 w-full h-full bg-black bg-opacity-65 backdrop-blur-md"></div>
+      <div className="relative z-30 grow flex flex-col justify-center items-center">
         <Image
           src={"/logo.png"}
           alt="Logo"

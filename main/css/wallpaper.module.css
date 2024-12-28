@@ -10,17 +10,3 @@
   background-image: url("/wallpaper.webp");
   background-size: cover;
 }
-
-@media (width >= 1280px) and (height >= 700px) {
-  .logo {
-    width: 180px;
-    height: auto;
-  }
-}
-
-@media(width >= 1600px) and (height >= 900px) {
-  .logo {
-    width: 225px;
-    height: auto;
-  }
-}
