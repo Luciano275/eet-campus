@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full flex justify-between py-4 px-4 lg:px-8 items-center bg-opacity-90 ${scroll === 0 && pathname === '/' ? 'bg-transparent' : 'bg-blue-950'}`}
+        className={`fixed top-0 left-0 w-full flex justify-between py-4 px-4 lg:px-8 items-center ${pathname === '/' ? 'bg-opacity-80' : 'bg-opacity-90'} ${scroll === 0 && pathname === '/' ? 'bg-transparent' : 'bg-black'}`}
         style={{ zIndex: 99999 }}
       >
         <div className="flex gap-5 items-center">
