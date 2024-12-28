@@ -1,4 +1,5 @@
 import { INFO } from "@/lib/utils";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 
 export default function Footer() {
@@ -46,12 +47,12 @@ export default function Footer() {
 
       <nav className="flex flex-col gap-1 items-center">
           <h6 className="footer-title">Legal</h6>
-          <a href="/termsofuse" className="link link-hover">
+          <Link href="/termsofuse" className="link link-hover">
               Términos de uso
-          </a>
-          <a href="/termsofuse#user-content-cookies" className="link link-hover">
+          </Link>
+          <Link href="/termsofuse#user-content-cookies" className="link link-hover">
               Aviso de cookies
-          </a>
+          </Link>
       </nav>
 
       <nav className="flex flex-col items-center">
