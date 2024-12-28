@@ -11,9 +11,6 @@ export default function FormAttachments(
     deleteFile: IAttachmentContext['deleteFile']
   }
 ) {
-
-  
-
   return (
     <div className="flex gap-3 flex-wrap">
 
@@ -25,8 +22,8 @@ export default function FormAttachments(
             key={Math.random() * 1000}
             className="avatar p-2 border border-base-300 rounded-xl relative overflow-hidden"
           >
-            <div className="w-[100px] rounded-xl overflow-hidden">
-              <img src={file.url} alt="Preview image" />
+            <div className="w-[100px] max-w-[100px] rounded-xl overflow-hidden">
+              <img src={file.url} alt="Preview image" className="w-full max-w-full h-full max-h-full object-cover" />
             </div>
           
             <DeleteAttachment deleteFile={deleteFile} file={file} />
