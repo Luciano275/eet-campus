@@ -13,7 +13,7 @@ export default async function Blogs() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.map((blog) => (
-          <article key={`blog:${blog.id}`} className="transition-colors min-h-[450px] max-h-[450px] border border-base-300 p-4 rounded-xl bg-base-100 hover:bg-base-200 flex flex-col gap-4 dark:bg-base-300 dark:hover:bg-gray-950">
+          <article key={`blog:${blog.id}`} className="transition-colors border border-base-300 p-4 rounded-xl bg-base-100 hover:bg-base-200 flex flex-col gap-4 dark:bg-base-300 dark:hover:bg-gray-950">
             <div className="flex justify-between flex-wrap-reverse items-center">
               <p className="text-sm opacity-60">{format(new Date(blog.createdAt), "dd 'de' MMMM 'del' yyyy", { locale: es })}</p>
               

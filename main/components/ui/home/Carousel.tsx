@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Carousel() {
   return (
-    <div className="h-56 overflow-hidden rounded-lg md:h-96">
+    <div className="h-[300px] sm:h-[500px] overflow-hidden rounded-lg lg:h-96">
       <CarouselReact>
         { CAROUSEL_ITEMS.map((item, index) => (
           <Image

@@ -6,7 +6,7 @@ export default function Section(
   }
 ) {
   return (
-    <section className={`px-4 lg:w-4/5 md:mx-auto pt-28 pb-8 animate-blurred-fade-in ${className && className}`}>
+    <section className={`px-4 mx-auto max-w-screen-xl pt-28 pb-8 ${className && className}`}>
       {children}
     </section>
   )
