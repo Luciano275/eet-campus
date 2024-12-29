@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import TaskBody from "@/components/ui/campus/classrooms/messages/task/task-body";
 import TaskHeader from "@/components/ui/campus/classrooms/messages/task/task-header";
+import TaskSend from "@/components/ui/campus/classrooms/messages/task/send/task-send";
 import { isMessageTask } from "@/lib/messages";
 import { notFound } from "next/navigation";
 
@@ -14,6 +15,8 @@ export default async function OpenMessage(
 ) {
 
   const session = await auth();
+  const rol = session?.user.rol!;
+
   const params = await props.params;
   const messageId = params.message_id || '';
 
@@ -27,18 +30,21 @@ export default async function OpenMessage(
     notFound();
   }
 
-  const availableToSend = new Date().getTime() > new Date(event?.end!).getTime()
+  const availableToSend = !(new Date().getTime() > new Date(event?.end!).getTime())
 
   return (
     <div className="flex flex-col">
       <TaskHeader
         event={event!}
         message={message!}
-        rol={session?.user.rol!}
+        rol={rol}
         availableToSend={availableToSend}
       />
       
-      <TaskBody message={message} event={event} />
+      <div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
+        <TaskBody message={message} event={event} />
+        <TaskSend rol={rol} availableToSend={availableToSend} owner={message?.owner!} />
+      </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ export default function TaskBody (
   }
 ) {
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4 grow">
       <div>
         <p>{message?.body}</p>
       </div>

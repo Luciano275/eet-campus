@@ -9,10 +9,10 @@ export default function TaskTitle(
   }
 ) {
   return (
-    <div className="flex flex-wrap-reverse justify-between items-center">
+    <div className="flex flex-wrap-reverse gap-y-8 gap-x-4 justify-between items-center">
       <h2 className="text-3xl font-semibold">{event?.title}</h2>
-      <div className="flex flex-col">
-        <p className="flex gap-2">
+      <div className="flex flex-col gap-y-2 sm:gap-y-0">
+        <p className="flex flex-wrap gap-x-2">
           <span>Fecha de entrega:</span>
           <span className="font-semibold">
             { format(new Date(event?.end!), "dd 'de' MMMM 'del' yyyy", {
@@ -20,7 +20,7 @@ export default function TaskTitle(
             }) }
           </span>
         </p>
-        <p className="flex gap-2">
+        <p className="flex flex-wrap gap-x-2">
           <span>Horario máximo:</span>
           <span className="font-semibold">
             { format(new Date(event?.end!), "HH ':' mm", {

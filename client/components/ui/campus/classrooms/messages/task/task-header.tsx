@@ -18,7 +18,7 @@ export default function TaskHeader(
 
       <HR />
 
-      { availableToSend && (
+      { !availableToSend && (
         <div className="w-fit pb-4">
           <Badge color="red" size="sm">
             Ya no puedes entregar esta tarea
