@@ -97,6 +97,7 @@ model User {
   classroomMessages    ClassroomMessage[]
   classroomAttachments ClassroomAttachment[]
   notifications        Notification[]
+  tasks                Task[]
 
   @@map("users")
 }
@@ -127,6 +128,7 @@ model Classroom {
   messages      ClassroomMessage[]
   notifications Notification[]
   events        Event[]
+  tasks        Task[]
 }
 
 model ClassroomMember {
@@ -153,6 +155,7 @@ model ClassroomMessage {
 
   attachmets ClassroomAttachment[]
   events    Event[]
+  tasks     Task[]
 }
 
 model ClassroomAttachment {
@@ -198,4 +201,17 @@ model Event {
 
   classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   message  ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Task {
+  id         String   @id @default(uuid()) @unique
+  comment    String?
+  created_at DateTime @default(now())
+  userId String
+  classroomId String
+  messageId String
+
+  user      User       @relation(fields: [userId], references: [id])
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message   ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
