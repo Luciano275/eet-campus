@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Equipment () {
   return (
     <Article id='equipment' className='flex flex-col gap-6'>
-      <h2 className="text-2xl md:text-3xl font-bold text-center">Equipo directivo</h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-center">Equipo directivo</h2>
       <HR />
       <div className="flex flex-wrap justify-center items-center gap-4">
         { members.map((member, index) => (
@@ -15,7 +15,7 @@ export default function Equipment () {
               <Image
                 src={member.img}
                 alt={member.alt}
-                className={"w-full max-w-[300px] min-w-[300px] min-h-[400px] max-h-[400px] object-cover object-top aspect-video"}
+                className={"w-full max-w-[300px] min-w-[300px] min-h-[350px] max-h-[350px] md:min-h-[400px] md:max-h-[400px] object-cover object-top aspect-video"}
                 width={300}
                 height={400}
               />

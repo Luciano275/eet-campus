@@ -7,7 +7,7 @@ export default function Article(
   }
 ) {
   return (
-    <article id={id} className={`px-4 py-8 w-full md:w-3/4 md:mx-auto ${className && className}`}>
+    <article id={id} className={`px-4 py-8 w-full md:w-8/12 md:mx-auto ${className && className}`}>
       {children}
     </article>
   )
