@@ -9,12 +9,11 @@ import { Session } from "next-auth";
 import Image from "next/image";
 
 interface IProps {
-  theme: "dark" | "light";
   user: UserInfo;
   rolName: string;
 }
 
-export const Left = ({ user, rolName, theme }: IProps) => {
+export const Left = ({ user, rolName }: IProps) => {
   const { editMode } = useEditMode();
 
   return (
@@ -31,7 +30,8 @@ export const Left = ({ user, rolName, theme }: IProps) => {
       </div>
 
       <div className={`${ProfileStyles["container-information"]}`}>
-        <InformationTitle text="Información del tutor" theme={theme} />
+        <InformationTitle text="Información del tutor" />
+
         <Information
           keys={["Nombre", "Teléfono", "DNI"]}
           toRight
@@ -48,7 +48,6 @@ export const Left = ({ user, rolName, theme }: IProps) => {
           <>
             <InformationTitle
               text={`Información del ${rolName.toLowerCase()}`}
-              theme={theme}
             />
             {user?.courses.length === 1 ? (
               <Information
@@ -79,7 +78,6 @@ export const Left = ({ user, rolName, theme }: IProps) => {
 };
 
 export const Right = ({
-  theme,
   user,
   rolName,
   userSession,
@@ -99,12 +97,11 @@ export const Right = ({
       </h2>
       <h3 className="text-blue-500">{rolName}</h3>
 
-      <ProfileActions theme={theme} />
+      <ProfileActions />
 
       <AboutMe
         editMode={editMode}
         user={user}
-        theme={theme}
       />
     </article>
   );

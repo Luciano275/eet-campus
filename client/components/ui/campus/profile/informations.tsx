@@ -1,9 +1,9 @@
 import ProfileStyles from '@/styles/profile.module.css';
 import EditInput from './edit-input';
 
-export const InformationTitle = ({text, theme}: {text: string, theme: 'dark' | 'light'}) => {
+export const InformationTitle = ({text}: {text: string}) => {
   return (
-    <h3 className={`${theme === 'dark' ? 'text-white' : 'text-neutral-400'} py-4`}>{text}</h3>
+    <h3 className={`text-neutral-400 dark:text-white py-4`}>{text}</h3>
   )
 }
 

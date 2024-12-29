@@ -1,8 +1,7 @@
 'use client'
 
-import { useChangeThemeContext } from "@/components/providers/change-theme-provider";
-import { useThemeMode } from "flowbite-react";
-import { CSSProperties } from "react";
+import { ThemeMode, useThemeMode } from "flowbite-react";
+import { useEffect, useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 
 export default function ThemeButton(
@@ -11,40 +10,23 @@ export default function ThemeButton(
         whiteColor?: boolean
     }
 ) {
-
-    const { changeTheme, theme } = useChangeThemeContext()
     const { toggleMode, mode } = useThemeMode();
+    const [theme, setTheme] = useState<ThemeMode>('light');
 
     const alternateTheme = () => {
         toggleMode();
-        changeTheme(mode === 'dark' ? 'light' : 'dark');
     }
 
-    const styles: CSSProperties = {
-        transition: 'opacity 0.3s ease',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+    useEffect(() => {
+        setTheme(mode);
+    }, [mode])
 
     return (
         <button className="text-white relative w-10 h-10 outline-none [&>*]:text-2xl" onClick={alternateTheme}>
-            <span style={{
-                ...styles,
-                opacity: theme === 'dark' ? 1 : 0
-            }}>
+            <span className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}>
                 <BiSun />
             </span>
-            <span style={{
-                ...styles,
-                opacity: theme === 'dark' ? 0 : 1,
-                color: whiteColor? '#000' : '#fff'
-            }}>
+            <span className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${whiteColor ? 'text-black' : 'text-white'} ${theme === 'dark' ? 'opacity-0' : 'opacity-100'}`}>
                 <BiMoon />
             </span>
         </button>

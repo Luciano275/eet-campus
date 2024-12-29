@@ -1,6 +1,5 @@
 'use client'
 
-import { useChangeThemeContext } from "@/components/providers/change-theme-provider"
 import { getRol } from "@/lib/utils"
 import { UserInfo } from "@/types"
 import { Left, Right } from "./user-info"
@@ -14,9 +13,6 @@ export default function UserCards(
     userSession: Session['user']
   }
 ) {
-
-  const { theme } = useChangeThemeContext();
-
   const rolName = getRol(rol)
 
   return (
@@ -24,14 +20,12 @@ export default function UserCards(
       
       <Left
         rolName={rolName}
-        theme={theme}
         user={user}
       />
 
       <Right
         rolName={rolName}
         user={user}
-        theme={theme}
         userSession={userSession}
       />
       

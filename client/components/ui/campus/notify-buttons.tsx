@@ -2,7 +2,6 @@
 
 import { useNotification } from "@/components/hooks/use-notification"
 import { useAlert } from "@/components/providers/alert-provider"
-import { useChangeThemeContext } from "@/components/providers/change-theme-provider"
 import { useOpenNotify } from "@/components/providers/open-notify-provider"
 import { totalNotifications } from "@/lib/utils"
 import { IoIosNotifications } from "react-icons/io"
@@ -15,7 +14,6 @@ export const OpenNotifyButton = (
   }
 ) => {
 
-    const { theme } = useChangeThemeContext()
     const { toggle } = useOpenNotify()
 
     const { setAlert } = useAlert();
@@ -41,7 +39,7 @@ export const OpenNotifyButton = (
       return (
         <button
           onClick={toggle}
-          className={`flex text-xl sm:text-2xl px-2 transition-colors ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-blue-500`}
+          className={`flex text-xl sm:text-2xl px-2 transition-colors text-black dark:text-white hover:text-blue-500`}
         >
           <IoIosNotifications />
           { !error && notificationLength > 0 ? (

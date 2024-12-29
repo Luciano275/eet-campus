@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ChangeThemeProvider from "@/components/providers/change-theme-provider";
 import ChangeThemeHTML from "@/components/ChangeTheme";
 import MainLayout from "@/components/ui/layouts/main-layout";
 import { SessionProvider } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { Suspense } from "react";
 import { auth } from "@/auth";
-import { ErrorEnums } from "@/types";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,19 +35,17 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-    <ChangeThemeProvider>
-      <ChangeThemeHTML>
-        <SessionProvider>
-          <body className={geistSans.className}>
-            <Suspense>
-              <MainLayout session={session}>
-                <Loading />
-                {children}
-              </MainLayout>
-            </Suspense>
-          </body>
-        </SessionProvider>
-      </ChangeThemeHTML>
-    </ChangeThemeProvider>
+    <ChangeThemeHTML>
+      <SessionProvider>
+        <body className={geistSans.className}>
+          <Suspense>
+            <MainLayout session={session}>
+              <Loading />
+              {children}
+            </MainLayout>
+          </Suspense>
+        </body>
+      </SessionProvider>
+    </ChangeThemeHTML>
   );
 }

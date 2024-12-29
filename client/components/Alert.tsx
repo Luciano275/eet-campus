@@ -2,20 +2,18 @@
 
 import { FaX } from "react-icons/fa6";
 import { useAlert } from "./providers/alert-provider";
-import { useChangeThemeContext } from "./providers/change-theme-provider";
 import { FaCheck } from "react-icons/fa";
 import { BiErrorCircle } from "react-icons/bi";
 
 export default function Alert() {
   const { message, success, setAlert, isOpen } = useAlert();
-  const { theme } = useChangeThemeContext();
 
   if (isOpen) {
     return (
       <div
         className={`flex p-2 ${
           success === null
-            ? `bg-base-300 ${theme === "dark" ? "text-white" : "text-black"}`
+            ? `bg-base-300 text-black dark:text-white}`
             : success
             ? "bg-success text-white"
             : "bg-error text-white"

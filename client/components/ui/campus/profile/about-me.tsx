@@ -7,11 +7,9 @@ import { format } from "date-fns";
 
 export default function AboutMe({
   user,
-  theme,
   editMode,
 }: {
   user: UserInfo;
-  theme: "dark" | "light";
   editMode: boolean;
 }) {
   const genderName = getGender(
@@ -34,7 +32,7 @@ export default function AboutMe({
         Sobre mí
       </h2>
       <article>
-        <InformationTitle text="Información básica" theme={theme} />
+        <InformationTitle text="Información básica" />
         <Information
           keys={["Nacimiento", "Género", "Edad", "DNI"]}
           names={["birthday", "gender", "age", "dni"]}
@@ -55,7 +53,7 @@ export default function AboutMe({
           only={["Nacimiento", "Género", "DNI"]}
         />
 
-        <InformationTitle text="Información de contacto" theme={theme} />
+        <InformationTitle text="Información de contacto" />
         <Information
           keys={["Email", "Teléfono", "Dirección"]}
           labels={[user?.email!, user?.phone!, !editMode ? user?.address || "-" : user?.address || ""]}
