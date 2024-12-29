@@ -25,7 +25,7 @@ export const Left = ({ user, rolName }: IProps) => {
           className="w-full object-cover rounded-lg"
           id={ProfileStyles["user-logo"]}
         >
-          <Image src={user?.image!} alt={user?.name!} width={250} height={250} />
+          <Image src={user?.image!} alt={user?.name!} width={250} height={250} className="aspect-square" />
         </div>
       </div>
 

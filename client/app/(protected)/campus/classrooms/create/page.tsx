@@ -31,7 +31,7 @@ export default async function CreateClassroomPage() {
     <ClassroomDescriptionProvider>
       <CampusHeader title="Crear aula" />
 
-      <div className="w-full md:w-3/4 mx-auto">
+      <div className="w-full">
         <CreateClassroomTabs>
           <CreateClassroomForm edit={false} ownerId={id}>
             <Suspense fallback={<CoursesInputSkeleton />}>

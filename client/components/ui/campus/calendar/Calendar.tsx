@@ -28,7 +28,7 @@ export default function CalendarComponent(
     })
 
     return (
-      <div className='py-4 animate-fade-in'>
+      <div className='py-4'>
         <Calendar
           localizer={localizer}
           events={events}

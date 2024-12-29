@@ -6,7 +6,7 @@ export default function Main(
   }
 ) {
   return (
-    <main className={`animate-blurred-fade-in grow ${className && className}`}>
+    <main className={`grow ${className && className}`}>
       {children}
     </main>
   )
