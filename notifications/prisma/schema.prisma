@@ -98,6 +98,7 @@ model User {
   classroomAttachments ClassroomAttachment[]
   notifications        Notification[]
   tasks                Task[]
+  taskAttachments      TaskAttachment[]
 
   @@map("users")
 }
@@ -128,7 +129,7 @@ model Classroom {
   messages      ClassroomMessage[]
   notifications Notification[]
   events        Event[]
-  tasks        Task[]
+  tasks         Task[]
 }
 
 model ClassroomMember {
@@ -142,7 +143,7 @@ model ClassroomMember {
 }
 
 model ClassroomMessage {
-  id          String       @id @default(uuid()) @unique
+  id          String       @id @unique @default(uuid())
   ownerId     String
   classroomId String
   body        String
@@ -153,9 +154,10 @@ model ClassroomMessage {
   owner     User      @relation(fields: [ownerId], references: [id], onUpdate: Cascade)
   classroom Classroom @relation(fields: [classroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
-  attachmets ClassroomAttachment[]
-  events    Event[]
-  tasks     Task[]
+  attachmets      ClassroomAttachment[]
+  events          Event[]
+  tasks           Task[]
+  taskAttachments TaskAttachment[]
 }
 
 model ClassroomAttachment {
@@ -196,22 +198,38 @@ model Event {
   title       String
   start       DateTime
   end         DateTime
-  classroomId   String
-  messageId String @unique
+  classroomId String
+  messageId   String   @unique
 
-  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  message  ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  classroom Classroom        @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message   ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Task {
-  id         String   @id @default(uuid()) @unique
-  comment    String?
-  created_at DateTime @default(now())
-  userId String
+  id          String   @id @unique @default(uuid())
+  comment     String?
+  created_at  DateTime @default(now())
+  userId      String
   classroomId String
-  messageId String
+  messageId   String
 
-  user      User       @relation(fields: [userId], references: [id])
-  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user      User             @relation(fields: [userId], references: [id])
+  classroom Classroom        @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   message   ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  attachments TaskAttachment[]
+}
+
+model TaskAttachment {
+  id        String @id @default(uuid())
+  taskId    String
+  messageId String
+  ownerId   String
+
+  name String
+  url  String
+
+  task    Task             @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  message ClassroomMessage @relation(fields: [messageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  owner   User             @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
