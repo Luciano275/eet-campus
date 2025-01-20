@@ -16,6 +16,7 @@ export default async function OpenMessage(
 
   const session = await auth();
   const rol = session?.user.rol!;
+  const userId = session?.user.id!;
 
   const params = await props.params;
   const messageId = params.message_id || '';
@@ -43,7 +44,7 @@ export default async function OpenMessage(
       
       <div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
         <TaskBody message={message} event={event} />
-        <TaskSend rol={rol} availableToSend={availableToSend} owner={message?.owner!} />
+        <TaskSend rol={rol} availableToSend={availableToSend} owner={message?.owner!} userId={userId} />
       </div>
     </div>
   )
