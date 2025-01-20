@@ -18,6 +18,7 @@ export default function Equipment () {
                 className={"w-full max-w-[300px] min-w-[300px] min-h-[350px] max-h-[350px] md:min-h-[400px] md:max-h-[400px] object-cover object-top aspect-video"}
                 width={300}
                 height={400}
+                placeholder="blur"
               />
             </a>
             <div className="px-4 pb-4">
