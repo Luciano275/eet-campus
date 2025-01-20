@@ -243,3 +243,8 @@ export type IsTaskResponse = {
   isTask: boolean;
   event: null | Event
 }
+
+export type SendTaskActionResponse = {
+  message: string | null;
+  success: boolean | null;
+}

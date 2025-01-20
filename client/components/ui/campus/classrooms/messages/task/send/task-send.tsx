@@ -2,12 +2,14 @@ import { ClassroomMessagesResponse } from "@/types";
 import TaskSendForm from "./task-send-form"
 
 export default function TaskSend(
-  {rol, availableToSend, owner, userId}
+  {rol, availableToSend, owner, userId, classroomId, messageId}
   : {
     rol: number
     availableToSend: boolean;
     owner: ClassroomMessagesResponse['owner'];
     userId: string;
+    classroomId: string;
+    messageId: string;
   }
 ) {
   if ((owner.id !== userId) && availableToSend && (rol === 1 || rol === 3)) {
@@ -15,7 +17,12 @@ export default function TaskSend(
       <div className="w-full max-w-[300px] flex flex-col gap-4 lg:max-w-[400px] p-4 border border-base-300 dark:border-base-300 rounded-md dark:bg-base-200">
         <h2 className="text-2xl pt-2 pb-4 border-b border-base-300 dark:border-neutral-700">Entregar tarea</h2>
 
-        <TaskSendForm owner={owner} />
+        <TaskSendForm
+          owner={owner}
+          userId={userId}
+          classroomId={classroomId}
+          messageId={messageId}
+        />
       </div>
     )
   }

@@ -5,21 +5,19 @@ import TaskSend from "@/components/ui/campus/classrooms/messages/task/send/task-
 import { isMessageTask } from "@/lib/messages";
 import { notFound } from "next/navigation";
 
-export default async function OpenMessage(
-  props
-  : {
-    params: Promise<{
-      message_id: string
-    }>
-  }
-) {
-
+export default async function OpenMessage(props: {
+  params: Promise<{
+    message_id: string;
+    id: string;
+  }>;
+}) {
   const session = await auth();
   const rol = session?.user.rol!;
   const userId = session?.user.id!;
 
   const params = await props.params;
-  const messageId = params.message_id || '';
+  const messageId = params.message_id || "";
+  const classroomId = params.id || "";
 
   if (!messageId) {
     notFound();
@@ -31,7 +29,9 @@ export default async function OpenMessage(
     notFound();
   }
 
-  const availableToSend = !(new Date().getTime() > new Date(event?.end!).getTime())
+  const availableToSend = !(
+    new Date().getTime() > new Date(event?.end!).getTime()
+  );
 
   return (
     <div className="flex flex-col">
@@ -41,11 +41,18 @@ export default async function OpenMessage(
         rol={rol}
         availableToSend={availableToSend}
       />
-      
+
       <div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
         <TaskBody message={message} event={event} />
-        <TaskSend rol={rol} availableToSend={availableToSend} owner={message?.owner!} userId={userId} />
+        <TaskSend
+          rol={rol}
+          availableToSend={availableToSend}
+          owner={message?.owner!}
+          userId={userId}
+          classroomId={classroomId}
+          messageId={messageId}
+        />
       </div>
     </div>
-  )
+  );
 }
