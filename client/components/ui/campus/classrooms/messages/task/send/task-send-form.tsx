@@ -41,6 +41,12 @@ export default function TaskSendForm(
     setFiles(null)
   }, [])
 
+  useEffect(() => {
+    if (state.success) {
+      setFiles(null);
+    }
+  }, [state])
+
   return (
     <form
       className="flex flex-col gap-4"
