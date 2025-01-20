@@ -13,12 +13,13 @@ import TaskFormMessage from "./task-send-form-message";
 import sendTaskAction from "@/lib/actions/task";
 
 export default function TaskSendForm(
-  { owner, classroomId, messageId, userId }
+  { owner, classroomId, messageId, teacherId, notificationUrl }
   : {
     owner: ClassroomMessagesResponse['owner'];
     messageId: string;
     classroomId: string;
-    userId: string;
+    teacherId: string;
+    notificationUrl: string;
   }
 ) {
 
@@ -29,7 +30,7 @@ export default function TaskSendForm(
 
   const { files, deleteFile, setFiles } = useAttachmentContext();
 
-  const sendTaskActionBind = sendTaskAction.bind(null, { classroomId, messageId, userId })
+  const sendTaskActionBind = sendTaskAction.bind(null, { classroomId, messageId, userId: teacherId, files, notificationUrl })
 
   const [state, action, isPending] = useActionState(
     sendTaskActionBind,

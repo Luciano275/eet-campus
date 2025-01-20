@@ -7,9 +7,9 @@ export default function TaskSend(
     rol: number
     availableToSend: boolean;
     owner: ClassroomMessagesResponse['owner'];
-    userId: string;
     classroomId: string;
     messageId: string;
+    userId: string;
   }
 ) {
   if ((owner.id !== userId) && availableToSend && (rol === 1 || rol === 3)) {
@@ -19,9 +19,10 @@ export default function TaskSend(
 
         <TaskSendForm
           owner={owner}
-          userId={userId}
+          teacherId={owner.id}
           classroomId={classroomId}
           messageId={messageId}
+          notificationUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
         />
       </div>
     )

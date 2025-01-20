@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import TaskBody from "@/components/ui/campus/classrooms/messages/task/task-body";
 import TaskHeader from "@/components/ui/campus/classrooms/messages/task/task-header";
 import TaskSend from "@/components/ui/campus/classrooms/messages/task/send/task-send";
-import { isMessageTask } from "@/lib/messages";
+import { isMessageTask } from "@/lib/tasks";
 import { notFound } from "next/navigation";
 
 export default async function OpenMessage(props: {

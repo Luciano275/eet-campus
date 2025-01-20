@@ -248,3 +248,11 @@ export type SendTaskActionResponse = {
   message: string | null;
   success: boolean | null;
 }
+
+export type SendTaskActionBind = {
+  userId: string;
+  messageId: string;
+  classroomId: string;
+  files: FilesTypeAttachment[];
+  notificationUrl: string;
+}

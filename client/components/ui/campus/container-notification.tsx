@@ -17,9 +17,9 @@ export default function ContainerNotification(
         {children}
       </Link>
     ) : (
-      <p className="text-sm flex items-start">
+      <div className="text-sm flex items-start">
         {children}
-      </p>
+      </div>
     )
   )
 }
