@@ -12,6 +12,6 @@ export class QueryDto {
 
 export class CreateQueryDto {
   @IsUUID()
-  @IsNotEmpty()
+  @IsOptional()
   classroomId: string;
 }

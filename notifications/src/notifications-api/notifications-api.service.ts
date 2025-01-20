@@ -65,24 +65,61 @@ export class NotificationsApiService {
     { body, userId }: CreateNotificationDto,
     query: CreateQueryDto
   ) {
-    const classroomFounded = await this.findClassroomById(query.classroomId);
 
-    if (!classroomFounded) throw new NotFoundException()
+    if (query.classroomId) {
+      const classroomFounded = await this.findClassroomById(query.classroomId);
 
-    const notification = await this.db.notification.create({
+      if (!classroomFounded) throw new NotFoundException('Classroom not found')
+
+      const membersOnly = await this.db.classroomMember.findMany({
+        where: { classroomId: classroomFounded.id },
+        select: { userId: true }
+      })
+
+      const members = classroomFounded.ownerId !== userId ? [
+        ...membersOnly,
+        {
+          userId: classroomFounded.ownerId
+        }
+      ] : membersOnly;
+
+      const notifications = members.filter((user) => user.userId !== userId)
+        .map((member) => ({
+          body,
+          userId: member.userId,
+          classroomId: classroomFounded.id
+        }))
+
+      const result = await Promise.all(
+        notifications.map(async (notification) => {
+          const noti = await this.db.notification.create({
+            data: notification
+          })
+
+          this.gateway.emitNotificationEvent(
+            `notification:${noti.userId}:new`,
+            noti
+          )
+
+          return noti;
+        })
+      )
+
+      return result;
+    }
+
+    const noti = await this.db.notification.create({
       data: {
         body,
-        userId,
-        classroomId: classroomFounded.id
+        userId
       }
     })
 
     this.gateway.emitNotificationEvent(
       `notification:${userId}:new`,
-      notification
+      noti
     )
 
-    return notification;
+    return noti;
   }
-
 }
