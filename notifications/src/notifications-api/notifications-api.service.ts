@@ -10,9 +10,9 @@ export class NotificationsApiService {
   private DEFAULT_SELECT_NOTIFICATION = {
     id: true,
     body: true,
-    classroom: { select: { name: true, id: true } },
     created_at: true,
-    user: { select: { name: true, image: true, id: true} }
+    user: { select: { name: true, image: true, id: true} },
+    redirect_url: true
   }
   
   private TOTAL_NOTIFICATIONS = 10;
@@ -62,7 +62,7 @@ export class NotificationsApiService {
   }
 
   async createNotification(
-    { body, userId }: CreateNotificationDto,
+    { body, userId, redirect_url = null }: CreateNotificationDto,
     query: CreateQueryDto
   ) {
 
@@ -87,7 +87,7 @@ export class NotificationsApiService {
         .map((member) => ({
           body,
           userId: member.userId,
-          classroomId: classroomFounded.id
+          redirect_url
         }))
 
       const result = await Promise.all(
@@ -111,7 +111,8 @@ export class NotificationsApiService {
     const noti = await this.db.notification.create({
       data: {
         body,
-        userId
+        userId,
+        redirect_url
       }
     })
 

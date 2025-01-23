@@ -11,6 +11,7 @@ import { ClassroomEventSchema, ClassroomMessageSchema } from "../schemas/classro
 import { createEvent } from "../events";
 import { SafeParseReturnType } from "zod";
 import { emitNotificationAction } from "./notifications";
+import { BASE_PATH } from "../utils";
 
 type BindType = {
   userId: string,
@@ -121,7 +122,8 @@ export async function sendMessageAction(
     const notification = await emitNotificationAction({
       classroomId,
       notificationUrl,
-      userId
+      userId,
+      redirect_url: `${BASE_PATH}/classrooms/${classroomId}/messages`
     })
 
     if (!notification.success) {

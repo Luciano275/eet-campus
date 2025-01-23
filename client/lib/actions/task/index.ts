@@ -5,6 +5,7 @@ import { SendTaskActionBind, SendTaskActionResponse } from "@/types";
 import { z } from "zod";
 import { emitNotificationAction } from "../notifications";
 import { revalidatePath } from "next/cache";
+import { BASE_PATH } from "@/lib/utils";
 
 export default async function sendTaskAction(
   bindData: SendTaskActionBind,
@@ -37,8 +38,11 @@ export default async function sendTaskAction(
     const notification = await emitNotificationAction(
       {
         notificationUrl: bindData.notificationUrl,
-        userId: bindData.teacherId,
-        customBody: `ha enviado una tarea a: **${event?.title}**`
+        userId: bindData.ownerId,
+        teacherId: bindData.teacherId,
+        customBody: `ha enviado una tarea al aula: **${event?.classroom.name}**`,
+        classroomId: undefined,
+        redirect_url: `${BASE_PATH}/classrooms/${event?.classroomId}/messages/${event?.messageId}`
       }
     );
 

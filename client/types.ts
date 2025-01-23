@@ -216,16 +216,13 @@ export type FilesTypeAttachment = {
 export type ClassroomNotificationType = {
   id: string;
   body: string;
-  classroom: {
-    name: string;
-    id: string;
-  };
   created_at: Date;
   user: {
     name: string;
     image: string;
     id: string;
-  }
+  };
+  redirect_url: string | null;
 }
 
 export type ClassroomHookNotifications = {
@@ -241,7 +238,17 @@ export type ReactQueryClassroomNotifications = {
 export type IsTaskResponse = {
   message: ClassroomMessagesResponse | null;
   isTask: boolean;
-  event: null | Event
+  event: null | (Event & ({
+    classroom: {
+      id: string;
+      ownerId: string;
+      name: string;
+      courseId: number;
+      classroomCode: string;
+      classroomColor: string | null;
+      description: string | null;
+  };
+  }))
 }
 
 export type SendTaskActionResponse = {

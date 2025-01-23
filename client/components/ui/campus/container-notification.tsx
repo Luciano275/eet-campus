@@ -9,9 +9,9 @@ export default function ContainerNotification(
   }
 ) {
   return (
-    notify.classroom ? (
+    notify.redirect_url ? (
       <Link
-        href={`/campus/classrooms/${notify.classroom.id}`}
+        href={notify.redirect_url}
         className="text-sm flex items-start"
       >
         {children}

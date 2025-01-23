@@ -5,12 +5,23 @@ import { findClassroomById, findMembersId } from "../classroom";
 import { getUserById } from "../user";
 import { cookies } from "next/headers";
 
-type NotificationActionProps = {
-  userId: string,
-  classroomId?: string,
-  notificationUrl: string
-  customBody?: string;
-}
+type NotificationActionProps = 
+  | {
+      userId: string;
+      classroomId: undefined;
+      teacherId: string;
+      notificationUrl: string;
+      customBody?: string;
+      redirect_url?: string;
+    }
+  | {
+      userId: string;
+      classroomId: string;
+      teacherId?: undefined;
+      notificationUrl: string;
+      customBody?: string;
+      redirect_url?: string;
+    };
 
 type ResponseNotificationAction = {
   success: boolean;
@@ -18,7 +29,7 @@ type ResponseNotificationAction = {
 }
 
 export async function emitNotificationAction(
-  { classroomId, userId, notificationUrl, customBody }: NotificationActionProps
+  { classroomId, userId, notificationUrl, customBody, teacherId, redirect_url }: NotificationActionProps
 ): Promise<ResponseNotificationAction> {
   const cookieStore = await cookies();
   const userTransmitter = await getUserById(userId);
@@ -32,7 +43,6 @@ export async function emitNotificationAction(
 
   if (classroomId) {
     const classroom = await findClassroomById(classroomId);
-
     if (!classroom) {
       return {
         message: 'Aula no encontrada',
@@ -56,7 +66,8 @@ export async function emitNotificationAction(
         credentials: 'include',
         body: JSON.stringify({
           body,
-          userId
+          userId,
+          redirect_url
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +102,8 @@ export async function emitNotificationAction(
       credentials: 'include',
       body: JSON.stringify({
         body: `**${userTransmitter.name}** ${customBody || 'ha enviado un mensaje'}`,
-        userId
+        userId: teacherId,
+        redirect_url
       }),
       headers: {
         'Content-Type': 'application/json',

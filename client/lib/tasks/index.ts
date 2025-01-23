@@ -40,6 +40,9 @@ export async function isMessageTask({messageId}: {messageId: string}): Promise<I
     const event = await db.event.findFirst({
       where: {
         messageId
+      },
+      include: {
+        classroom: true
       }
     })
 
