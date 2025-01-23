@@ -250,7 +250,8 @@ export type SendTaskActionResponse = {
 }
 
 export type SendTaskActionBind = {
-  userId: string;
+  ownerId: string;
+  teacherId: string;
   messageId: string;
   classroomId: string;
   files: FilesTypeAttachment[];

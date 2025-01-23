@@ -55,7 +55,7 @@ export async function isMessageTask({messageId}: {messageId: string}): Promise<I
 }
 
 export async function sendTask(
-  { classroomId, files, messageId, userId, comment }: SendTaskActionBind & { comment: string | undefined }
+  { classroomId, files, messageId, ownerId, comment }: SendTaskActionBind & { comment: string | undefined }
 ) {
   try {
 
@@ -63,7 +63,7 @@ export async function sendTask(
       data: {
         comment,
         classroomId,
-        userId,
+        userId: ownerId,
         messageId
       }
     })
@@ -76,7 +76,7 @@ export async function sendTask(
             url: file.url,
             taskId: task.id,
             messageId,
-            ownerId: userId
+            ownerId
           }
         })
       }))
@@ -87,5 +87,31 @@ export async function sendTask(
   }catch (e) {
     console.error(e);
     throw new Error('Failed to send task');
+  }
+}
+
+export async function isTaskSended(
+  { classroomId, messageId, userId }
+  : {
+    userId: string;
+    classroomId: string;
+    messageId: string;
+  }
+) {
+  try {
+    const task = await db.task.findFirst({
+      where: {
+        AND: [
+          { classroomId },
+          { userId },
+          { messageId }
+        ]
+      }
+    })
+
+    return !!task;
+  }catch (e) {
+    console.error(e);
+    throw new Error('Failed to check if task is sended');
   }
 }

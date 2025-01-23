@@ -4,6 +4,7 @@ import { isMessageTask, sendTask } from "@/lib/tasks";
 import { SendTaskActionBind, SendTaskActionResponse } from "@/types";
 import { z } from "zod";
 import { emitNotificationAction } from "../notifications";
+import { revalidatePath } from "next/cache";
 
 export default async function sendTaskAction(
   bindData: SendTaskActionBind,
@@ -36,7 +37,7 @@ export default async function sendTaskAction(
     const notification = await emitNotificationAction(
       {
         notificationUrl: bindData.notificationUrl,
-        userId: bindData.userId,
+        userId: bindData.teacherId,
         customBody: `ha enviado una tarea a: **${event?.title}**`
       }
     );
@@ -44,6 +45,8 @@ export default async function sendTaskAction(
     if (!notification.success) {
       console.error(notification.message);
     }
+
+    revalidatePath('/campus/classrooms/[id]/messages/[message_id]', 'page');
 
     return {
       message: 'La tarea ha sido enviada!',

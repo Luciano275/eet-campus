@@ -1,4 +1,4 @@
-import { ClassroomHookMessages, ClassroomMessagesResponse } from "@/types"
+import { ClassroomHookMessages } from "@/types"
 import UserAvatar from "./user-avatar";
 import MessageHeader from "./message-header";
 import MessageBody from "./message-body";
@@ -30,11 +30,7 @@ export default function PageMessages(
 
             <div className="flex grow flex-col gap-1">
               <MessageHeader
-                apiUrl={apiUrl}
                 msg={msg}
-                userId={userId}
-                classroomId={classroomId}
-                rol={rol}
               />
 
               <MessageBody msg={msg} />

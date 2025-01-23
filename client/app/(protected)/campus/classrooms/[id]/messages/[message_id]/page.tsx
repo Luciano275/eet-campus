@@ -44,6 +44,7 @@ export default async function OpenMessage(props: {
 
       <div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
         <TaskBody message={message} event={event} />
+        
         <TaskSend
           rol={rol}
           availableToSend={availableToSend}
