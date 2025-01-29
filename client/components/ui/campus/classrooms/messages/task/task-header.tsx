@@ -4,12 +4,13 @@ import TaskTitle from "./task-title";
 import TaskProfile from "./task-profile";
 
 export default function TaskHeader(
-  {message, event, rol, availableToSend}
+  {message, event, rol, availableToSend, taskSended}
   : {
     message: IsTaskResponse['message'];
     event: IsTaskResponse['event'];
     rol: number;
     availableToSend: boolean;
+    taskSended: boolean;
   }
 ) {
   return (
@@ -18,7 +19,7 @@ export default function TaskHeader(
 
       <HR />
 
-      { !availableToSend && (
+      { (!availableToSend && !taskSended) && (
         <div className="w-fit pb-4">
           <Badge color="red" size="sm">
             Ya no puedes entregar esta tarea
