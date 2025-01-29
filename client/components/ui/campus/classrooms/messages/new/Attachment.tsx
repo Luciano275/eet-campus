@@ -4,9 +4,10 @@ import { useClassroomModal } from "@/components/providers/classroom-modal-provid
 import { CgAttachment } from "react-icons/cg";
 
 export default function AttachmentButton(
-  { blockButton }
+  { blockButton, disabled }
   : {
     blockButton?: boolean;
+    disabled?: boolean;
   }
 ) {
   const { setType, setIsOpen } = useClassroomModal();
@@ -28,7 +29,9 @@ export default function AttachmentButton(
       <button
         onClick={handleClick}
         type="button"
-        className="btn btn-md btn-primary btn-outline flex items-center gap-2"
+        className={`btn btn-md ${disabled ? 'contrast-0' : 'btn-primary'} btn-outline flex items-center gap-2`}
+        aria-disabled={disabled}
+        disabled={disabled}
       >
         <CgAttachment size={18} />
         <span>Adjuntar</span>

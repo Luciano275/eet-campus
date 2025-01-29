@@ -34,7 +34,11 @@ export default async function TaskSend(
               notificationUrl={`${process.env.CLASSROOM_SOCKET_NOTIFICATIONS_URL}/api/notifications`}
             />
           </>
-        ) : <></>}
+        ) : (
+          <Alert color="failure">
+            La fecha límite para entregar la tarea ha expirado.
+          </Alert>
+        )}
       </div>
     )
   }

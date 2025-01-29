@@ -83,7 +83,7 @@ export default function TaskSendForm({
       <FormAttachments files={files} deleteFile={deleteFile} />
 
       <div className="flex flex-wrap gap-4 [&>*]:grow">
-        <AttachmentButton blockButton />
+        <AttachmentButton blockButton disabled={isPending} />
 
         <button
           className={`btn btn-md btn-success text-white ${
