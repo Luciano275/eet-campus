@@ -22,7 +22,7 @@ export default function ThemeButton(
     }, [mode])
 
     return (
-        <button className="text-white relative w-10 h-10 outline-none [&>*]:text-2xl" onClick={alternateTheme}>
+        <button className="text-white relative w-10 h-10 outline-hidden [&>*]:text-2xl" onClick={alternateTheme}>
             <span className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}>
                 <BiSun />
             </span>

@@ -33,7 +33,7 @@ export default function EditInput({
           <input
             type="text"
             defaultValue={labels[index]}
-            className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${
+            className={`p-1 bg-base-300 rounded outline-hidden border border-base-300 focus:border-blue-500 ${
               toRight && "text-end"
             }`}
             onChange={(e) =>
@@ -52,7 +52,7 @@ export default function EditInput({
                 ? format(new Date(labels[index] as string), "yyyy'-'MM'-'dd")
                 : new Date(actualDate.setHours(actualDate.getHours() - 3)).toISOString().split('T')[0]
             }
-            className={`p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500 ${
+            className={`p-1 bg-base-300 rounded outline-hidden border border-base-300 focus:border-blue-500 ${
               toRight && "text-end"
             }`}
             onChange={(e) =>
@@ -82,7 +82,7 @@ export default function EditInput({
             e.target.value
           )
         }
-        className="p-1 bg-base-300 rounded outline-none border border-base-300 focus:border-blue-500"
+        className="p-1 bg-base-300 rounded outline-hidden border border-base-300 focus:border-blue-500"
         aria-describedby={`${inputNames[index]}-error`}
         defaultValue={labels[index]}
       >

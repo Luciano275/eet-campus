@@ -15,7 +15,7 @@ export default function ThemeButton() {
   }, [mode]);
 
   return (
-    <button className="text-white relative w-10 h-10 outline-none" onClick={() => toggleMode()}>
+    <button className="text-white relative w-10 h-10 outline-hidden" onClick={() => toggleMode()}>
       <span
         className={`${className} ${theme === "dark" ? "opacity-100" : "opacity-0"}`}
       >
