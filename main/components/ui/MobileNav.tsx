@@ -9,7 +9,7 @@ export default function MobileNav() {
 
   return (
     <div
-      className={`flex transition-all md:hidden fixed top-0 bg-gray-900 bg-opacity-80 backdrop-blur-lg w-full h-screen justify-center items-center flex-col max-h-screen overflow-x-hidden overflow-y-auto gap-y-4 ${show ? 'left-0' : '-left-full'}`}
+      className={`flex transition-all md:hidden fixed top-0 bg-gray-900/80 backdrop-blur-lg w-full h-screen justify-center items-center flex-col max-h-screen overflow-x-hidden overflow-y-auto gap-y-4 ${show ? 'left-0' : '-left-full'}`}
       style={{
         zIndex: 9999
       }}

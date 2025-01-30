@@ -24,7 +24,7 @@ export default function NavbarLinks(
           ) : (
             <Dropdown key={`dropdown:${index}`} label={link.label} mobile={mobile}>
               <ul
-                className="dropdown-content gap-1 bg-opacity-80 bg-black text-white menu rounded-box z-[1] w-52 p-2 shadow"
+                className="dropdown-content gap-1 bg-black/80 text-white menu rounded-box z-[1] w-52 p-2 shadow"
               >
                 {link.options.map((item) => (
                   <Link key={`option:${item.href}`} aria-label={item.label} href={item.href} className={`p-2 hover:bg-blue-800 rounded-lg ${pathname.startsWith(item.href) && 'bg-blue-800'}`}>

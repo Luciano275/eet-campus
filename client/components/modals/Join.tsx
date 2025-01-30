@@ -13,7 +13,7 @@ const SubmitButton = (
   }
 ) => {
   return (
-    <button aria-disabled={pending} disabled={pending} className={`btn btn-primary btn-md text-white ${pending && 'bg-opacity-50 cursor-default'} transition-opacity flex relative`}>
+    <button aria-disabled={pending} disabled={pending} className={`btn btn-primary btn-md text-white ${pending && 'bg-primary/50 cursor-default'} transition-opacity flex relative`}>
       { pending && <span className="loading loading-spinner loading-md absolute left-1"></span> }
       <span className="w-full">Unirse</span>
     </button>

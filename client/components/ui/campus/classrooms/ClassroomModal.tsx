@@ -23,7 +23,7 @@ export default function ClassroomModal({ id, bucketURL }: { id: string; bucketUR
 
   return (
     <div
-      className="fixed top-0 left-0 w-full max-w-full h-dvh max-h-dvh bg-black bg-opacity-50 backdrop-blur-lg flex justify-center px-4 py-4 lg:py-8 xl:py-10 2xl:py-12 transition-opacity"
+      className="fixed top-0 left-0 w-full max-w-full h-dvh max-h-dvh bg-black/50 backdrop-blur-lg flex justify-center px-4 py-4 lg:py-8 xl:py-10 2xl:py-12 transition-opacity"
       style={{
         zIndex: 99999,
         opacity: isOpen ? 1 : 0,

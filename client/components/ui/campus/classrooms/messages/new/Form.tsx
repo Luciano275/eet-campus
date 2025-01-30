@@ -19,7 +19,7 @@ const SubmitButton = ({ pending }: { pending: boolean }) => {
       aria-disabled={pending}
       disabled={pending}
       className={`btn btn-success btn-md text-white transition-opacity ${
-        pending && "cursor-default bg-opacity-50"
+        pending && "cursor-default bg-success/50"
       } flex relative`}
     >
       {pending && (

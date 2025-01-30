@@ -25,7 +25,7 @@ const SubmitButton = ({
       className={`btn ${
         edit ? "btn-primary" : "btn-success"
       } btn-md text-white transition-opacity ${
-        pending && "cursor-default bg-opacity-50"
+        pending && "cursor-default bg-primary/50"
       } flex relative`}
     >
       {pending && (

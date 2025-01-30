@@ -16,7 +16,7 @@ export default function Wallpaper() {
           className="w-full max-w-full h-full max-h-full object-cover"
         />
       </div>
-      <div className="absolute z-20 top-0 left-0 w-full h-full bg-black bg-opacity-65 backdrop-blur-md"></div>
+      <div className="absolute z-20 top-0 left-0 w-full h-full bg-black/65 backdrop-blur-md"></div>
       <div className="relative z-30 grow flex flex-col justify-center items-center">
         <Image
           src={"/logo.png"}
