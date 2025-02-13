@@ -17,6 +17,7 @@ export default function Carousel() {
             width={1280}
             height={720}
             placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
           />
         )) }
       </CarouselReact>

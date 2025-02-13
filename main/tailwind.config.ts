@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import { plugin, content } from 'flowbite-react/tailwind';
-import daisyUi from 'daisyui';
 import tailwindcssTypography from '@tailwindcss/typography';
 
 export default {
@@ -19,7 +18,6 @@ export default {
     },
   },
   plugins: [
-    daisyUi,
     plugin(),
     tailwindcssTypography
   ],

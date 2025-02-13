@@ -10,7 +10,7 @@ export default function Equipment () {
       <HR />
       <div className="flex flex-wrap justify-center items-center gap-4">
         { members.map((member, index) => (
-          <div key={`member:${index}:${member.alt}`} className="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 dark:bg-base-300 dark:hover:bg-base-100 transition-all hover:bg-base-200 hover:scale-105">
+          <div key={`member:${index}:${member.alt}`} className="overflow-hidden rounded-xl flex flex-col gap-4 border border-base-300 bg-base-100 dark:bg-base-300 dark:hover:bg-base-100 transition-transform hover:bg-base-200 hover:scale-105">
             <a href={member.link}>
               <Image
                 src={member.img}
@@ -19,6 +19,7 @@ export default function Equipment () {
                 width={300}
                 height={400}
                 placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
               />
             </a>
             <div className="px-4 pb-4">

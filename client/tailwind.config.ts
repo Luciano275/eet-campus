@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import daisyui from "daisyui";
 //@ts-ignore
 import miduAnimations from "@midudev/tailwind-animations";
 import { content, plugin } from 'flowbite-react/tailwind'
@@ -21,6 +20,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [daisyui, miduAnimations, plugin(), tailwindTypography],
+  plugins: [miduAnimations, plugin(), tailwindTypography],
 };
 export default config;
