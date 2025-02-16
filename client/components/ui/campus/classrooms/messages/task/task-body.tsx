@@ -2,10 +2,9 @@ import { IsTaskResponse } from "@/types";
 import MessageAttachments from "../mesage-attachments";
 
 export default function TaskBody (
-  { event, message }
+  { message }
   : {
     message: IsTaskResponse['message'];
-    event: IsTaskResponse['event'];
   }
 ) {
   return (

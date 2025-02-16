@@ -1,10 +1,9 @@
 import { auth } from "@/auth";
-import TaskBody from "@/components/ui/campus/classrooms/messages/task/task-body";
 import TaskHeader from "@/components/ui/campus/classrooms/messages/task/task-header";
-import TaskSend from "@/components/ui/campus/classrooms/messages/task/send/task-send";
 import { isMessageTask, isTaskSended } from "@/lib/tasks";
 import { notFound } from "next/navigation";
 import ContainerTaskBody from "@/components/ui/campus/classrooms/messages/task/container-task-body";
+import Task from "@/components/ui/campus/classrooms/messages/task/task";
 
 export default async function OpenMessage(props: {
   params: Promise<{
@@ -44,38 +43,52 @@ export default async function OpenMessage(props: {
         rol={rol}
         availableToSend={availableToSend}
         taskSended={taskSended}
+        userId={userId}
       />
 
-      <ContainerTaskBody
-        items={[
-          {
-            title: "Información",
-            icon: 'FaInfoCircle',
-            content: (<div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
-              <TaskBody message={message} event={event} />
-      
-              <TaskSend
-                rol={rol}
-                availableToSend={availableToSend}
-                owner={message?.owner!}
-                userId={userId}
-                classroomId={classroomId}
-                messageId={messageId}
-                taskSended={taskSended}
-              />
-            </div>)
-          },
-          {
-            title: "Tareas",
-            icon: 'FaTasks',
-            content: (
-              <>
-                coming soon
-              </>
-            )
-          }
-        ]}
-      />
+      { rol === 1 || message?.owner.id === userId ? (
+        <ContainerTaskBody
+          isOwner
+          items={[
+            {
+              title: "Información",
+              icon: 'FaInfoCircle',
+              content: (
+                <Task
+                  message={message!}
+                  event={event!}
+                  rol={rol}
+                  availableToSend={availableToSend}
+                  taskSended={taskSended}
+                  userId={userId}
+                  classroomId={classroomId}
+                  messageId={messageId}
+                />
+              )
+            },
+            {
+              title: "Tareas",
+              icon: 'FaTasks',
+              content: (
+                <>
+                  coming soon
+                </>
+              )
+            }
+          ]}
+        />
+      ) : (
+        <Task
+          message={message!}
+          event={event!}
+          rol={rol}
+          availableToSend={availableToSend}
+          taskSended={taskSended}
+          userId={userId}
+          classroomId={classroomId}
+          messageId={messageId}
+        />
+      )}
     </div>
   );
 }
