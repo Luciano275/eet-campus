@@ -10,13 +10,13 @@ import { HttpModule } from '@nestjs/axios';
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
-      load: [configuration]
+      load: [configuration],
     }),
     NotificationsModule,
     NotificationsApiModule,
     HttpModule.register({
-      withCredentials: true
-    })
+      withCredentials: true,
+    }),
   ],
   controllers: [],
   providers: [],

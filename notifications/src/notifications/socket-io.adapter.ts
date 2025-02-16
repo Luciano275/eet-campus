@@ -1,12 +1,12 @@
-import { ConfigService } from "@nestjs/config";
-import { NestExpressApplication } from "@nestjs/platform-express";
-import { IoAdapter } from "@nestjs/platform-socket.io";
-import { ServerOptions } from 'socket.io'
+import { ConfigService } from '@nestjs/config';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { IoAdapter } from '@nestjs/platform-socket.io';
+import { ServerOptions } from 'socket.io';
 
 export class SocketIoAdapter extends IoAdapter {
   constructor(
     private readonly app: NestExpressApplication,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {
     super(app);
   }
@@ -17,9 +17,9 @@ export class SocketIoAdapter extends IoAdapter {
       addTrailingSlash: false,
       cors: {
         origin: this.configService.get<string>('app.cors.origin'),
-        credentials: true
+        credentials: true,
       },
-    })
+    });
 
     return server;
   }

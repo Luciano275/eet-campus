@@ -5,7 +5,6 @@ import { OnModuleInit } from '@nestjs/common';
 
 @WebSocketGateway()
 export class NotificationsGateway implements OnModuleInit {
-
   @WebSocketServer()
   public server: Server;
 

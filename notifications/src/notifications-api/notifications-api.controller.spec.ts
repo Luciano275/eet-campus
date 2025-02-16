@@ -9,7 +9,9 @@ describe('NotificationsApiController', () => {
       controllers: [NotificationsApiController],
     }).compile();
 
-    controller = module.get<NotificationsApiController>(NotificationsApiController);
+    controller = module.get<NotificationsApiController>(
+      NotificationsApiController,
+    );
   });
 
   it('should be defined', () => {

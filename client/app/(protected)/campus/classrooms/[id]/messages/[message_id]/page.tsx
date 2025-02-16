@@ -4,6 +4,7 @@ import TaskHeader from "@/components/ui/campus/classrooms/messages/task/task-hea
 import TaskSend from "@/components/ui/campus/classrooms/messages/task/send/task-send";
 import { isMessageTask, isTaskSended } from "@/lib/tasks";
 import { notFound } from "next/navigation";
+import ContainerTaskBody from "@/components/ui/campus/classrooms/messages/task/container-task-body";
 
 export default async function OpenMessage(props: {
   params: Promise<{
@@ -45,19 +46,36 @@ export default async function OpenMessage(props: {
         taskSended={taskSended}
       />
 
-      <div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
-        <TaskBody message={message} event={event} />
-        
-        <TaskSend
-          rol={rol}
-          availableToSend={availableToSend}
-          owner={message?.owner!}
-          userId={userId}
-          classroomId={classroomId}
-          messageId={messageId}
-          taskSended={taskSended}
-        />
-      </div>
+      <ContainerTaskBody
+        items={[
+          {
+            title: "Información",
+            icon: 'FaInfoCircle',
+            content: (<div className="flex flex-wrap gap-y-8 gap-x-4 items-start">
+              <TaskBody message={message} event={event} />
+      
+              <TaskSend
+                rol={rol}
+                availableToSend={availableToSend}
+                owner={message?.owner!}
+                userId={userId}
+                classroomId={classroomId}
+                messageId={messageId}
+                taskSended={taskSended}
+              />
+            </div>)
+          },
+          {
+            title: "Tareas",
+            icon: 'FaTasks',
+            content: (
+              <>
+                coming soon
+              </>
+            )
+          }
+        ]}
+      />
     </div>
   );
 }

@@ -11,28 +11,28 @@ import { HttpService } from '@nestjs/axios';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
-  const httpService = app.get(HttpService)
+  const httpService = app.get(HttpService);
 
-  app.setGlobalPrefix('/api')
+  app.setGlobalPrefix('/api');
 
-  app.use(cookieParser(
-    configService.get<string>('app.cookies.secret')
-  ))
+  app.use(cookieParser(configService.get<string>('app.cookies.secret')));
 
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true
-  }))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
-  app.useGlobalGuards(new AppGuard(httpService))
+  app.useGlobalGuards(new AppGuard(httpService));
 
-  app.useWebSocketAdapter(new SocketIoAdapter(app, configService))
+  app.useWebSocketAdapter(new SocketIoAdapter(app, configService));
 
   app.enableCors({
     origin: configService.get<string>('app.cors.origin'),
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true
-  })
+    credentials: true,
+  });
 
   await app.listen(configService.get<number>('app.port'));
 }
