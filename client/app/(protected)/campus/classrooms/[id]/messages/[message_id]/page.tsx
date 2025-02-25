@@ -35,6 +35,17 @@ export default async function OpenMessage(props: {
     new Date().getTime() > new Date(event?.end!).getTime()
   );
 
+  const taskProps = {
+    message,
+    event,
+    rol,
+    availableToSend,
+    taskSended,
+    userId,
+    classroomId,
+    messageId,
+  }
+
   return (
     <div className="flex flex-col">
       <TaskHeader
@@ -54,16 +65,7 @@ export default async function OpenMessage(props: {
               title: "Información",
               icon: 'FaInfoCircle',
               content: (
-                <Task
-                  message={message!}
-                  event={event!}
-                  rol={rol}
-                  availableToSend={availableToSend}
-                  taskSended={taskSended}
-                  userId={userId}
-                  classroomId={classroomId}
-                  messageId={messageId}
-                />
+                <Task {...taskProps} />
               )
             },
             {
@@ -78,16 +80,7 @@ export default async function OpenMessage(props: {
           ]}
         />
       ) : (
-        <Task
-          message={message!}
-          event={event!}
-          rol={rol}
-          availableToSend={availableToSend}
-          taskSended={taskSended}
-          userId={userId}
-          classroomId={classroomId}
-          messageId={messageId}
-        />
+        <Task {...taskProps} />
       )}
     </div>
   );
