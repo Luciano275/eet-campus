@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/954964da-8eca-430d-82e8-5e492f27fcfc" width="200px"/>
+  <img src="https://github.com/user-attachments/assets/82aeffb6-d2f6-4d1e-9f35-a66b4b54ea25" width="200px" alt="EET N 3117 Logo"/>
 </p>
 
 <h1 align="center">🏫 Campus Virtual</h1>
