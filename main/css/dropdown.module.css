@@ -1,3 +1,7 @@
+.dropdown-hover span {
+  transition: rotate .3s ease;
+}
+
 .dropdown-hover:hover span {
   rotate: 180deg;
 }
